@@ -1,6 +1,4 @@
 # RCW for RGMII + 4x SGMII - For silicon rev2
-# This binary code - RCW (Reset Configuration Word) is generated
-# using PBL tool which is available as a package in the BSP
 #
 # Frequencies :
 # Core : 1500 MHz

@@ -1,7 +1,5 @@
 # RCW for RGMII + 2x SGMII + XAUI (RSX) (It configures XAUI on FM2) - For
 # silicon rev2
-# This binary code - RCW (Reset Configuration Word) is generated
-# using PBL tool which is available as a package in the BSP
 #
 # Frequencies :
 # Core : 1500 MHz
