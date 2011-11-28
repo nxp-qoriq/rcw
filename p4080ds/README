@@ -1,0 +1,32 @@
+The RCW directories names for the p4080ds board conform to the following naming
+convention:
+
+a_bcdef_g:
+
+a = 'R' if RGMII is supported / 'N' if not available/not used
+
+b = What is available in Slot 1
+c = What is available in Slot 2
+d = What is available in Slot 3
+e = What is available in Slot 4
+f = What is available in Slot 5
+
+For the Slots (b..f):
+ 'N' if not available/not used
+ 'P' if PCIe
+ 'X' if XAUI
+ 'R' if SRIO
+ 'S' if SGMII
+ 'A' is AURORA
+
+g = 'hex value of serdes protocol value'
+
+So R_PPSXX_0xe means:
+ - RGMII is enabled
+ - PCIE on Slot 1
+ - PCIE on Slot 2
+ - SGMII on Slot 3
+ - XAUI on Slot 4
+ - XAUI on Slot 5
+
+and the SERDES Protocol is 0xe.

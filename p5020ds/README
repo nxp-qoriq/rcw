@@ -1,0 +1,38 @@
+The RCW directories names for the p5020ds board conform to the following naming
+convention:
+
+ab_bcdefghi_j:
+
+a = 'R' if RGMII@DTSEC4 is supported / 'N' if not available/not used
+b = 'R' if RGMII@DTSEC5 is supported / 'N" if not available/not used
+
+c = What is available in Slot 1 or SATA
+d = What is available in Slot 2
+e = What is available in Slot 3
+f = What is available in Slot 4
+g = What is available in Slot 5
+h = What is available in Slot 6
+i = What is available in Slot 7
+
+For the Slots (c..i):
+ 'N' if not available/not used
+ 'P' if PCIe
+ 'X' if XAUI
+ 'R' if SRIO
+ 'S' if SGMII
+ 'H' if SATA
+ 'A' is AURORA
+
+j = 'hex value of serdes protocol value'
+
+So NR_HXAPNSP_0x36 means:
+ - no RGMII@DTSEC4
+ - RGMII@DTSEC5
+ - SATA [Slot 1 not used]
+ - XAUI on Slot 2
+ - AURORA on Slot 3
+ - PCIE on Slot 4
+ - SGMII on Slot 6
+ - PCIE on Slot 7
+
+Slot 5 is not used, and the SERDES Protocol is 0x36.
