@@ -1,0 +1,28 @@
+The RCW directories names for the P2041RDB board conform to the following naming
+convention:
+
+ab_cd_e:
+
+a = 'R' if RGMII@DTSEC4 is supported / 'N' if not available/not used
+b = 'R' if RGMII@DTSEC5 is supported / 'N" if not available/not used
+
+c = What is available in Slot 1
+d = What is available in Slot 2 or SATA
+
+For the Slots (c..i):
+ 'N' if not available/not used
+ 'P' if PCIe
+ 'X' if XAUI
+ 'R' if SRIO
+ 'S' if SGMII
+ 'H' if SATA
+ 'A' is AURORA
+
+e = 'hex value of serdes protocol value'
+
+So RR_PH_0x19 means:
+ - RGMII@DTSEC4
+ - RGMII@DTSEC5
+ - PCIE on Slot 1
+ - SATA [Slot 2 not used]
+ - The SERDES Protocol is 0x19

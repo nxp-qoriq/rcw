@@ -1,0 +1,32 @@
+# 14g configuration -- 2 SGMII 1g ports  +  2 * 1G RGMII + 1 * 10G XGMII
+#
+# Frequencies
+# System Clock 83.3 MHz, SW1[6~8] = 1 0 0 for 83.3 MHz
+# SDREFCLK1_FSEL: 100 MHz
+# SDREFCLK2_FSEL: 125 MHz
+#
+# Core -- 1500 MHz (Multiplier 18)
+# Platform - 750 MHz (Multiplier 9)
+# DDR -- 1333 MHz (multiplier 16)
+# FMAN -- 583 MHz (mul 14)(CC2 PLL/2)
+#
+# Serdes Bank1 -- Ratio 50:1 /2 for PCIE Lanes and 1.25G for SGMII
+# Bank2 -- 25:1 /1  - XAUI
+#
+# Additionaly this RCW also has PBI commands for setting LAW for NOR
+# and writing ESBC CSF header location in SCRATCHPAD1 register
+# required for secure boot flow. This RCW contains SB_EN=0 which means
+# ITS fuse should be blown.
+#
+# Copyright (c) 2011 Freescale Semiconductor, Inc.
+
+00000000: AA55 AA55 010E 0100 1260 0000 0000 0000
+00000010: 241C 0000 0000 0000 249F 40C0 C3C0 2000
+00000020: DE80 0000 4000 0000 0000 0000 0000 0000
+00000030: 0000 0000 D003 0F07 0000 0000 0000 0000
+00000040: 0000 0000 0000 0000 0900 0CD0 0000 0000
+00000050: 0913 8000 0000 0000 0900 0CD4 C000 0000
+00000060: 0913 8000 0000 0000 0900 0CD8 81F0 001D
+00000070: 0913 8000 0000 0000 090E 0200 CFF0 0000
+00000080: 0813 8040 C2FE 0946
+

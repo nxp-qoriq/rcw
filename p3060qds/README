@@ -1,0 +1,32 @@
+The RCW directories names for the p4080ds board conform to the following 
+naming convention:
+
+a_bcde_f:
+
+a = 'R' if RGMII is supported / 'N' if not available/not used
+
+b = What is available in Slot 1
+c = What is available in Slot 2
+d = What is available in Slot 3
+e = What is available in Slot 4
+
+For the Slots (b..e):
+ 'N' if not available/not used
+ 'P' if PCIe
+ 'R' if SRIO
+ 'S' if SGMII
+ 'A' is AURORA
+
+f = 'hex value of serdes protocol value'
+
+So R_NSSP_0x06 means:
+ - RGMII is enabled
+ - Nothing on Slot 1
+ - SGMII on Slot 2
+ - SGMII on Slot 3
+ - PCI on Slot 4
+
+and the SERDES Protocol is 0x06.
+
+for P3060QDS board:
+SERDES PROTOCOL = 0x06 -> 8g, 2x RGMII + 2x SGMII(slot1) + 2x SGMII(slot2) + 2x SGMII(slot3)
