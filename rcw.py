@@ -170,26 +170,20 @@ def parse_source_file(source):
                 assignments[name] = value
             continue
 
-def read_source_file(filename):
-    f = open(filename)
-    source = f.read().splitlines()
-    f.close()
-
-    return source
-
 # Run the C preprocessor on the given source code.  This allows you to include
 # C macros and #include statements in the source file.
-def preprocessor(source):
+def read_source_file(filename):
     global options
 
     i = ['-I', '.']     # Always look in the current directory
     if options.include:
         for x in options.include:
             i.extend(['-I', x])
-    p = subprocess.Popen(['gcc', '-E', '-x', 'c', '-P', '-C'] + i + ['-'],
-        shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=open(os.devnull, 'w'))
-    ret = p.communicate('\n'.join(source))
+    p = subprocess.Popen(['gcc', '-E', '-x', 'c', '-P', '-C'] + i + [filename],
+        shell=False, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    ret = p.communicate()
     if p.returncode != 0:
+        print ret[1],
         return None
 
     return ret[0].splitlines()
@@ -258,7 +252,6 @@ def create_binary():
 # Create a source file from a binary and
 def create_source():
     global symbols
-    global assignments
     global vars
     global options
 
@@ -307,18 +300,17 @@ vars = {}
 
 if options.reverse:
     source = read_source_file(options.rcw)
-    source = preprocessor(source)
+    if not source:
+        sys.exit(1)
     parse_source_file(source)
-
-    # Delete any assignments in the source file
-    assignments = {}
 
     f = open(options.output, 'w')
     f.write(create_source())
     f.close()
 else:
     source = read_source_file(options.input)
-    source = preprocessor(source)
+    if not source:
+        sys.exit(1)
     parse_source_file(source)
     check_vars()
 
