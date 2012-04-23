@@ -39,6 +39,27 @@ import subprocess
 
 from optparse import OptionParser, OptionGroup
 
+class ordered_dict(dict):
+    def __init__(self, *args, **kwargs):
+        dict.__init__(self, *args, **kwargs)
+        self._order = self.keys()
+
+    def __setitem__(self, key, value):
+        dict.__setitem__(self, key, value)
+        if key in self._order:
+            self._order.remove(key)
+        self._order.append(key)
+
+    def __delitem__(self, key):
+        dict.__delitem__(self, key)
+        self._order.remove(key)
+
+    def order(self):
+        return self._order[:]
+
+    def ordered_items(self):
+        return [(key,self[key]) for key in self._order]
+
 # Python's binascii.crc32() function uses a different algorithm to calculate
 # the CRC, so we need to do it manually.  The polynomial value is 0x04c11db7.
 # Python integers can be larger than 32 bits, so we have to "& 0xffffffff"
@@ -122,6 +143,8 @@ def parse_source_file(source):
     global symbols
     global assignments
     global vars
+
+    symbols = ordered_dict()
 
     for l in source:
         l = ''.join(l.split()) # Remove all whitespace
@@ -274,7 +297,7 @@ def create_source():
 
     # Loop over all the known symbols
     source = ''
-    for n, [b, e] in symbols.iteritems():
+    for n, [b, e] in symbols.ordered_items():
         s = 1 + e - b       # number of bits in field
 
         mask = ((1 << s) - 1)
