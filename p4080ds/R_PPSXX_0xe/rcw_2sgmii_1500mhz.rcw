@@ -1,14 +1,16 @@
-| RCW for HW Config 2 - RGMII + XAUI + XAUI (XX) (Note that this one disables
-| USB.  That is unavoidable)
-|
-| Frequencies :
-| Core : 1500 MHz
-| DDR : 1300 MHz
-| Platform : 800 MHz
-| FMAN : 600 MHz
-| PME : 600 MHz
-|
-| Copyright (c) 2011 Freescale Semiconductor, Inc.
+/*
+ * RCW for HW Config 2 - RGMII + XAUI + XAUI (XX)
+ * Note that this one disables USB.  That is unavoidable.
+ *
+ * Frequencies :
+ * Core : 1500 MHz
+ * DDR : 1300 MHz
+ * Platform : 800 MHz
+ * FMAN : 600 MHz
+ * PME : 600 MHz
+ *
+ * Copyright 2011 Freescale Semiconductor, Inc.
+ */
 
 #include <p4080.rcw>
 

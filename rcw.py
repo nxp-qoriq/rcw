@@ -124,8 +124,7 @@ def parse_source_file(source):
     global vars
 
     for l in source:
-        l = l.split('|', 1)[0]  # Remove the comment
-        l = ' '.join(l.split()) # Remove all whitespace
+        l = ''.join(l.split()) # Remove all whitespace
 
         if not len(l):  # Skip blank or comment-only lines
             continue
@@ -179,7 +178,7 @@ def read_source_file(filename):
     if options.include:
         for x in options.include:
             i.extend(['-I', x])
-    p = subprocess.Popen(['gcc', '-E', '-x', 'c', '-P', '-C'] + i + [filename],
+    p = subprocess.Popen(['gcc', '-E', '-x', 'c', '-P'] + i + [filename],
         shell=False, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     ret = p.communicate()
     if p.returncode != 0:
