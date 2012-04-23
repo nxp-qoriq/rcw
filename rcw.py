@@ -83,6 +83,9 @@ def command_line():
     parser.add_option('-r', dest='reverse', help='generate a source file from a binary.  '
         'Must also specify --rcw.  --pbl option is ignored.', action='store_true', default=False)
 
+    parser.add_option('-I', dest='include', help='include path.  '
+        'Can be specified multiple times', action="append")
+
     parser.add_option('--rcw', dest='rcw', help='RCW defintion filename.  '
         'Used only if -r is specified.')
 
@@ -177,7 +180,13 @@ def read_source_file(filename):
 # Run the C preprocessor on the given source code.  This allows you to include
 # C macros and #include statements in the source file.
 def preprocessor(source):
-    p = subprocess.Popen(['gcc', '-E', '-x', 'c', '-P', '-C',  '-I', '.', '-'],
+    global options
+
+    i = ['-I', '.']     # Always look in the current directory
+    if options.include:
+        for x in options.include:
+            i.extend(['-I', x])
+    p = subprocess.Popen(['gcc', '-E', '-x', 'c', '-P', '-C'] + i + ['-'],
         shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=open(os.devnull, 'w'))
     ret = p.communicate('\n'.join(source))
     if p.returncode != 0:
