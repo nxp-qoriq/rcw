@@ -1,0 +1,45 @@
+#
+# P5040DS RCW for SerDes Protocol 0x02
+#
+# 26g configuration -- 2 RGMII + 4 SGMII + 2 XAUI
+#
+# Frequencies:
+#
+# Sys Clock -- 133.33 Mhz
+# SDREFCLK1_FSEL: 100 MHz
+# SDREFCLK2_FSEL: 125 MHz
+# SDREFCLK3_FSEL: 125 MHz
+# SDREFCLK4_FSEL: 125 MHz
+#
+# Core -- 2266.67 MHz (Mul 17)
+# Platform - 800 MHz (Mul 6)
+# DDR -- 1600 MHz (Mul 12)
+# FMAN -- 600 MHz (CC3 PLL)/2 (Mul 9)
+#
+# Serdes Bank1 -- Clock Ratio 50:1 /2 for PCIe and 50:1/1 for SGMII
+# LANE A, B, C, D /2 for PCIe
+# Bank2 -- 25:1 /1 - XAUI
+# Bank3 -- 25:1 /1 - XAUI
+# Bank4 -- 24:1 /1 - SATA
+#
+# Slot  Card        Notes
+# 1     XAUI        SW2[6] = 1
+# 2     XAUI
+# 3     SGMII       SW2[5] = 1, SW11[6] = 0
+# 4     empty
+# 5     SGMII       SW2[3:4] = 00
+# 6     PCIe2 x2    SW2[2] = 0
+# 7     PCIe1 x4    SW2[1] = 1
+#
+# For the SGMII cards, only the top two connectors are available
+#
+# FM1@DTSEC3 -> Slot 5, Port 1
+# FM1@DTSEC4 -> Slot 5, Port 2
+# FM2@DTSEC3 -> Slot 3, Port 1
+# FM2@DTSEC4 -> Slot 3, Port 2
+
+00000000: aa55 aa55 010e 0100 0c58 0000 0000 0000
+00000010: 2212 1200 0000 0000 089c 4400 0028 3000
+00000020: fe80 0000 6100 0000 0000 0000 0000 0000
+00000030: 0000 0000 1003 0000 0000 0000 0000 0000
+00000040: 0000 0000 0000 0000 0813 8040 3a3f 017f
