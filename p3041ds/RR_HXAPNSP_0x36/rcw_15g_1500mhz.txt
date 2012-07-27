@@ -14,9 +14,6 @@
 # Serdes Bank1 -- Ratio 50:1 /2 for PCIE Lanes and 50:1/1 for SGMII
 # Bank2    -- 25:1 /1  - XAUI
 # Bank3   -- 24:1 /1 - SATA
-#
-#
-# Copyright (c) 2011 Freescale Semiconductor, Inc.
 
 00000000: AA55 AA55 010E 0100 1260 0000 0000 0000
 00000010: 241C 0000 0000 0000 D898 4A01 0300 2000

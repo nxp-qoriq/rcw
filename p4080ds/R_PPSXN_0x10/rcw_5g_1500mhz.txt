@@ -6,8 +6,6 @@
 # Platform : 800 MHz
 # FMAN : 600 MHz
 # PME : 600 MHz
-#
-# Copyright (c) 2010-2011, Freescale Semiconductor, Inc.
 
 # The U-Boot environment hwconfig variable/mechanism needs to include:
 # serdes:fsl_srds_lpd_b2=0xf

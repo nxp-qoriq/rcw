@@ -7,8 +7,6 @@
 # Platform : 800 MHz
 # FMAN : 600 MHz
 # PME : 600 MHz
-#
-# Copyright (c) 2010-2011, Freescale Semiconductor, Inc.
 
 00000000: aa55 aa55 010e 0100 105a 0000 0000 0000
 00000010: 1e1e 181e 0000 cccc 4046 4003 3c3c 2000

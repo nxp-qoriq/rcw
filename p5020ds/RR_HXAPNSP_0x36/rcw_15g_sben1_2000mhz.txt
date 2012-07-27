@@ -20,8 +20,6 @@
 # Additionaly this RCW also has PBI commands for setting LAW for NOR
 # and writing ESBC CSF header location in SCRATCHPAD1 register
 # required for secure boot flow.
-#
-# Copyright (c) 2011 Freescale Semiconductor, Inc.
 
 00000000: AA55 AA55 010E 0100 0C54 0000 0000 0000
 00000010: 1E12 0000 0000 0000 D898 4A01 0300 2000

@@ -9,7 +9,6 @@
  * FMAN : 600 MHz
  * PME : 600 MHz
  *
- * Copyright 2011 Freescale Semiconductor, Inc.
  */
 
 #include <p4080.rcw>

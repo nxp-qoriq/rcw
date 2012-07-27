@@ -12,8 +12,6 @@
 # and writing ESBC CSF header location in SCRATCHPAD1 register
 # required for secure boot flow. This RCW contains SB_EN=0 which means
 # ITS fuse should be blown.
-#
-# Copyright (c) 2011, Freescale Semiconductor, Inc.
 
 00000000: AA55 AA55 010E 0100 105A 0000 0000 0000
 00000010: 1E1E 181E 0000 CCCC 4046 4003 3C3C 2000

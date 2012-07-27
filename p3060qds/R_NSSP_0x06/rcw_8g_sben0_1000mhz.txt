@@ -1,5 +1,3 @@
-# Copyright (c) 2011, Freescale Semiconductor, Inc.
-#
 # RCW for 8G configurations :
 # RGMII (FM1-DTSEC2) on-board
 # Slot 1 - SGMII port0 (FM2-DTSEC4), port1 (FM1-DTSEC4)
