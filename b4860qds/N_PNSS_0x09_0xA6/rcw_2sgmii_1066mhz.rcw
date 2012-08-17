@@ -16,7 +16,7 @@
  * SerDes 2 option A6h (Two SGMII @1.25G, x2 PCI Express @5/2.5G, two x2 SRIOs @5/2.5G)
  */
 
-#include <b4860.rcw>
+#include <b4860.rcwi>
 
 SYS_PLL_RAT=8
 MEM_PLL_RAT=12

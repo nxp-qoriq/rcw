@@ -11,7 +11,7 @@
  *
  */
 
-#include <p4080.rcw>
+#include <p4080.rcwi>
 
 SYS_PLL_RAT=8
 MEM_PLL_CFG=1

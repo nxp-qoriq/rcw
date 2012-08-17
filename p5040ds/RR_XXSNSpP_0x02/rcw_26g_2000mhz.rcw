@@ -39,7 +39,7 @@
  * FM2@DTSEC4 -> Slot 3, Port 2
  */
 
-#include <p5040.rcw>
+#include <p5040.rcwi>
 
 SYS_PLL_RAT=6
 MEM_PLL_CFG=1
