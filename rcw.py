@@ -61,6 +61,10 @@ import subprocess
 
 from optparse import OptionParser, OptionGroup
 
+# An ordered dictionary.  This is like a normal dictionary, except that it's
+# possible to iterate over the contents in the same order that they were added
+# to the dictionary.  This allows us to display the entries in the .rcw file
+# in the same order that they appear in the .rcwi file.
 class ordered_dict(dict):
     def __init__(self, *args, **kwargs):
         dict.__init__(self, *args, **kwargs)
@@ -106,6 +110,7 @@ def crc32(data):
 
     return crc
 
+# Command-line parser
 def command_line():
     global options, args
 
@@ -124,12 +129,13 @@ def command_line():
         action='store_false', default=True)
 
     parser.add_option('-r', dest='reverse', help='generate a source file from a binary.  '
-        'Must also specify --rcw.  --pbl option is ignored.', action='store_true', default=False)
+        'Must also specify --rcw.  --pbl option is ignored.', action='store_true',
+            default=False)
 
     parser.add_option('-I', dest='include', help='include path.  '
         'Can be specified multiple times', action="append")
 
-    parser.add_option('--rcw', dest='rcw', help='RCW defintion filename.  '
+    parser.add_option('--rcwi', dest='rcwi', help='RCWI defintion filename.  '
         'Used only if -r is specified.')
 
     (options, args) = parser.parse_args()
@@ -144,10 +150,12 @@ def command_line():
     else:
         options.output = '/dev/stdout'
 
-    if options.reverse and not options.rcw:
+    if options.reverse and not options.rcwi:
         print "Error: -r option requires --rcw"
         sys.exit(1)
 
+# Checks if the bits for the given field overlap those of another field that
+# we've already parsed.
 def check_for_overlap(name, begin, end):
     global symbols
 
@@ -161,6 +169,7 @@ def check_for_overlap(name, begin, end):
         if (b <= begin <= e) or (b <= end <= e):
             print 'Error: Bitfield', name, 'overlaps with', n
 
+# Parse the .rcw file, one line at a time
 def parse_source_file(source):
     global symbols
     global assignments
@@ -247,6 +256,7 @@ def check_vars():
             print 'Error: PBL format requires %sysaddr to be defined'
             sys.exit(1)
 
+# Create a .bin file
 def create_binary():
     global symbols
     global assignments
@@ -277,7 +287,8 @@ def create_binary():
     binary = ''
     if options.pbl:
         length_byte = (((size / 8) & 63) << 1) | 1
-        binary = binascii.unhexlify('aa55aa55') + chr(length_byte) + binascii.unhexlify(vars['sysaddr'])
+        binary = binascii.unhexlify('aa55aa55') + chr(length_byte) + \
+            binascii.unhexlify(vars['sysaddr'])
 
     # Then convert 'bits' into an array of bytes
     for i in range(size - 8, -1, -8):
@@ -293,7 +304,7 @@ def create_binary():
 
     return binary
 
-# Create a source file from a binary and
+# Create a source file from a binary and a .rcwi file
 def create_source():
     global symbols
     global vars
@@ -343,7 +354,7 @@ assignments = {}
 vars = {}
 
 if options.reverse:
-    source = read_source_file(options.rcw)
+    source = read_source_file(options.rcwi)
     if not source:
         sys.exit(1)
     parse_source_file(source)
