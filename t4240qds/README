@@ -1,0 +1,48 @@
+The RCW directories names for the T4240QDS board conform to the following
+naming convention:
+
+ab_cdefghij_klmn:
+
+a = 'R' if RGMII@FM2-DTSEC5 is supported / 'N' if not available/not used
+b = 'R' if RGMII@FM1-DTSEC5 or RGMII@FM2-DTSEC6 is supported /
+'N' if not available/not used
+
+c = What is available in Slot 1
+d = What is available in Slot 2
+e = What is available in Slot 3
+f = What is available in Slot 4
+g = What is available in Slot 5
+h = What is available in Slot 6
+i = What is available in Slot 7
+j = What is available in Slot 8
+
+For the Slots (c..i):
+ 'N' if not available/not used
+ 'P' if PCIe
+ 'X' if XAUI
+ 'R' if SRIO
+ 'S' if SGMII
+ 'H' if SATA
+ 'F' is XFI
+ 'A' is AURORA
+
+For the srds_prtcl (k..n):
+k = 'dec value of serdes1 protocol value'
+l = 'dec value of serdes2 protocol value'
+m = 'dec value of serdes3 protocol value'
+n = 'dec value of serdes4 protocol value'
+
+So RR_SSFSPRPH_28_56_8_12 means:
+ - RGMII@FM2-DTSEC5
+ - RGMII@FM2-DTSEC6
+ - SGMII on Slot 1
+ - SGMII on Slot 2
+ - XFI on Slot 3
+ - SGMII on Slot 4
+ - PCIe on Slot 5
+ - SRIO on Slot 6
+ - PCIe on Slot 7
+ - SATA [Slot 8 not used]
+
+SERDES1 Protocol is 28 and the SERDES2 Protocol is 56.
+SERDES3 Protocol is 8 and the SERDES4 Protocol is 12.
