@@ -45,8 +45,18 @@
 # meanings.  Variables are used to define parts of the RCW or PBL that cannot
 # be defined by a symbol assignment.
 #
-# Comments are marked with the pipe symbol "|".  All whitespace is removed
-# before the file is parsed.
+# 4. A PBI can be defined in a .pbi/.end block.  Start the section with a line
+# containing the string ".pbi".  The following PBI commands are available:
+#
+#   wait <n>        -- wait <n> cycles
+#   write <a> <v>   -- write value <v> to address <a>
+#   awrite <a> <v>  -- write value <v> to address <a>, with ACS bit set
+#   flush           -- flush (perform a read at the addr of the previous write)
+#
+# Terminate the PBI section with ".end".
+#
+# The C pre-processor is invoked prior to parsing the source file.  This allows
+# for C/C++ style comments and macros to be used in the source file.
 #
 # This program is provided as an informal tool for evaluation purposes only.
 # It is not supported.  Please contact the author directly with any questions.
@@ -169,18 +179,67 @@ def check_for_overlap(name, begin, end):
         if (b <= begin <= e) or (b <= end <= e):
             print 'Error: Bitfield', name, 'overlaps with', n
 
+# Build a PBI section
+def build_pbi(lines):
+    subsection = ''
+
+    for l in lines:
+        if l[0] == 'wait':
+            subsection += struct.pack('>LL', 0x091380c0, int(l[1], 0))
+        elif l[0] == 'write':
+            subsection += struct.pack('>LL', 0x09000000 + int(l[1], 0), int(l[2], 0))
+        elif l[0] == 'awrite':
+            subsection += struct.pack('>LL', 0x89000000 + int(l[1], 0), int(l[2], 0))
+        elif l[0] == 'flush':
+            subsection += struct.pack('>LL', 0x09138000, 0)
+        else:
+            print 'Unknown PBI subsection command "%s"' % l[0]
+            return ''
+
+    return subsection
+
+# Parse a subsection
+def parse_subsection(header, lines):
+    if header == "pbi":
+        return build_pbi(lines)
+
+    print 'Error: unknown subsection "%s"' % header
+    return ''
+
 # Parse the .rcw file, one line at a time
 def parse_source_file(source):
     global symbols
     global assignments
     global vars
+    global pbi
 
     symbols = ordered_dict()
 
-    for l in source:
-        l = ''.join(l.split()) # Remove all whitespace
+    in_subsection = False   # True == we're in a subsection
+    pbi = ''
+
+    for l2 in source:
+        l2 = l2.split() # Convert into an array
+        l = ''.join(l2) # Remove all whitespace
 
         if not len(l):  # Skip blank or comment-only lines
+            continue
+
+        # Is it a subsection?
+        m = re.search(r'\.([a-zA-Z]+)', l)
+        if m:
+            if in_subsection:
+                in_subsection = False
+                pbi += parse_subsection(header, s)
+            else:
+                in_subsection = True
+                header = m.group(1)
+                s = []
+            continue
+
+        # Is it a subsection line?
+        if in_subsection:
+            s.append(l2)
             continue
 
         # Is it an identifier?  %var=value
@@ -223,6 +282,8 @@ def parse_source_file(source):
                 assignments[name] = value
             continue
 
+        print 'Error: unknown command', ' '.join(l2)
+
 # Run the C preprocessor on the given source code.  This allows you to include
 # C macros and #include statements in the source file.
 def read_source_file(filename):
@@ -262,6 +323,7 @@ def create_binary():
     global assignments
     global vars
     global options
+    global pbi
 
     # Create the RCW data.  We encode it into 'bits' as a giant (2^size)-bit number
     size = int(vars['size'], 0)
@@ -293,6 +355,9 @@ def create_binary():
     # Then convert 'bits' into an array of bytes
     for i in range(size - 8, -1, -8):
         binary += chr(bits >> i & 0xff)
+
+    # Add any PBI commands
+    binary += pbi
 
     # Add the end-command
     if options.pbl:
@@ -352,6 +417,7 @@ command_line()
 symbols = {}
 assignments = {}
 vars = {}
+pbi = ''
 
 if options.reverse:
     source = read_source_file(options.rcwi)
