@@ -398,10 +398,27 @@ def create_source():
     for n, [b, e] in symbols.ordered_items():
         s = 1 + e - b       # number of bits in field
 
+        shift = (size - 1) - e  # number of bits to shift
         mask = ((1 << s) - 1)
-        v = (bits >> ((size - 1) - e)) & mask
+        v = (bits >> shift) & mask
         if v:
             source += "%s=%u\n" % (n, v)
+
+            # Clear out the bits we just parsed, so that we can see if
+            # there are any left over.  If there are, then it means that
+            # there are bits set in the .bin that we don't recognize
+            bits &= ~(mask << shift)
+
+    if bits:
+        print 'Unknown bits in positions:',
+        mask = 1 << (size - 1)
+        n = 0
+        while mask:
+            if (bits & mask):
+                print n,
+            n += 1
+            mask >>= 1
+        print
 
     return source
 
