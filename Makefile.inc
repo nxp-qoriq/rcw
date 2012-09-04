@@ -1,11 +1,17 @@
 DESTDIR = .
 INSTALL = install
+PYTHON = python
+RCW = $(PYTHON) ../rcw.py
 
-rcw_sources := $(wildcard */*.txt)
-targets = $(rcw_sources:.txt=.bin)
+rcw_sources := $(wildcard */*.rcw)
+txt_sources := $(wildcard */*.txt)
+targets = $(txt_sources:.txt=.bin) $(rcw_sources:.rcw=.bin)
 
 %.bin: %.txt
 	sed '/^\#/d' $< | grep -v '^($)' | xxd -r > $@
+
+%.bin: %.rcw
+	$(RCW) -i $< -o $@
 
 all: $(targets)
 
