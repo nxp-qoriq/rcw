@@ -381,6 +381,11 @@ def create_source():
 
     size = int(vars['size'], 0)
 
+    # Insert the #include statement for the RCWI file.  We assume that the
+    # file will be in the include path, so we use <> and strip any paths
+    # from the filename.
+    source = '#include <%s>\n\n' % os.path.basename(options.rcwi)
+
     # If the binary is larger than the RCW, then we assume that it has a
     # preamble and an end-command, so remove them.  This is bit hackish,
     # but it'll work for now.
@@ -394,7 +399,6 @@ def create_source():
         bits = int(binascii.hexlify(binary), 16)
 
     # Loop over all the known symbols
-    source = ''
     for n, [b, e] in symbols.ordered_items():
         s = 1 + e - b       # number of bits in field
 
