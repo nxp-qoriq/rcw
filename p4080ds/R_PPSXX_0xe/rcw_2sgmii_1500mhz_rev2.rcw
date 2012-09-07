@@ -9,6 +9,7 @@
  * FMAN : 600 MHz
  * PME : 600 MHz
  *
+ * Includes A004849 work-around for P4080 rev2.
  */
 
 #include <p4080.rcwi>
@@ -33,7 +34,7 @@ SRDS_LPD_B1=0b0000110000
 SRDS_LPD_B2=0b1111
 SRDS_LPD_B3=0b1111
 SRDS_EN=1
-PBI_SRC=0b1111
+PBI_SRC=0b1101
 BOOT_LOC=0b11101
 PME_CLK_SEL=1
 FM1_CLK_SEL=1
@@ -43,3 +44,37 @@ EC1=2
 EC2=2
 UART=0b110
 I2C3=0b11
+
+.pbi
+#define ALTCBARH	0x10
+#define ALTCBARL	0x14
+#define ALTCAR		0x18
+
+wait 2500
+write ALTCBARH 0	// Set ALTCBAR to 0
+wait 2500
+write ALTCBARL 0
+wait 2500
+write ALTCAR 0x81d00000 // Set DCSR law target
+
+// Erratum A004849
+wait 2500
+awrite 0xb0060 2
+wait 2500
+awrite 0xb0064 2
+wait 2500
+awrite 0xb0068 2
+wait 2500
+awrite 0xb006c 2
+wait 2500
+awrite 0xb00a0 2
+wait 2500
+awrite 0xb00a4 2
+wait 2500
+awrite 0xb00a8 2
+wait 2500
+awrite 0xb00ac 2
+wait 2500
+awrite 0xb0108 0x12
+wait 2500
+.end

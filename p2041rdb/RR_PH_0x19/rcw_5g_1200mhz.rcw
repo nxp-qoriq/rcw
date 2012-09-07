@@ -1,0 +1,76 @@
+/*
+ * 5g configuration -- 3 SGMII 1g ports  +  2 * 1G RGMII
+ *
+ * Frequencies
+ * System Clock 100 MHz, SW1[6~8] = 0 1 0 for 100MHz
+ * SDREFCLK1_FSEL: 100 MHz
+ * SDREFCLK2_FSEL: 125 MHz
+ *
+ * Core -- 1200 MHz (Multiplier 12)
+ * Platform - 600 MHz (Multiplier 6)
+ * DDR -- 1200 MHz (multiplier 12)
+ * FMAN -- 500 MHz (mul 10)(CC2 PLL/2)
+ *
+ * Serdes Bank1 -- Ratio 50:1 /2 for PCIE Lanes and 1.25G for SGMII
+ * Bank2 -- 24:1 /1  - SATA
+ */
+
+#include <p2041.rcwi>
+
+SYS_PLL_CFG=1
+SYS_PLL_RAT=6
+MEM_PLL_CFG=1
+MEM_PLL_RAT=12
+CC1_PLL_CFG=1
+CC1_PLL_RAT=12
+CC2_PLL_CFG=1
+CC2_PLL_RAT=10
+SRDS_PRTCL=25
+SRDS_RATIO_B1=4
+SRDS_DIV_B1=7
+SRDS_RATIO_B2=5
+RES1=3
+SRDS_LPD_B1=1
+RES2=3
+SRDS_RSVD=15
+SRDS_EN=1
+PBI_SRC=0b1101
+BOOT_LOC=29
+FM_CLK_SEL=1
+1588=3
+I2C=4
+UART=6
+IRQ1=7
+IRQ2=16
+IRQ3=3
+IRQ_OUT=1
+
+.pbi
+#define ALTCBARH	0x10
+#define ALTCBARL	0x14
+#define ALTCAR		0x18
+
+wait 2500
+write ALTCBARH 0	// Set ALTCBAR to 0
+wait 2500
+write ALTCBARL 0
+wait 2500
+write ALTCAR 0x81d00000 // Set DCSR law target
+
+// Erratum A004849
+wait 2500
+awrite 0xb0050 2
+wait 2500
+awrite 0xb0054 2
+wait 2500
+awrite 0xb0058 2
+wait 2500
+awrite 0xb0090 2
+wait 2500
+awrite 0xb0094 2
+wait 2500
+awrite 0xb0098 2
+wait 2500
+awrite 0xb0108 0x12
+wait 2500
+.end

@@ -1,0 +1,87 @@
+/*
+ * 14g configuration -- 2 SGMII 1g ports  +  2 * 1G RGMII + 1 * 10G XGMII
+ *
+ * Frequencies
+ * System Clock 83.3 MHz, SW1[6~8] = 1 0 0 for 83.3 MHz
+ * SDREFCLK1_FSEL: 100 MHz
+ * SDREFCLK2_FSEL: 125 MHz
+ *
+ * Core -- 1500 MHz (Multiplier 18)
+ * Platform - 750 MHz (Multiplier 9)
+ * DDR -- 1333 MHz (multiplier 16)
+ * FMAN -- 583 MHz (mul 14)(CC2 PLL/2)
+ *
+ * Serdes Bank1 -- Ratio 50:1 /2 for PCIE Lanes and 1.25G for SGMII
+ * Bank2 -- 25:1 /1  - XAUI
+ *
+ * Additionaly this RCW also has PBI commands for setting LAW for NOR
+ * and writing ESBC CSF header location in SCRATCHPAD1 register
+ * required for secure boot flow. This RCW contains SB_EN=0 which means
+ * its fuse should be blown.
+ */
+
+#include <p2041.rcwi>
+
+SYS_PLL_RAT=9
+MEM_PLL_CFG=1
+MEM_PLL_RAT=16
+CC1_PLL_RAT=18
+CC2_PLL_RAT=14
+SRDS_PRTCL=9
+SRDS_RATIO_B1=4
+SRDS_DIV_B1=7
+SRDS_RATIO_B2=2
+RES1=3
+RES2=3
+SRDS_RSVD=15
+SRDS_EN=1
+PBI_SRC=13
+BOOT_LOC=29
+FM_CLK_SEL=1
+1588=3
+I2C=4
+UART=6
+IRQ1=7
+IRQ2=16
+IRQ3=3
+IRQ_OUT=1
+
+.pbi
+#define ALTCBARH	0x10
+#define ALTCBARL	0x14
+#define ALTCAR		0x18
+
+wait 2500
+write ALTCBARH 0	// Set ALTCBAR to 0
+wait 2500
+write ALTCBARL 0
+wait 2500
+write ALTCAR 0x81d00000 // Set DCSR law target
+
+// Erratum A004849
+wait 2500
+awrite 0xb0050 2
+wait 2500
+awrite 0xb0054 2
+wait 2500
+awrite 0xb0058 2
+wait 2500
+awrite 0xb0090 2
+wait 2500
+awrite 0xb0094 2
+wait 2500
+awrite 0xb0098 2
+wait 2500
+awrite 0xb0108 0x12
+wait 2500
+.end
+
+.pbi
+write 0xcd0 0
+flush
+write 0xcd4 0xc0000000
+flush
+write 0xcd8 0x81f0001d
+flush
+write 0xe0200 0xcff00000
+.end

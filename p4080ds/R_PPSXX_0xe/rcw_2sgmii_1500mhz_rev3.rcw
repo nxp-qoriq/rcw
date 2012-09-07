@@ -1,0 +1,80 @@
+/*
+ * RCW for HW Config 2 - RGMII + XAUI + XAUI (XX)
+ * Note that this one disables USB.  That is unavoidable.
+ *
+ * Frequencies :
+ * Core : 1500 MHz
+ * DDR : 1300 MHz
+ * Platform : 800 MHz
+ * FMAN : 600 MHz
+ * PME : 600 MHz
+ *
+ * Includes A004849 work-around for P4080 rev3.
+ */
+
+#include <p4080.rcwi>
+
+SYS_PLL_RAT=8
+MEM_PLL_CFG=1
+MEM_PLL_RAT=13
+CC1_PLL_RAT=15
+CC2_PLL_RAT=15
+CC3_PLL_RAT=12
+CC4_PLL_RAT=15
+C4_PLL_SEL=12
+C5_PLL_SEL=12
+C6_PLL_SEL=12
+C7_PLL_SEL=12
+SRDS_PRTCL=0xE
+SRDS_RATIO_B1=2
+SRDS_DIV_B1=2
+SRDS_RATIO_B2=2
+SRDS_RATIO_B3=2
+SRDS_LPD_B1=0b0000110000
+SRDS_LPD_B2=0b1111
+SRDS_LPD_B3=0b1111
+SRDS_EN=1
+PBI_SRC=0b1101
+BOOT_LOC=0b11101
+PME_CLK_SEL=1
+FM1_CLK_SEL=1
+FM2_CLK_SEL=1
+DRAM_LAT=1
+EC1=2
+EC2=2
+UART=0b110
+I2C3=0b11
+
+.pbi
+#define ALTCBARH	0x10
+#define ALTCBARL	0x14
+#define ALTCAR		0x18
+
+wait 2500
+write ALTCBARH 0	// Set ALTCBAR to 0
+wait 2500
+write ALTCBARL 0
+wait 2500
+write ALTCAR 0x81d00000 // Set DCSR law target
+
+// Erratum A004849
+wait 2500
+awrite 0xb0060 2
+wait 2500
+awrite 0xb0064 2
+wait 2500
+awrite 0xb0068 2
+wait 2500
+awrite 0xb006c 2
+wait 2500
+awrite 0xb00a0 2
+wait 2500
+awrite 0xb00a4 2
+wait 2500
+awrite 0xb00a8 2
+wait 2500
+awrite 0xb00ac 2
+wait 2500
+awrite 0xb0108 0x1C
+wait 2500
+.end
