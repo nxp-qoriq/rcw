@@ -284,10 +284,23 @@ def parse_source_file(source):
 
         print 'Error: unknown command', ' '.join(l2)
 
+# Return True if an executable program exists in the PATH somewhere
+def find_program(filename):
+    for path in os.environ["PATH"].split(os.pathsep):
+        file = os.path.join(path, filename)
+        if os.path.isfile(file) and os.access(file, os.X_OK):
+            return True
+
+    return False
+
 # Run the C preprocessor on the given source code.  This allows you to include
 # C macros and #include statements in the source file.
 def read_source_file(filename):
     global options
+
+    if not find_program('gcc'):
+        print 'Could not find gcc in PATH'
+        return None
 
     i = ['-I', '.']     # Always look in the current directory
     if options.include:
