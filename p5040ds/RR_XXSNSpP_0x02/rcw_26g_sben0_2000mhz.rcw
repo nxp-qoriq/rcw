@@ -38,6 +38,10 @@
  * FM1@DTSEC4 -> Slot 5, Port 2
  * FM2@DTSEC3 -> Slot 3, Port 1
  * FM2@DTSEC4 -> Slot 3, Port 2
+ *
+ * Additionaly this RCW also has PBI commands for setting LAW for NOR
+ * and writing ESBC CSF header location in SCRATCHPAD1 register
+ * required for secure boot flow.
  */
 
 #include <p5040.rcwi>
@@ -56,7 +60,7 @@ SRDS_RATIO_B3=2
 SRDS_RATIO_B4=5
 SRDS_EN_S1=1
 SRDS_EN_S2=1
-PBI_SRC=15
+PBI_SRC=13
 BOOT_LOC=29
 FM1_CLK_SEL=1
 FM2_CLK_SEL=1
@@ -66,3 +70,13 @@ UART=6
 
 #define A4580_HAS_B3_LCD
 #include "../../a004580.rcw"
+
+.pbi
+write 0xcd0 0
+flush
+write 0xcd4 0xc0000000
+flush
+write 0xcd8 0x81f0001d
+flush
+write 0xe0200 0xcff00000
+.end

@@ -75,6 +75,8 @@ awrite 0xb0108 0x12
 wait 2500
 .end
 
+#include "../../a004580.rcw"
+
 .pbi
 write 0xcd0 0
 flush

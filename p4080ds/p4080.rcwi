@@ -60,3 +60,9 @@ IRQ_OUT[382]
 SPI[383]
 DMA1[384]
 DMA2[386:387]
+
+// For erratum A-004580.  The P4080 needs all lanes fixed for all protocols
+#define A4580_HAS_B1_LAB
+#define A4580_HAS_B2_LCD
+#define A4580_HAS_B3_LAB
+#define A4580_HAS_B3_LCD
