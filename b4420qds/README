@@ -1,0 +1,31 @@
+The RCW directories names for the b4420qds board conform to the following naming
+convention:
+
+a_bcde_f_g:
+
+a = 'R' if RGMII is supported / 'N' if not available/not supported
+
+b = What is available in Slot 1 of AMC
+c = What is available in Slot 2 of AMC
+d = 'S' if RGMII is there on phy1 of dual SGMII phy VSC8662 / 'N' if not available /not used
+e = 'S' if RGMII is there on phy2 of dual SGMII phy VSC8662 / 'N' if not available /not used
+
+For the Slots (b and c):
+ 'N' if not available/not used
+ 'P' if PCIe
+ 'X' if XAUI
+ 'R' if SRIO
+ 'S' if SGMII
+ 'A' is AURORA
+
+f = 'hex value of serdes1 protocol value'
+g = 'hex value of serdes2 protocol value'
+
+So N_PNSS_0x9_0xa means:
+ - RGMII is unsupported
+ - PCIE on Slot 1
+ - Nothing on Slot 2
+ - SGMII on phy1
+ - SGMII on phy2
+
+SERDES1 Protocol is 0x9 and the SERDES2 Protocol is 0xa.
