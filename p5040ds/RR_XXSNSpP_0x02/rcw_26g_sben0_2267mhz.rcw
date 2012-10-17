@@ -12,7 +12,7 @@
  * SDREFCLK3_FSEL: 125 MHz
  * SDREFCLK4_FSEL: 125 MHz
  *
- * Core -- 2000 MHz (Mul 15)
+ * Core -- 2267 MHz (Mul 17)
  * Platform - 800 MHz (Mul 6)
  * DDR -- 1600 MHz (Mul 12)
  * FMAN -- 600 MHz (CC3 PLL)/2 (Mul 9)
@@ -49,7 +49,7 @@
 SYS_PLL_RAT=6
 MEM_PLL_CFG=1
 MEM_PLL_RAT=12
-CC1_PLL_RAT=15
+CC1_PLL_RAT=17
 CC2_PLL_RAT=9
 CC3_PLL_RAT=9
 SRDS_PRTCL=2
