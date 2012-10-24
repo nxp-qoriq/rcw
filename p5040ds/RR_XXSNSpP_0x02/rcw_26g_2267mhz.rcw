@@ -66,4 +66,4 @@ GPIO=1
 UART=6
 
 #define A4580_HAS_B3_LCD
-#include "../../a004580.rcw"
+// #include "../../a004580.rcw"

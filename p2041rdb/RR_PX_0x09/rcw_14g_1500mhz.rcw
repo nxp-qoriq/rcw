@@ -72,4 +72,4 @@ wait 2500
 .end
 
 #define A4580_HAS_B2_LCD
-#include "../../a004580.rcw"
+// #include "../../a004580.rcw"

@@ -47,7 +47,7 @@ I2C=4
 GPIO=1
 UART=6
 
-#include "../../a004580.rcw"
+// #include "../../a004580.rcw"
 
 .pbi
 write 0xcd0 0
