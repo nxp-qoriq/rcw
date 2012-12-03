@@ -1,0 +1,119 @@
+/*
+ * Work-around for erratum A-005600.
+ *
+ * Affects: SerDes
+ * To be fixed for Rev 2.0 on T4.
+ *
+ * Description: Several default SerDes settings are incorrect, and may cause
+ * degraded function. The incorrect settings and workaround are:
+ *
+ * General:
+ * SRDSxPLLnCR1[PLLBW_SEL] should be 1b for all protocols/rates, but defaults
+ * to 0b for some protocol combinations.
+ * Bits 0-2 of the registers at offsets 830h, 870h, 8B0h, 8F0h, 930h, 970h,
+ * 9B0h, and 9F0h should be 011b for all protocols/rates.
+ *
+ * SGMII:
+ * SRDSxLNmTTLCR0[FLT_SEL] should be 11_1001b for 1.25 Gbaud operation and
+ * 00_0000b for 3.125 Gbaud operation, but defaults to 00_0000b for both speeds.
+ * Should set SRDSxLNmTTLCR0[FLT_SEL]=11_1001b when operating at 1.25 Gbaud.
+ *
+ * XFI:
+ * SRDSxLNmRECR0[25:31] should be 101_1111b, but defaults to 001_1111b.
+ *
+ */
+
+.pbi
+
+/* SerDes 1 & 2 */
+#ifdef A5600_GEN_SD1_2
+write 0xea008, 0x08204100
+write 0xea028, 0x08004100
+write 0xea830, 0x60000000
+write 0xea870, 0x60000000
+write 0xea8b0, 0x60000000
+write 0xea8f0, 0x60000000
+write 0xea930, 0x60000000
+write 0xea970, 0x60000000
+write 0xea9b0, 0x60000000
+write 0xea9f0, 0x60000000
+
+write 0xeb008, 0x08204100
+write 0xeb028, 0x08004100
+write 0xeb830, 0x60000000
+write 0xeb870, 0x60000000
+write 0xeb8b0, 0x60000000
+write 0xeb8f0, 0x60000000
+write 0xeb930, 0x60000000
+write 0xeb970, 0x60000000
+write 0xeb9b0, 0x60000000
+write 0xeb9f0, 0x60000000
+#endif
+
+/* SerDes 3 & 4 */
+#ifdef A5600_GEN_SD3_4
+write 0xec008, 0x08204100
+write 0xec028, 0x08204100
+write 0xec830, 0x60000000
+write 0xec870, 0x60000000
+write 0xec8b0, 0x60000000
+write 0xec8f0, 0x60000000
+write 0xec930, 0x60000000
+write 0xec970, 0x60000000
+write 0xec9b0, 0x60000000
+write 0xec9f0, 0x60000000
+
+write 0xed008, 0x08204100
+write 0xed028, 0x08204100
+write 0xed830, 0x60000000
+write 0xed870, 0x60000000
+write 0xed8b0, 0x60000000
+write 0xed8f0, 0x60000000
+write 0xed930, 0x60000000
+write 0xed970, 0x60000000
+write 0xed9b0, 0x60000000
+write 0xed9f0, 0x60000000
+#endif
+
+#ifdef A5600_SGMII_SD1_1
+write 0xea820, 0x39000400
+write 0xea860, 0x39000400
+write 0xea8a0, 0x39000400
+write 0xea8e0, 0x39000400
+#endif
+
+#ifdef A5600_SGMII_SD1_2
+write 0xea920, 0x39000400
+write 0xea960, 0x39000400
+write 0xea9a0, 0x39000400
+write 0xea9e0, 0x39000400
+#endif
+
+#ifdef A5600_SGMII_SD2_1
+write 0xeb820, 0x39000400
+write 0xeb860, 0x39000400
+write 0xeb8a0, 0x39000400
+write 0xeb8e0, 0x39000400
+#endif
+
+#ifdef A5600_SGMII_SD2_2
+write 0xeb920, 0x39000400
+write 0xeb960, 0x39000400
+write 0xeb9a0, 0x39000400
+write 0xeb9e0, 0x39000400
+#endif
+
+/*
+ * default setting on T4 for XFI already meet the requirement of
+ * workaround A-005600, so we need nothing, but I prefer to keep
+ * the workaround setting.
+ */
+#ifdef A5600_XFI_T4
+write 0xeb810, 0x1000045f
+write 0xeb850, 0x1000045f
+write 0xeb890, 0x1000045f
+write 0xeb8d0, 0x1000045f
+#endif
+
+flush
+.end
