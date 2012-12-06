@@ -57,31 +57,31 @@ I2C3=3
 #define ALTCAR		0x18
 
 wait 2500
-write ALTCBARH 0	// Set ALTCBAR to 0
+write ALTCBARH, 0	// Set ALTCBAR to 0
 wait 2500
-write ALTCBARL 0
+write ALTCBARL, 0
 wait 2500
-write ALTCAR 0x81d00000 // Set DCSR law target
+write ALTCAR, 0x81d00000 // Set DCSR law target
 
 // Erratum A004849
 wait 2500
-write 0xb0060 2
+write 0xb0060, 2
 wait 2500
-write 0xb0064 2
+write 0xb0064, 2
 wait 2500
-write 0xb0068 2
+write 0xb0068, 2
 wait 2500
-awrite 0xb006c 2
+awrite 0xb006c, 2
 wait 2500
-awrite 0xb00a0 2
+awrite 0xb00a0, 2
 wait 2500
-awrite 0xb00a4 2
+awrite 0xb00a4, 2
 wait 2500
-awrite 0xb00a8 2
+awrite 0xb00a8, 2
 wait 2500
-awrite 0xb00ac 2
+awrite 0xb00ac, 2
 wait 2500
-awrite 0xb0108 0x1C
+awrite 0xb0108, 0x1C
 wait 2500
 .end
 

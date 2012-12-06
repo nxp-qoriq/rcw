@@ -184,16 +184,25 @@ def build_pbi(lines):
     subsection = ''
 
     for l in lines:
-        if l[0] == 'wait':
-            subsection += struct.pack('>LL', 0x091380c0, int(l[1], 0))
-        elif l[0] == 'write':
-            subsection += struct.pack('>LL', 0x09000000 + int(l[1], 0), int(l[2], 0))
-        elif l[0] == 'awrite':
-            subsection += struct.pack('>LL', 0x89000000 + int(l[1], 0), int(l[2], 0))
-        elif l[0] == 'flush':
+        # Check for an instruction without 0-2 parameters
+        # The + ' ' is a hack to make the regex work for just 'flush'
+        m = re.search('([a-z]+)\s*(?<=\s)([^,]*),?(.*)', l + ' ')
+        if not m:
+            print 'Unknown PBI subsection command "%s"' % l
+            return ''
+        op = m.group(1)
+        p1 = m.group(2)
+        p2 = m.group(3)
+        if op == 'wait':
+            subsection += struct.pack('>LL', 0x091380c0, int(p1, 0))
+        elif op == 'write':
+            subsection += struct.pack('>LL', 0x09000000 + int(p1, 0), int(p2, 0))
+        elif op == 'awrite':
+            subsection += struct.pack('>LL', 0x89000000 + int(p1, 0), int(p2, 0))
+        elif op == 'flush':
             subsection += struct.pack('>LL', 0x09138000, 0)
         else:
-            print 'Unknown PBI subsection command "%s"' % l[0]
+            print 'Unknown PBI subsection command "%s"' % l
             return ''
 
     return subsection
@@ -219,8 +228,7 @@ def parse_source_file(source):
     pbi = ''
 
     for l2 in source:
-        l2 = l2.split() # Convert into an array
-        l = ''.join(l2) # Remove all whitespace
+        l = re.sub(r'\s+', '', l2) # Remove all whitespace
 
         if not len(l):  # Skip blank or comment-only lines
             continue
@@ -239,7 +247,7 @@ def parse_source_file(source):
 
         # Is it a subsection line?
         if in_subsection:
-            s.append(l2)
+            s.append(l2.strip())
             continue
 
         # Is it an identifier?  %var=value

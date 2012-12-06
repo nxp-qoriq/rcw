@@ -45,27 +45,27 @@ UART=6
 #define ALTCAR		0x18
 
 wait 2500
-write ALTCBARH 0	// Set ALTCBAR to 0
+write ALTCBARH, 0	// Set ALTCBAR to 0
 wait 2500
-write ALTCBARL 0
+write ALTCBARL, 0
 wait 2500
-write ALTCAR 0x81d00000 // Set DCSR law target
+write ALTCAR, 0x81d00000 // Set DCSR law target
 
 // Erratum A004849
 wait 2500
-awrite 0xb0050 2
+awrite 0xb0050, 2
 wait 2500
-awrite 0xb0054 2
+awrite 0xb0054, 2
 wait 2500
-awrite 0xb0058 2
+awrite 0xb0058, 2
 wait 2500
-awrite 0xb0090 2
+awrite 0xb0090, 2
 wait 2500
-awrite 0xb0094 2
+awrite 0xb0094, 2
 wait 2500
-awrite 0xb0098 2
+awrite 0xb0098, 2
 wait 2500
-awrite 0xb0108 0x12
+awrite 0xb0108, 0x12
 wait 2500
 .end
 
