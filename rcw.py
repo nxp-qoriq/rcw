@@ -191,14 +191,25 @@ def build_pbi(lines):
             print 'Unknown PBI subsection command "%s"' % l
             return ''
         op = m.group(1)
-        p1 = m.group(2)
-        p2 = m.group(3)
+        p1 = m.group(2).strip()
+        p2 = m.group(3).strip()
+        p1 = eval(p1, {"__builtins__":None}, {}) if len(p1) else None
+        p2 = eval(p2, {"__builtins__":None}, {}) if len(p2) else None
         if op == 'wait':
-            subsection += struct.pack('>LL', 0x091380c0, int(p1, 0))
+            if p1 == None:
+                print 'Error: "wait" instruction requires one parameter'
+                return ''
+            subsection += struct.pack('>LL', 0x091380c0, p1)
         elif op == 'write':
-            subsection += struct.pack('>LL', 0x09000000 + int(p1, 0), int(p2, 0))
+            if p1 == None or p2 == None:
+                print 'Error: "write" instruction requires two parameters'
+                return ''
+            subsection += struct.pack('>LL', 0x09000000 + p1, p2)
         elif op == 'awrite':
-            subsection += struct.pack('>LL', 0x89000000 + int(p1, 0), int(p2, 0))
+            if p1 == None or p2 == None:
+                print 'Error: "awrite" instruction requires two parameters'
+                return ''
+            subsection += struct.pack('>LL', 0x89000000 + p1, p2)
         elif op == 'flush':
             subsection += struct.pack('>LL', 0x09138000, 0)
         else:
