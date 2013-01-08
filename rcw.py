@@ -151,6 +151,12 @@ def command_line():
     parser.add_option('-w', dest='warnings', help='enable warning messages',
         action='store_true', default=False)
 
+    parser.add_option('-D', dest='bitfields', help='bitfield definition. '
+        'Can be specified multiple times.  Defines a value for a bitfield, '
+        'overriding what is specified in the source file. '
+        'Example: "-D MEM_PLL_RAT=14".',
+        action='append', default=[])
+
     (options, args) = parser.parse_args()
 
     if options.input:
@@ -306,6 +312,26 @@ def parse_source_file(source):
             continue
 
         print 'Error: unknown command', ' '.join(l2)
+
+# Parse the -D command line parameter for additional bitfield assignments
+def parse_cmdline_bitfields():
+    global options
+    global assignments
+
+    for l in options.bitfields:
+        # This is the same regex as used in parse_source_file()
+        m = re.search(r'([A-Z0-9_]+)=([0-9a-zA-Z]+)', l)
+        if not m:
+            print 'Unrecognized command-line bitfield:', l
+        else:
+            (name, value) = m.groups()
+            value = int(value, 0)
+            if not name in symbols:
+                print 'Error: Unknown bitfield', name
+            else:
+                # Don't bother printing a warning, since the command-line will
+                # normally be used to overwrite values in the .rcw file
+                assignments[name] = value
 
 # Return True if an executable program exists in the PATH somewhere
 def find_program(filename):
@@ -491,6 +517,7 @@ else:
         sys.exit(1)
     parse_source_file(source)
     check_vars()
+    parse_cmdline_bitfields()
 
     # Write it all to the output file
     f = open(options.output, 'wb')
