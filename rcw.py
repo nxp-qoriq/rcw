@@ -148,6 +148,9 @@ def command_line():
     parser.add_option('--rcwi', dest='rcwi', help='RCWI defintion filename.  '
         'Used only if -r is specified.')
 
+    parser.add_option('-w', dest='warnings', help='enable warning messages',
+        action='store_true', default=False)
+
     (options, args) = parser.parse_args()
 
     if options.input:
@@ -228,6 +231,7 @@ def parse_subsection(header, lines):
 
 # Parse the .rcw file, one line at a time
 def parse_source_file(source):
+    global options
     global symbols
     global assignments
     global vars
@@ -296,8 +300,8 @@ def parse_source_file(source):
             if not name in symbols:
                 print 'Error: Unknown bitfield', name
             else:
-                if name in assignments:
-                    print 'Error: Duplicate assignement for bitfield', name
+                if options.warnings and (name in assignments):
+                    print 'Warning: Duplicate assignment for bitfield', name
                 assignments[name] = value
             continue
 
