@@ -1,0 +1,63 @@
+/*
+ * Work-around for erratum A-004995.
+ *
+ * Affects: SerDes on T4 Rev 1.0, to be fixed on Rev 2.0.
+ *
+ * Description:  Several SerDes register settings for SATA, PCI Express and
+ *		 Interlaken are incorrect.
+ *  - SATA: SRDSxLNmTECR0[AMP_RED] should be 10h for 1.5 Gbps operation and
+ *	    07h for 3.0 Gbps operation, but is set to 07h for both speeds.
+ *  - PCI Express: SRDSxLNmGCR1[REIDL_ET_MSB] should be 1 for 2.5 GT/s operation
+ *		   and 0 for 5.0 or 8.0 GT/s operation, but is 1 for all speeds.
+ *  - Interlaken: SRDSxLNmRECR0[OSETOVD] should be 5Fh, but is 1Fh.
+ *
+ * Impact:
+ *  - SATA: Incorrect setting of AMP_RED may result in bit errors on transmit
+ *	    data, but is not expected to result in loss of link.
+ *  - PCI Express: Incorrect setting of REIDL_ET_MSB may result in false
+ *		   electrical idle-detect at speeds other than 2.5 GT/s.
+ *  - Interlaken: Incorrect setting of OSETOVD may result in bit errors on
+ *		  receive data.
+ *
+ *  Note: Interlaken is not supported on T4240 Rev1.0, so no errata needed.
+ *        Please add corresponding #define A4995_xx in your t4240_xx.rcw if PCIE
+ *	  5GT/s, 8GT/s, SATA 1.5Gbps are running on T4 Rev 1.0.
+ */
+
+.pbi
+#ifdef A4995_PCIE_5G_8G_SD3_1
+write 0xec804 0x004c0099   //SRDS3LN0GCR1
+write 0xec844 0x004c0099
+write 0xec884 0x004c0099
+write 0xec8c4 0x004c0099
+#endif
+
+#ifdef A4995_PCIE_5G_8G_SD3_2
+write 0xec904 0x004c0099   //SRDS3LN4GCR1
+write 0xec944 0x004c0099
+write 0xec984 0x004c0099
+write 0xec9c4 0x004c0099
+#endif
+
+#ifdef A4995_PCIE_5G_8G_SD4_1
+write 0xed804 0x004c0099   //SRDS4LN0GCR1
+write 0xed844 0x004c0099
+write 0xed884 0x004c0099
+write 0xed8c4 0x004c0099
+#endif
+
+#ifdef A4995_PCIE_5G_8G_SD4_2
+write 0xed904 0x004c0099   //SRDS4LN4GCR1
+write 0xed944 0x004c0099
+write 0xed984 0x004c0099
+write 0xed9c4 0x004c0099
+#endif
+
+#ifdef A4995_SATA_1.5G
+write 0xed998 0x10223010   //SRDS4LN6TECR0
+write 0xed9d8 0x10223010
+#endif
+
+flush
+.end
+
