@@ -83,3 +83,5 @@ write 0x0ec020, 0x064740e6
 write 0x0ed000, 0x064740e6
 write 0x0ed020, 0x064740e6
 .end
+
+#include <a005147.rcw>
