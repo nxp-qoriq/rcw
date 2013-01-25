@@ -1,0 +1,31 @@
+/*
+ * Work-around for erratum A-005147.
+ *
+ * Description:
+ * The PCI Express controller's PEX_CSR1[S1M] bit field contains six mask
+ * bits. Setting these bits masks, or disables, the interrupt generation
+ * when the corresponding error bits in the controller's Secondary Status
+ * Register are set. The correct default value of the S1M bit field should
+ * be all ones to mask, or disable, the interrupt generation. Due to the
+ * logic error, the PEX_CSR1[S1M] default value is all zeros. As such, the
+ * interrupt will be generated when any error bit in the controller's
+ * Secondary Status Register is set.
+ *
+ * Impact:
+ * By default, an interrupt is generated when any error status bit in the
+ * controller's Secondary Status Register is set.
+ *
+ * Workaround:
+ * Use PBL code or other initialization software to write all ones to the
+ * PCI Express controller's PEX_CSR1[S1M] bit field.
+ */
+
+.pbi
+
+write 0x240f18, 0xff0000	// PEX1: PEX_CSR1
+write 0x250f18, 0xff0000	// PEX2: PEX_CSR1
+write 0x260f18, 0xff0000	// PEX3: PEX_CSR1
+write 0x270f18, 0xff0000	// PEX4: PEX_CSR1
+
+flush
+.end
