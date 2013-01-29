@@ -31,7 +31,7 @@ SRDS_PLL_REF_CLK_SEL_S1=2
 SRDS_PLL_REF_CLK_SEL_S2=2
 SRDS_DIV_AURORA=1
 SRDS_DIV_CPRI_G1=1
-PBI_SRC=15
+PBI_SRC=0b1101
 BOOT_LOC=24
 IFC_MODE=37
 HWA_CGA_M1_CLK_SEL=5
@@ -48,3 +48,27 @@ I2C4=1
 DMA1=4
 HWA_CGB_M2_CLK_SEL=2
 HWA_CGA_M2_CLK_SEL=1
+
+#include "../a005756.rcw"
+#include "../a005600.rcw"
+
+// Erratum 005600: Protocol specific PBI commands
+.pbi
+// Workaround for SGMII lanes incorrect settings
+write 0x0ea820, 0x39008000
+write 0x0ea860, 0x39008000
+write 0x0eb920, 0x39008000
+write 0x0eb960, 0x39008000
+
+// Workaround for PCIe lanes incorrect settings
+write 0x0eb804, 0x004C0091
+write 0x0eb844, 0x004C0091
+write 0x0eb884, 0x004C0091
+write 0x0eb8C4, 0x004C0091
+
+// Workaround for XFI lanes incorrect settings
+write 0x0eb990, 0x1000045F
+write 0x0eb9D0, 0x1000045F
+.end
+
+#include "../a006031.rcw"

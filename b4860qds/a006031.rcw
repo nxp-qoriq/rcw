@@ -1,0 +1,14 @@
+/*
+ * This PBI file is implementing Erratum A-006031 workaround:
+ *    ERRATA 006031: Set SRDSxPLLnRSTCTL[20:23] to b0000, which will
+ *    change the minimum LYNX PLL lock wait time to at least 655 us
+ *
+ */
+
+.pbi
+// Erratum 006031
+write 0x0ea000, 0x064740E0
+write 0x0ea020, 0x064740E0
+write 0x0eb000, 0x064740E0
+write 0x0eb020, 0x064740E0
+.end
