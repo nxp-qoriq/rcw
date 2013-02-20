@@ -1,16 +1,16 @@
 /*
- * RCW for 4x SGMII + 6 lane CPRI + 4 lane SRIO and two XFI
+ * RCW for 2x SGMII + 6 lane CPRI + 2 XAUI
  * SerDes 1 option 2Ah (two sgmii and 6 CPRI lanes)
- * SerDes 2 option 8Dh (four lane SRIOs @5/2.5G, Two SGMII @1.25G and two XFI)
+ * SerDes 2 option 98h (2 four lane XAUI)
  *
  * DDR1_CLK = DDR2_CLK = 133.333 MHz
  *
  * Frequencies :
  * Core e6500	: 1600 MHz
  * Core SC3900	: 1200 MHz
- * DDR		: 1600 MHz
+ * DDR		: 1866 MHz
  * Platform	: 667 MHz
- * FMAN		: 667 MHz
+ * FMAN	: 667 MHz
  * MAPLE/CPRI	: 600 MHz
  * MAPLE eTVPE	: 1000 MHz
  * MAPLE ULB	: 800 MHz
@@ -20,15 +20,15 @@
 #include <b4860.rcwi>
 
 SYS_PLL_RAT=10
-MEM_PLL_RAT=12
+MEM_PLL_RAT=14
 CCA_PLL1_RAT=24
 CCA_PLL2_RAT=15
 CCB_PLL1_RAT=18
 CCB_PLL2_RAT=24
 SRDS_PRTCL_S1=42
-SRDS_PRTCL_S2=141
+SRDS_PRTCL_S2=152
 SRDS_PLL_REF_CLK_SEL_S1=2
-SRDS_PLL_REF_CLK_SEL_S2=2
+SRDS_PLL_REF_CLK_SEL_S2=1
 SRDS_DIV_AURORA=1
 SRDS_DIV_CPRI_G1=1
 PBI_SRC=14
@@ -51,17 +51,4 @@ DMA1=4
 HWA_CGB_M2_CLK_SEL=2
 HWA_CGA_M2_CLK_SEL=1
 
-.pbi
-write 0xC10, 0x00000000
-write 0xC14, 0xC0000000
-write 0xC18, 0x81F0001B
-write 0xD00, 0x00000000
-write 0xD04, 0xBFF00000
-write 0xD08, 0x81000013
-write 0xE0200, 0xC0A00000
-write 0xE0208, 0xC0B00000
-write 0x10100, 0x00000000
-write 0x10104, 0xBFF00009
-write 0x10F00, 0x08000000
-write 0x10000, 0x80000000
-.end
+#include "../secure_boot.rcw"

@@ -33,6 +33,7 @@ SRDS_DIV_AURORA=1
 SRDS_DIV_CPRI_G1=1
 PBI_SRC=14
 BOOT_LOC=24
+BOOT_HO=0
 SB_EN=0
 IFC_MODE=37
 HWA_CGA_M1_CLK_SEL=5
@@ -50,18 +51,21 @@ DMA1=4
 HWA_CGB_M2_CLK_SEL=2
 HWA_CGA_M2_CLK_SEL=1
 
+#include "../a005756.rcw"
+#include "../a005600.rcw"
 
+// Erratum 005600: Protocol specific PBI commands
 .pbi
-write 0xC10, 0x00000000
-write 0xC14, 0xC0000000
-write 0xC18, 0x81F0001B
-write 0xD00, 0x00000000
-write 0xD04, 0xBFF00000
-write 0xD08, 0x81000013
-write 0xE0200, 0xC0A00000
-write 0xE0208, 0xC0B00000
-write 0x10100, 0x00000000
-write 0x10104, 0xBFF00009
-write 0x10F00, 0x08000000
-write 0x10000, 0x80000000
+// Workaround for SGMII lanes incorrect settings
+write 0x0ea820, 0x39008000
+write 0x0ea860, 0x39008000
+write 0x0eb920, 0x39008000
+write 0x0eb960, 0x39008000
+
+// Workaround for XFI lanes incorrect settings
+write 0x0eb990, 0x1000045F
+write 0x0eb9D0, 0x1000045F
 .end
+
+#include "../a006031.rcw"
+#include "../secure_boot.rcw"
