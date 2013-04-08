@@ -71,5 +71,6 @@ awrite 0xb0108, 0x12
 wait 2500
 .end
 
+#include "../../a006559.rcw"
 #define A4580_HAS_B2_LCD
 // #include "../../a004580.rcw"

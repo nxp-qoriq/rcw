@@ -1,0 +1,21 @@
+/*
+ * Work-around for erratum A-006559.
+ *
+ * Description:
+ * In order to assure data integrity between the core and the platform 
+ * (the core running asynchronously with the platform fabric), special 
+ * internal registers must be set.  These internal registers are part of
+ * the debug configuration register address space (DCSR).
+ */
+
+.pbi
+awrite 0x21008, 0x0000f000
+wait 2500
+awrite 0x21028, 0x0000f000
+wait 2500
+awrite 0x21048, 0x0000f000
+wait 2500
+awrite 0x21068, 0x0000f000
+wait 2500
+flush
+.end

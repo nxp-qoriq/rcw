@@ -72,4 +72,5 @@ awrite 0xb0108, 0x12
 wait 2500
 .end
 
+#include "../../a006559.rcw"
 // #include "../../a004580.rcw"
