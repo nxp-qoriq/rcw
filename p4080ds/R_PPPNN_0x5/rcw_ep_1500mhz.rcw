@@ -1,0 +1,58 @@
+/*
+ * RCW for PCIe Endpoint
+ *
+ * Frequencies :
+ * Core : 1500 MHz
+ * DDR : 1300 MHz
+ * Platform : 800 MHz
+ * FMAN : 600 MHz
+ * PME : 600 MHz
+ *
+ * Slot 3:
+ *  PCIe 2: SerDes lane E/F/G/H of Bank1
+ *  link width: x4
+ *  link speed: 5G
+ *
+ * Slot 1:
+ *  PCIe 1: SerDes lane A/B of Bank1
+ *  link width: x2
+ *  link speed: 5G
+ *
+ * Slot 2:
+ *  PCIe 1: SerDes lane C/D of Bank1
+ *  link width: x2
+ *  link speed: 5G
+ *
+ */
+
+#include <p4080.rcwi>
+
+SYS_PLL_RAT=8
+MEM_PLL_CFG=1
+MEM_PLL_RAT=13
+CC1_PLL_RAT=15
+CC2_PLL_RAT=15
+CC3_PLL_RAT=15
+CC4_PLL_RAT=15
+C4_PLL_SEL=12
+C5_PLL_SEL=12
+C6_PLL_SEL=12
+C7_PLL_SEL=12
+SRDS_PRTCL=5
+SRDS_RATIO_B1=4
+SRDS_DIV_B1=0
+SRDS_LPD_B1=0
+SRDS_LPD_B2=15
+SRDS_LPD_B3=15
+SRDS_EN=1
+PBI_SRC=15
+BOOT_LOC=29
+PME_CLK_SEL=1
+FM1_CLK_SEL=1
+FM2_CLK_SEL=1
+DRAM_LAT=1
+HOST_AGT_B1=1
+EC1=2
+EC2=2
+UART=6
+I2C3=3
