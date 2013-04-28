@@ -66,11 +66,15 @@ awrite 0xb0054, 2
 wait 2500
 awrite 0xb0058, 2
 wait 2500
+awrite 0xb005c, 2
+wait 2500
 awrite 0xb0090, 2
 wait 2500
 awrite 0xb0094, 2
 wait 2500
 awrite 0xb0098, 2
+wait 2500
+awrite 0xb009c, 2
 wait 2500
 awrite 0xb0108, 0x12
 wait 2500
