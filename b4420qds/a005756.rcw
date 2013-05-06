@@ -1,0 +1,15 @@
+/*
+ * This PBI file is following the B4420CE_RevB errata document
+ *
+ * This PBI file is implementing Erratum A-005756 workaround:
+ *    ERRATA 005756: NOR TRAD value might be too aggressive
+ *    for boot process to complete properly from NOR flash
+ *
+ *    Impact: Boot from NOR flash might hang.
+ *
+ */
+
+.pbi
+// Erratum 005756
+write 0x1241c4, 0x22001412
+.end

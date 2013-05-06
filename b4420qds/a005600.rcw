@@ -1,0 +1,38 @@
+/*
+ * This PBI file is following the B4420CE_RevB errata document
+ *
+ * This PBI file is implementing Erratum A-005600 workaround:
+ *    ERRATA 005600: Default settings are incorrect for several
+ *    SerDes registers
+ *    Added in this file are general workaround commands common
+ *    for all RCWs (It exclude protocol specific PBI commands,
+ *    for SGMII & PEX issues)
+ *
+ *    Impact: Several default SerDes settings are incorrect
+ *    which can result in degraded clocks, degraded signal quality,
+ *    false electrical idle detect and bit errors on receive data.
+ *
+ */
+
+.pbi
+// Erratum 005600
+write 0x0ea008, 0x08204100
+write 0x0eb008, 0x08204100
+
+write 0x0ea830, 0x60000000
+write 0x0ea870, 0x60000000
+write 0x0ea8B0, 0x60000000
+write 0x0ea8F0, 0x60000000
+write 0x0ea930, 0x60000000
+write 0x0ea970, 0x60000000
+write 0x0ea9B0, 0x60000000
+write 0x0ea9F0, 0x60000000
+write 0x0eb830, 0x60000000
+write 0x0eb870, 0x60000000
+write 0x0eb8B0, 0x60000000
+write 0x0eb8F0, 0x60000000
+write 0x0eb930, 0x60000000
+write 0x0eb970, 0x60000000
+write 0x0eb9B0, 0x60000000
+write 0x0eb9F0, 0x60000000
+.end
