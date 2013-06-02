@@ -1,0 +1,40 @@
+/*
+ * sets up L3 cache for SPI flash boot
+ *
+ */
+
+.pbi
+
+//Initialize CPC1
+write 0x010000, 0x00200400
+flush
+wait 0x100
+
+//512KB SRAM
+write 0x010100, 0x00000000
+write 0x010104, 0xfff80009
+write 0x010f00, 0x08000000
+
+//enable CPC1
+write 0x010000, 0x80000000
+
+//Configure LAW for CPC1
+write 0x000d00, 0x00000000
+write 0x000d04, 0xfff80000
+write 0x000d08, 0x81000012
+
+//Configure alternate space
+write 0x000010, 0x00000000
+write 0x000014, 0xff000000
+write 0x000018, 0x81000000
+
+//Initialize eSPI controller
+write 0x110000, 0x80000403
+write 0x110020, 0x2d170008
+write 0x110024, 0x00100008
+write 0x110028, 0x00100008
+write 0x11002c, 0x00100008
+flush
+wait 0x0
+
+.end

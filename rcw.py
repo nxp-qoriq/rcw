@@ -188,6 +188,71 @@ def check_for_overlap(name, begin, end):
         if (b <= begin <= e) or (b <= end <= e):
             print 'Error: Bitfield', name, 'overlaps with', n
 
+#
+# Build a u-boot PBI section for SPI/SD/NAND boot
+# 	refer: Chapter 10, u-boot of QorIQ_SDK_Infocenter.pdf
+#
+# pre-cond 1: u-boot.xxd should be created
+# how to create u-boot.xxd
+# 	xxd u-boot.bin > u-boot.xxd1 && cut -d " " -f1-10 u-boot.xxd1 > u-boot.xxd && rm -f u-boot.xxd1
+#
+# rcw file should include spi_boot.rcw as well
+#
+def build_pbi_uboot(lines):
+    subsection = ''
+    cnt = 1
+    l_tmp = []
+
+    # files fed in is done by xxd and cut
+    for l in lines:
+        # prepare 0x40 per lines except the last one
+        # add flush at the end 
+	lstr = l.split()
+	addr = int(lstr[0][:-1], 16)
+        
+        # print l
+        #
+        # last two lines take  0x20 numbers
+        #
+	if ((cnt % 2 == 0) and (cnt > len(lines) -4)):
+            l_tmp.append(l)
+            b = []
+
+	    for t in l_tmp:
+                lstr = t.split()
+
+	        for i in range(1, len(lstr)):
+                    b.append(int(lstr[i], 16))
+
+            subsection += struct.pack('>LHHHHHHHHHHHHHHHH',\
+		0x0C1F80000 + (addr - 0x10),\
+		b[0],  b[1],  b[2],  b[3],  b[4],  b[5],  b[6],  b[7],\
+		b[8],  b[9],  b[10], b[11], b[12], b[13], b[14], b[15])
+            l_tmp = []
+        #
+        # the rest of lines take 0x40 numbers
+        elif (cnt % 4 == 0):
+            l_tmp.append(l)
+	    b = []
+	    for t in l_tmp:
+                lstr = t.split()
+	        for i in range(1, len(lstr)):
+                    b.append(int(lstr[i], 16))
+
+            subsection += struct.pack('>LHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH',\
+		0x081F80000 + (addr - 0x30),\
+		b[0],  b[1],  b[2],  b[3],  b[4],  b[5],  b[6],  b[7],\
+		b[8],  b[9],  b[10], b[11], b[12], b[13], b[14], b[15],\
+		b[16], b[17], b[18], b[19], b[20], b[21], b[22], b[23], \
+		b[24], b[25], b[26], b[27], b[28], b[29], b[30], b[31])
+            l_tmp = []
+        else:
+            l_tmp.append(l)
+
+	cnt = cnt + 1
+
+    return subsection
+
 # Build a PBI section
 def build_pbi(lines):
     subsection = ''
@@ -231,6 +296,8 @@ def build_pbi(lines):
 def parse_subsection(header, lines):
     if header == "pbi":
         return build_pbi(lines)
+    elif header == "uboot":
+        return build_pbi_uboot(lines)
 
     print 'Error: unknown subsection "%s"' % header
     return ''
