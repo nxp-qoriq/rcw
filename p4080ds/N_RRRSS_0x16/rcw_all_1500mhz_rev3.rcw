@@ -10,15 +10,9 @@
  * SERDES bank1 is expected to have reference clock of 125MHz.
 
  * Use SERDES SRDS_PRTCL = 0x16.
- * SW3[2] = 1 and SGMII card should in slot4.
- * For this Setting, onboard RGMII and 4 ports SGMII can work for both Rev1
- * and Rev2 silicon
+ * SW3[2] = 1 and SGMII cards should be in slot4 and slot5.
+ * 4 ports should work for both SGMII cards in slot4 and slot5. 
 
- * To get RGMII on FM1@DTSEC2 working with this RCW, add this statement to
- * the 'hwconfig' environment variable in U-Boot:
- *
- *	serdes:fsl_srds_lpd_b3=4
- *
  * Includes A004849 work-around for P4080 rev3.
  */
 
@@ -47,7 +41,7 @@ FM1_CLK_SEL=1
 FM2_CLK_SEL=1
 DRAM_LAT=1
 EC1=2
-EC2=2
+EC2=7
 UART=6
 I2C3=3
 
