@@ -60,3 +60,4 @@ write 0x0eb8C4, 0x004C0091
 .end
 
 #include "../a006031.rcw"
+#include "../slow_mdio_clock.rcw"

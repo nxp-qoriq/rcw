@@ -74,4 +74,5 @@ write 0x0eb9D0, 0x1000045F
 .end
 
 #include "../a006031.rcw"
+#include "../slow_mdio_clock.rcw"
 #include "../secure_boot.rcw"
