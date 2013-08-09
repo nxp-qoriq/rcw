@@ -1,6 +1,6 @@
 DESTDIR = .
 INSTALL = install
-PYTHON = python
+PYTHON = python2
 RCW = $(PYTHON) ../rcw.py
 
 rcw_sources := $(wildcard */*.rcw)

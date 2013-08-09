@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
 
 # rcw.py -- compiles an RCW source file into an PBL/RCW binary
 
