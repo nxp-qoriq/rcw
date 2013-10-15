@@ -1,0 +1,37 @@
+/*
+ * Work-around for erratum A-006031.
+ *
+ * Description:
+ *
+ * The SerDes PLL may take up to 625 us to lock, but the state machine
+ * waiting for PLL lock only waits 204-409 us, depending on platform
+ * frequency.
+ *
+ * Impact:
+ *
+ * With the default register settings, the SerDes initialization sequence
+ * may time out waiting for PLL lock, and fail with an error.
+ *
+ * Workaround:
+ *
+ * Set SRDSxPLLnRSTCTL[20:23] to b0000. This will change the minimum PLL
+ * lock wait time to at least 655 us.
+ * This setting should be done via PBI, otherwise SerDes initialization
+ * may fail and require reset via SRDSxPLLnRSTCTL[RSTREQ] to complete
+ * successfully.
+ */
+
+.pbi
+
+write 0x0ea000, 0x064740e6
+write 0x0ea020, 0x064740e6
+write 0x0eb000, 0x064740e6
+write 0x0eb020, 0x064740e6
+write 0x0ec000, 0x064740e6
+write 0x0ec020, 0x064740e6
+write 0x0ed000, 0x064740e6
+write 0x0ed020, 0x064740e6
+
+flush
+.end
+

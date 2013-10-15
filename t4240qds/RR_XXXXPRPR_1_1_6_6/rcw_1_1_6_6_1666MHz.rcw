@@ -77,16 +77,5 @@ write 0x124130, 0x0000000c
 #define A5600_GEN_SD3_4
 #include "../a005600.rcw"
 
-// SERDES A-006031 work-around
-.pbi
-write 0x0ea000, 0x064740e6
-write 0x0ea020, 0x064740e6
-write 0x0eb000, 0x064740e6
-write 0x0eb020, 0x064740e6
-write 0x0ec000, 0x064740e6
-write 0x0ec020, 0x064740e6
-write 0x0ed000, 0x064740e6
-write 0x0ed020, 0x064740e6
-.end
-
+#include <a006031.rcw>
 #include <a005147.rcw>
