@@ -19,18 +19,19 @@
  * This setting should be done via PBI, otherwise SerDes initialization
  * may fail and require reset via SRDSxPLLnRSTCTL[RSTREQ] to complete
  * successfully.
+ * The 32-bit value to write to SRDSxPLLnRSTCTL during PBI is h06474020.
  */
 
 .pbi
 
-write 0x0ea000, 0x064740e6
-write 0x0ea020, 0x064740e6
-write 0x0eb000, 0x064740e6
-write 0x0eb020, 0x064740e6
-write 0x0ec000, 0x064740e6
-write 0x0ec020, 0x064740e6
-write 0x0ed000, 0x064740e6
-write 0x0ed020, 0x064740e6
+write 0x0ea000, 0x06474020
+write 0x0ea020, 0x06474020
+write 0x0eb000, 0x06474020
+write 0x0eb020, 0x06474020
+write 0x0ec000, 0x06474020
+write 0x0ec020, 0x06474020
+write 0x0ed000, 0x06474020
+write 0x0ed020, 0x06474020
 
 flush
 .end

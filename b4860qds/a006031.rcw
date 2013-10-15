@@ -3,12 +3,20 @@
  *    ERRATA 006031: Set SRDSxPLLnRSTCTL[20:23] to b0000, which will
  *    change the minimum LYNX PLL lock wait time to at least 655 us
  *
+ * Workaround:
+ *
+ * Set SRDSxPLLnRSTCTL[20:23] to b0000. This will change the minimum PLL
+ * lock wait time to at least 655 us.
+ * This setting should be done via PBI, otherwise SerDes initialization
+ * may fail and require reset via SRDSxPLLnRSTCTL[RSTREQ] to complete
+ * successfully.
+ * The 32-bit value to write to SRDSxPLLnRSTCTL during PBI is h06474020.
  */
 
 .pbi
 // Erratum 006031
-write 0x0ea000, 0x064740E0
-write 0x0ea020, 0x064740E0
-write 0x0eb000, 0x064740E0
-write 0x0eb020, 0x064740E0
+write 0x0ea000, 0x06474020
+write 0x0ea020, 0x06474020
+write 0x0eb000, 0x06474020
+write 0x0eb020, 0x06474020
 .end
