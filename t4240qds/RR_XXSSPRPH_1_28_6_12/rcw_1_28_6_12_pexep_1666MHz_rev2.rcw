@@ -1,0 +1,38 @@
+/*
+ * T4240QDS RCW for SerDes[1:4] Protocol 1, 28, 6, 12
+ *
+ * 29G configuration -- 2 RGMII + 7 SGMII + 2 XAUI
+ *
+ * Frequencies:
+ *
+ * Sys Clock -- 66.67 Mhz
+ * SDREFCLK1_FSEL: 125 MHz
+ * SDREFCLK2_FSEL: 125 MHz
+ * SDREFCLK3_FSEL: 100 MHz
+ * SDREFCLK3_FSEL: 100 MHz
+ *
+ * Core -- 1666 MHz (Mul 25 )
+ * Platform - 600 MHz (Mul 9)
+ * DDR -- 1600 MHz (Mul 6 of SW_DDRCLK: 133.33MHz)
+ * FMAN1 -- 467 MHz (Cluster group B PLL 2)/3
+ * FMAN2 -- 350 MHz (Cluster group B PLL 2)/4
+ *
+ * Slot  Card
+ * 1     XAUI
+ * 2     XAUI
+ * 3     SGMII
+ * 4     SGMII
+ * 5     PCIe1 x4 EP Mode
+ * 6     SRIO x4
+ * 7     PCIe3 x4 EP Mode
+ * 8     none
+ *
+ * RGMII1: FM1@MAC5
+ * RGMII2: FM2@MAC5
+ *
+ * PBI source is NOR.
+ */
+
+#include "rcw_1_28_6_12_1666MHz_rev2.rcw"
+
+HOST_AGT_PEX=3
