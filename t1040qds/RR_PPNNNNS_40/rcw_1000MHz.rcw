@@ -6,12 +6,12 @@
  * Frequencies:
  *
  * Sys Clock: 100 MHz
- * DDR_Refclock: 100 MHz
+ * DDR_Refclock: 66.66 MHz
  * SDREFCLK_FSEL: 100 MHz
  *
  * Core -- 1000 MHz (Mul 10 )
  * Platform - 500 MHz (Mul 5)
- * DDR -- 1600 MHz (Mul 16 of DDR_Refclock: 100MHz)
+ * DDR -- 1600 MHz (Mul 24 of DDR_Refclock: 66.66MHz)
  *
  * Serdes Lanes vs Slot information
  * A PCIe1  : Slot 2
@@ -32,7 +32,7 @@
 #include <../t1040si/t1040.rcwi>
 
 SYS_PLL_RAT=5
-MEM_PLL_RAT=16
+MEM_PLL_RAT=24
 CGA_PLL1_RAT=10
 CGA_PLL2_RAT=10
 SRDS_PRTCL_S1=64
