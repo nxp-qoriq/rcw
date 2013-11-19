@@ -12,10 +12,10 @@
  * SDREFCLK3_FSEL: 100 MHz
  *
  * Core -- 1666 MHz (Mul 25 )
- * Platform - 600 MHz (Mul 9)
- * DDR -- 1600 MHz (Mul 6 of SW_DDRCLK: 133.33MHz)
- * FMAN1 -- 467 MHz (Cluster group B PLL 2)/2
- * FMAN2 -- 467 MHz (Cluster group B PLL 2)/2
+ * Platform - 733 MHz (Mul 11)
+ * DDR -- 1867 MHz (Mul 7 of SW_DDRCLK: 133.33MHz)
+ * FMAN1 -- 600 MHz (Cluster group B PLL 2)/2
+ * FMAN2 -- 600 MHz (Cluster group B PLL 2)/2
  *
  * Slot  Card
  * 1     XAUI
