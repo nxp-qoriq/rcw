@@ -12,10 +12,10 @@
  * SDREFCLK3_FSEL: 100 MHz
  *
  * Core -- 1666 MHz (Mul 25 )
- * Platform - 600 MHz (Mul 9)
- * DDR -- 1600 MHz (Mul 6 of SW_DDRCLK: 133.33MHz)
- * FMAN1 -- 467 MHz (Cluster group B PLL 2)/2
- * FMAN2 -- 467 MHz (Cluster group B PLL 2)/2
+ * Platform - 733 MHz (Mul 11)
+ * DDR -- 1867 MHz (Mul 7 of SW_DDRCLK: 133.33MHz)
+ * FMAN1 -- 600 MHz (Cluster group B PLL 2)/2
+ * FMAN2 -- 600 MHz (Cluster group B PLL 2)/2
  *
  * Slot  Card
  * 1     XAUI
@@ -35,19 +35,17 @@
 
 #include <t4240.rcwi>
 
-SYS_PLL_RAT=9
-MEM_PLL_RAT=6
+SYS_PLL_RAT=11
+MEM_PLL_RAT=7
 CGA_PLL1_RAT=25
 CGA_PLL2_RAT=12
 CGA_PLL3_RAT=16
 CGB_PLL1_RAT=25
-CGB_PLL2_RAT=14
+CGB_PLL2_RAT=18
 SRDS_PRTCL_S1=1
 SRDS_PRTCL_S2=1
 SRDS_PRTCL_S3=6
 SRDS_PRTCL_S4=6
-FM1_MAC_RAT=1
-FM2_MAC_RAT=1
 SRDS_PLL_PD_S1=1
 SRDS_PLL_PD_S2=1
 SRDS_PLL_PD_S3=1
