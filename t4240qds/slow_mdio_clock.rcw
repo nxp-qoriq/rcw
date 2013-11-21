@@ -1,10 +1,12 @@
 /*
  *  This PBI file is slowing down the MDC clock to make it <= 2.5 MHZ
  *  The default value of MDIO_CLK_DIV will generate MDC too high violating
- *  the IEEE specs  much higher than 2.5Mhz.
+ *  the IEEE specs  much higher than 2.5Mhz. Also, add negative edge MDIO
+ *  data drive for EMI2 to help the MDIO data hold with the slow MDC clock
+ *  rise times.
  */
 
 .pbi
 write 0x5fc030,	0x00008148
-write 0x5fd030,	0x00008148
+write 0x5fd030,	0x00808148
 .end
