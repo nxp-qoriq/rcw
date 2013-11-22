@@ -14,8 +14,9 @@
  * Core -- 1666 MHz (Mul 25 )
  * Platform - 733 MHz (Mul 11)
  * DDR -- 1867 MHz (Mul 7 of SW_DDRCLK: 133.33MHz)
- * FMAN1 -- 733 MHz (Cluster group B PLL 2)/2
- * FMAN2 -- 733 MHz (Cluster group B PLL 2)/2
+ * FMAN1 -- 733 MHz (Platform / 1)
+ * FMAN2 -- 733 MHz (Platform / 1)
+ * PME -- 533MHz (Cluster group A PLL 2) / 3
  *
  * Slot  Card
  * 1     XAUI
