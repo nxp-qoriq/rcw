@@ -21,13 +21,14 @@
  * RGMII2: MAC4
  * XFI:    XFI1 and XFI2
  * SATA:   NULL
+ * SRIO:   SRIO1, SRIO2
  *
  * Slot  Card
  * 1     PCIe4 x4
  * 2     NULL
  * 3     SGMII
- * 4     SRIO2
- * 5     SRIO1
+ * 4     NULL
+ * 5     NULL
  *
  * PBI source is NOR
  */
