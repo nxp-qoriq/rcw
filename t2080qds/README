@@ -43,3 +43,6 @@ BIN   Core/Platform/DDR
 Bin1: 1800MHz/666MHz/2133MT/s
 Bin2: 1533MHz/600MHz/1867MT/s
 Bin3: 1200MHz/533MHz/1600MT/s
+
+For current engineering sample silicon, we use Core/DDR = 1533MHz/2133MT/s,
+which will be updated for formal silicon later.
