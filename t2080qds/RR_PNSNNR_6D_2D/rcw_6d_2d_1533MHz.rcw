@@ -27,8 +27,8 @@
  * 1     PCIe4 x4
  * 2     NULL
  * 3     SGMII
- * 4     NULL
- * 5     NULL
+ * 4     SRIO2
+ * 5     SRIO1
  *
  * PBI source is NOR
  */
