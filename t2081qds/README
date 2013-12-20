@@ -1,0 +1,48 @@
+The RCW directories names for the T2081 QDS board conforming to
+the following naming convention:
+
+ab_cdefghij_k:
+
+a = 'R' indicates RGMII1@DTSEC3 is supported
+b = 'R' indicates RGMII2@DTSEC4 is supported
+    'N' indicates not available/not used
+
+c = What is available in Slot 1
+d = What is available in Slot 2
+e = What is available in Slot 3
+f = What is available in Slot 4
+g = What is available in Slot 5
+h = What is available in Slot 6
+i = What is available in Slot 7
+j = What is available between SATA and SRIO
+
+For the Slots (c..j):
+ 'N' is NULL, not available/not used
+ 'P' is PCIe
+ 'X' is XAUI
+ 'R' is SRIO
+ 'S' is SGMII
+ 'H' is SATA
+ 'F' is XFI
+ 'A' is AURORA
+
+For the srds_prtcl (k):
+k = 'hex value of serdes1 protocol value'
+
+So RR_PNSNNNN_6B means:
+ - RGMII1@DTSEC3 on board
+ - RGMII2@DTSEC4 on board
+ - PCIe4 on Slot 1
+ - NULL on Slot 2
+ - SGMII on Slot 3
+ - NULL on Slot 4
+ - NULL on Slot 5
+ - NULL on Slot 6
+ - NULL on Slot 7
+ - SERDES Protocol is 0x6B.
+
+BIN   Core/Platform/DDR
+Bin1: 1800MHz/666MHz/2133MT/s
+Bin2: 1533MHz/600MHz/2133MT/s
+Bin3: 1200MHz/533MHz/1600MT/s
+
