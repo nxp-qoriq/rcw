@@ -1,0 +1,31 @@
+/*
+ * Errata A-007662 : For x1 link width, PCIe2 controller trains in Gen1 speed
+ * while configured for Gen2 speed
+
+ * Description:
+ * Gen2 speed for SerDes lanes is configured through RCW[SRDS_DIV_PEX]=0b0x
+ * SerDes protocol selection is through RCW[SRDS_PRTCL_S1]
+ * SerDes Protocols {0x08, 0x06, 0xaa, 0xa7, 0x87, 0x86, 0x89, 0x8d, 0x67, 0x66 and 0x69}
+ * expect PCIe2 controller to train in Gen2 speed, instead it trains in Gen1 speed.
+ *
+ * Impact:
+ * For affected SerDes protocols, PCIe 2 controller might not work in Gen2 speed.
+ *
+ *
+ *
+ * Workaround:
+ *
+ * When using PBI
+ * 1)Set the width to x1 by
+ *	- write CCSRBAR + 0x250000 + 0x100 = 0x400
+ * 2)Set the speed to Gen2 by
+ *	- write CCSRBAR + 0x250000 + 0x108 = 0x2000
+ *
+ * The workaround applies to both EP and RC modes.
+ */
+
+.pbi
+// Erratum A-007662
+write 0x250100, 0x400
+write 0x250108, 0x2000
+.end
