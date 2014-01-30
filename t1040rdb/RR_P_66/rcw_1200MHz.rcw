@@ -57,3 +57,5 @@ L1VDD_VSEL=1
 LVDD_VSEL=1
 DMA1=3
 DMA2=3
+
+#include "../../t1040si/enable_MDC.rcw"
