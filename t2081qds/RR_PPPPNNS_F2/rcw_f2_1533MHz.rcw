@@ -1,0 +1,64 @@
+/*
+ * T2081QDS RCW for SerDes Protocol 0xF2
+ *
+ * 6G configuration -- 2 RGMII + 4 SGMII(slot7) + 4 PCIe (PCIe1/2/3/4)
+ *
+ * Frequencies:
+ *
+ * SYSCLK: 66.66 MHz        (SW3[1:4] = 0000)
+ * DDRCLK: 133.33MHz	    (SW3[5:6] = 11)
+ * SD1_REF1 CLK: 156.25 MHz (SW4[1:2] = 10)
+ * SD1_REF2 CLK: 100 MHz    (SW4[3:4] = 11)
+ * SD2_REF1 CLK: 100 MHz    (SW4[5:6] = 11)
+ * SD2_REF2 CLK: 100 MHz    (SW4[7:8] = 11)
+ *
+ * Core -- 1533 MHz (Mul 23)
+ * Platform -- 600 MHz (Mul 9)
+ * DDR -- 933 MHz (1866 MT/s) (Mul 14)
+ * FMAN -- 700 MHz (HWA_CGA_M1_CLK_SEL=6)
+ *
+ * RGMII1: MAC3
+ * RGMII2: MAC4
+ * XFI:    NULL
+ *
+ * Slot  Card
+ * 1     PCIe4 x1 (8/5/2.5 Gbps)
+ * 2     PCIe3 x1 (5/2.5 Gbps)
+ * 3     PCIe2 x1 (5/2.5 Gbps)
+ * 4     PCIe1 x1 (5/2.5 Gbps)
+ * 5     NULL
+ * 6     NULL
+ * 7     SGMII x4
+ *
+ * PBI source is NOR
+ */
+
+#include <../t2080qds/t2080.rcwi>
+
+SYS_PLL_RAT=9
+MEM_PLL_RAT=16
+CGA_PLL1_RAT=23
+CGA_PLL2_RAT=21
+HWA_CGA_M1_CLK_SEL=6
+HWA_CGA_M2_CLK_SEL=4
+FM_MAC_RAT=1
+SRDS_PRTCL_S1=0xf2
+SRDS_PLL_REF_CLK_SEL_S1=0
+SRDS_DIV_PEX_S1=2
+PBI_SRC=14
+BOOT_LOC=24
+IFC_MODE=39
+DRAM_LAT=1
+UART_BASE=6
+IRQ_BASE=511
+
+
+.pbi
+/*
+ *  This Errata is slowing down the MDC clock to make it <= 2.5 MHZ
+ *  The default value of MDIO_CLK_DIV will generate MDC too high violating
+ *  the IEEE specs  much higher than 2.5MHz.
+ */
+write 0x4fc030, 0x00008148
+write 0x4fd030, 0x00008148
+.end
