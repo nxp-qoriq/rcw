@@ -1,0 +1,16 @@
+The RCW directories names for the T2080RDB board
+conforming to the following naming convention:
+
+abcdef_g_h_i (default RRFFXX_P_66_16) nomenclature means:
+a   = 'R'  indicates RGMII1 @ DTSEC3 is supported
+b   = 'R'  indicates RGMII2 @ DTSEC4 is supported
+c,d = 'F'  indicates 10G SFP+ fiber ports are supported
+e,f = 'X'  indicates 10G Base-T copper ports are supported
+g   = 'P'  indicates PCIe1 x4 in the PCI slot
+h   = '66' indicates SerDes1 protocol 0x66
+i   = '16' indicates SerDes2 protocol 0x16
+
+Default Core/Platform/DDR = 1533MHz/600MHz/1600MT/s
+User can change the RCW configuraton for different frequency
+according to actual requirements.
+
