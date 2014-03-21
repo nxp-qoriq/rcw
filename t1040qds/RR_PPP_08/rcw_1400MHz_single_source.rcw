@@ -55,5 +55,4 @@ EVDD_VSEL=2
 DMA1=3
 DMA2=3
 
-#include "../../t1040si/enable_MDC.rcw"
 #include "../../t1040si/a007662.rcw"
