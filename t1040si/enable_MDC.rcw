@@ -1,8 +1,0 @@
-/*
- *  The The default value of MDIO_CLK_DIV field in MDIO_CFG is 0, thereby disabling MDC.
- *  So, enable the MDC clock.
- */
-
-.pbi
-write 0x4fc030,	0x00008148
-.end
