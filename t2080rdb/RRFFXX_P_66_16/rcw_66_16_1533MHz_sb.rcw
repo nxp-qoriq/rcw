@@ -1,0 +1,67 @@
+/*
+ * T2080RDB RCW for SerDes Protocol PRTCL_S1=0x66, PRTCL_S2=0x16
+ *
+ * 42G configuration:
+ *     - 2 RGMII ports
+ *     - 2 10G SFP+ ports
+ *     - 2 10G Base-T ports
+ *
+ * Frequencies:
+ *
+ * SYSCLK: 66.66 MHz
+ * DDRCLK: 133.33 MHz
+ * SD1_REF1 CLK: 156.25 MHz
+ * SD1_REF2 CLK: 100 MHz
+ * SD2_REF1 CLK: 100 MHz
+ * SD2_REF2 CLK: 100 MHz
+ *
+ * Core -- 1533 MHz (Mul 23)
+ * Platform -- 600 MHz (Mul 9)
+ * DDR -- 800 MHz (1600 MT/s) (Mul 12)
+ * FMAN -- 700 MHz (HWA_CGA_M1_CLK_SEL=6)
+ *
+ * RGMII1: MAC3
+ * RGMII2: MAC4
+ * 10G SFP+ ports:   MAC9 and MAC10
+ * 10G Base-T ports: MAC1 and MAC2
+ * SATA: SATA1 and SATA2
+ * PCIe1 x4 in the PCI Slot
+ *
+ */
+
+#include <../t2080qds/t2080.rcwi>
+
+SYS_PLL_RAT=9
+MEM_PLL_RAT=12
+CGA_PLL1_RAT=23
+CGA_PLL2_RAT=21
+HWA_CGA_M1_CLK_SEL=6
+HWA_CGA_M2_CLK_SEL=4
+FM_MAC_RAT=1
+SRDS_PRTCL_S1=0x66
+SRDS_PRTCL_S2=0x16
+SRDS_PLL_REF_CLK_SEL_S1=0
+SRDS_PLL_REF_CLK_SEL_S2=0
+SRDS_DIV_PEX_S1=0
+SRDS_DIV_PEX_S2=0
+HOST_AGT_PEX=7
+PBI_SRC=14
+BOOT_HO=0
+SB_EN=1
+BOOT_LOC=24
+IFC_MODE=39
+DRAM_LAT=1
+UART_BASE=6
+IRQ_BASE=511
+
+.pbi
+/*
+ *  This Errata is slowing down the MDC clock to make it <= 2.5 MHZ
+ *  The default value of MDIO_CLK_DIV will generate MDC too high violating
+ *  the IEEE specs  much higher than 2.5MHz.
+ */
+write 0x4fc030, 0x00008148
+write 0x4fd030, 0x00008148
+.end
+
+#include <secure_boot_pbi.rcw>
