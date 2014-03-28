@@ -1,0 +1,68 @@
+/*
+ * RCW for 4x SGMII + 6 lane CPRI + 4 lane SRIO and two XFI
+ * SerDes 1 option 2Ah (two sgmii and 6 CPRI lanes)
+ * SerDes 2 option 8Dh (four lane SRIOs @5/2.5G, Two SGMII @1.25G and two XFI)
+ *
+ * DDR1_CLK = DDR2_CLK = 133.333 MHz
+ *
+ * Frequencies :
+ * Core e6500	: 1600 MHz
+ * Core SC3900	: 1200 MHz
+ * DDR		: 1866 MHz
+ * Platform	: 667 MHz
+ * FMAN	: 667 MHz
+ * MAPLE/CPRI	: 600 MHz
+ * MAPLE eTVPE	: 1000 MHz
+ * MAPLE ULB	: 800 MHz
+ *
+ */
+
+#include <b4860.rcwi>
+
+SYS_PLL_RAT=10
+MEM_PLL_RAT=14
+CGA_PLL1_RAT=24
+CGA_PLL2_RAT=15
+CGB_PLL1_RAT=18
+CGB_PLL2_RAT=24
+SRDS_PRTCL_S1=42
+SRDS_PRTCL_S2=122
+SRDS_PLL_REF_CLK_SEL_S1=2
+SRDS_PLL_REF_CLK_SEL_S2=2
+SRDS_DIV_AURORA=1
+SRDS_DIV_CPRI_G1=1
+PBI_SRC=0b1101
+BOOT_LOC=24
+IFC_MODE=37
+HWA_CGA_M1_CLK_SEL=5
+HWA_CGB_M1_CLK_SEL=2
+DRAM_LAT=1
+RIO_SYS_SIZE=1
+UART_BASE=3
+RTC=1
+SDHC_BASE=1
+IRQ_BASE=126
+I2C3=1
+I2C4=1
+DMA1=4
+HWA_CGB_M2_CLK_SEL=2
+HWA_CGA_M2_CLK_SEL=1
+
+#include "../a005756.rcw"
+#include "../a005600.rcw"
+
+// Erratum 005600: Protocol specific PBI commands
+.pbi
+// Workaround for SGMII lanes incorrect settings
+write 0x0ea820, 0x39008000
+write 0x0ea860, 0x39008000
+write 0x0eb920, 0x39008000
+write 0x0eb960, 0x39008000
+
+// Workaround for XFI lanes incorrect settings
+write 0x0eb990, 0x1000045F
+write 0x0eb9D0, 0x1000045F
+.end
+
+#include "../a006031.rcw"
+#include "../slow_mdio_clock.rcw"
