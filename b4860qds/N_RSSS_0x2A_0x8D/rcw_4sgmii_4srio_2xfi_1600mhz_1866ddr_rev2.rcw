@@ -64,5 +64,6 @@ write 0x0eb990, 0x1000045F
 write 0x0eb9D0, 0x1000045F
 .end
 
+#include "../a007837.rcw"
 #include "../a006031.rcw"
 #include "../slow_mdio_clock.rcw"
