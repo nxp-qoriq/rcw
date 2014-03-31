@@ -1,0 +1,26 @@
+/*
+ * Work-around for erratum A-007837.
+ *
+ * Description:
+ * SRIO supports training to 4x, 2x, and 1x port width modes
+ * when the port is configured as 4x.
+ * However, allowing 2x training in a 4x configuration may cause
+ * 4x training to fail, resulting in downtraining to 2x mode of operation
+ *
+ * Impact:
+ * Without the workaround, SRIO ports configured as 4x may downtrain to
+ * 2x even in the absence of link errors.With the workaround, SRIO ports
+ * configured as 4x that are unable to train to 4x because of link
+ * errors downtrain to 1x.
+ *
+ * The work-around should be applied to all SRIO SerDes lanes/ports.
+ * Workaround is to write to SRIO_PnCCSR[PWO] = 110
+ *
+ */
+
+.pbi
+// PBI commands to explicitely disabling 2x mode
+// and enabling 4x mode by writing PWO to 110
+write 0x0c015c, 0xD6620001
+write 0x0c017c, 0xD6620001
+.end
