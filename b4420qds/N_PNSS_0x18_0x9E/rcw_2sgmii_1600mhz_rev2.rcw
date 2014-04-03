@@ -1,0 +1,64 @@
+/*
+ * RCW for 2 x SGMII + 4 lane PCIe
+ * SerDes 1 option 18h (two sgmii)
+ * SerDes 2 option 9Eh (four lane PCIe @5/2.5G)
+ *
+ * DDR1_CLK = DDR2_CLK = 133.333 MHz
+ *
+ * Frequencies	:
+ * Core e6500	: 1600 MHz
+ * Core SC3900	: 1200 MHz
+ * DDR		: 1600 MHz
+ * Platform	: 667 MHz
+ * FMAN		: 667 MHz
+ *
+ */
+
+#include <b4420.rcwi>
+
+SYS_PLL_RAT=10
+MEM_PLL_RAT=0
+MEM_PLL_RAT_RESV=12
+CCA_PLL1_RAT=24
+CCA_PLL2_RAT=15
+CCB_PLL1_RAT=18
+CCB_PLL2_RAT=24
+SRDS_PRTCL_S1=23
+SRDS_PRTCL_S2=157
+SRDS_PLL_REF_CLK_SEL_S1=1
+SRDS_PLL_REF_CLK_SEL_S2=0
+SRDS_DIV_CPRI_G1=1
+SRDS_DIV_PEX=1
+PBI_SRC=0b1110
+BOOT_LOC=24
+IFC_MODE=37
+HWA_CGA_M1_CLK_SEL=5
+HWA_CGB_M1_CLK_SEL=2
+DRAM_LAT=1
+UART_BASE=7
+RTC=1
+SDHC_BASE=1
+I2C3=1
+I2C4=1
+DMA1=4
+HWA_CGB_M2_CLK_SEL=2
+HWA_CGA_M2_CLK_SEL=1
+
+#include "../a005756.rcw"
+#include "../a005600.rcw"
+
+// Erratum 005600: Protocol specific PBI commands
+.pbi
+// Workaround for SGMII lanes incorrect settings
+write 0x0ea8A0, 0x39008000
+write 0x0ea8E0, 0x39008000
+
+// Workaround for PCIe lanes incorrect settings
+write 0x0eb804, 0x004C0091
+write 0x0eb844, 0x004C0091
+write 0x0eb884, 0x004C0091
+write 0x0eb8C4, 0x004C0091
+.end
+
+#include "../a006031.rcw"
+#include "../slow_mdio_clock.rcw"
