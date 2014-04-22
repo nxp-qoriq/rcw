@@ -64,5 +64,3 @@ GP_INFO=3992977646
 UART_BASE=6
 IRQ_BASE=511
 HWA_CGB_M2_CLK_SEL=5
-
-#include "../slow_mdio_clock.rcw"
