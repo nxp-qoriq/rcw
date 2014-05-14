@@ -1,7 +1,7 @@
 /*
- * T4240QDS RCW for SerDes[1:4] Protocol 1, 28, 6, 12
+ * T4240QDS RCW for SerDes[1:4] Protocol 1, 1, 5, 5
  *
- * 29G configuration -- 2 RGMII + 7 SGMII + 2 XAUI
+ * 42G configuration -- 2 RGMII + 4 XAUI
  *
  * Frequencies:
  *
@@ -21,12 +21,12 @@
  * Slot  Card
  * 1     XAUI
  * 2     XAUI
- * 3     SGMII
- * 4     SGMII
+ * 3     XAUI
+ * 4     XAUI
  * 5     PCIe1 x4 EP Mode
  * 6     SRIO x4
  * 7     PCIe3 x4 EP Mode
- * 8     none
+ * 8     SRIO  x4
  *
  * RGMII1: FM1@MAC5
  * RGMII2: FM2@MAC5
@@ -34,6 +34,6 @@
  * PBI source is NOR.
  */
 
-#include "rcw_1_28_6_12_1666MHz_rev2.rcw"
+#include "rcw_1_1_5_5_1666MHz_rev2.rcw"
 
 HOST_AGT_PEX=3

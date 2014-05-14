@@ -1,7 +1,7 @@
 /*
- * T4240QDS RCW for SerDes[1:4] Protocol 1, 1, 6, 6
+ * T4240QDS RCW for SerDes[1:4] Protocol 1, 37, 5, 11
  *
- * 42G configuration -- 2 RGMII + 4 XAUI
+ * 29G configuration -- 2 XAUI + 2 QSGMII + 2 RGMII
  *
  * Frequencies:
  *
@@ -21,12 +21,12 @@
  * Slot  Card
  * 1     XAUI
  * 2     XAUI
- * 3     XAUI
- * 4     XAUI
+ * 3     QSGMII
+ * 4     QSGMII
  * 5     PCIe1 x4
  * 6     SRIO x4
  * 7     PCIe3 x4
- * 8     SRIO  x4
+ * 8     none
  *
  * RGMII1: FM1@MAC5
  * RGMII2: FM2@MAC5
@@ -44,20 +44,18 @@ CGA_PLL3_RAT=16
 CGB_PLL1_RAT=25
 CGB_PLL2_RAT=22
 SRDS_PRTCL_S1=1
-SRDS_PRTCL_S2=1
-SRDS_PRTCL_S3=6
-SRDS_PRTCL_S4=6
+SRDS_PRTCL_S2=37
+SRDS_PRTCL_S3=5
+SRDS_PRTCL_S4=11
+SRDS_PLL_REF_CLK_SEL_S2=3
 SRDS_PLL_PD_S1=1
 SRDS_PLL_PD_S2=1
 SRDS_PLL_PD_S3=1
-SRDS_PLL_PD_S4=1
 SRDS_DIV_PEX_S3=2
 SRDS_DIV_AURORA_S4=1
 SRDS_DIV_PEX_S4=2
 PBI_SRC=14
 BOOT_LOC=24
-BOOT_HO=0
-SB_EN=0
 IFC_MODE=32
 HWA_CGA_M1_CLK_SEL=7
 HWA_CGB_M1_CLK_SEL=5
@@ -66,5 +64,3 @@ GP_INFO=3992977646
 UART_BASE=6
 IRQ_BASE=511
 HWA_CGB_M2_CLK_SEL=5
-
-#include <secure_boot_pbi.rcw>
