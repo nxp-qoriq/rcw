@@ -1,21 +1,23 @@
 /*
- * T2080QDS RCW for SerDes Protocol PRTCL_S1=0x6C, PRTCL_S2=0x16
+ * T2080QDS RCW for SerDes Protocol PRTCL_S1=0x6C, PRTCL_S2=0x2D
  *
  * 24G configuration -- 2 RGMII + 2 SGMII + 2 XFI
  *
+ * set SW9[1:2] = '11' to change VDD to 1.050V when core frequency is 1.8GHz.
+ *
  * Frequencies:
  *
- * SYSCLK: 66.66 MHz        (SW3[1:4] = 0000)
+ * SYSCLK: 100 MHz          (SW3[1:4] = 0010)
  * DDRCLK: 133.33MHz        (SW3[5:6] = 11)
  * SD1_REF1 CLK: 156.25 MHz (SW4[1:2] = 10)
  * SD1_REF2 CLK: 100 MHz    (SW4[3:4] = 11)
  * SD2_REF1 CLK: 100 MHz    (SW4[5:6] = 11)
  * SD2_REF2 CLK: 100 MHz    (SW4[7:8] = 11)
  *
- * Core -- 1533 MHz (Mul 23)
- * Platform -- 600 MHz (Mul 9)
- * DDR -- 1066.7 MHz (2133 MT/s) (Mul 16)
- * FMAN -- 700 MHz (HWA_CGA_M1_CLK_SEL=6)
+ * Core -- 1800 MHz (Mul 18)
+ * Platform -- 700 MHz (Mul 7)
+ * DDR -- 1066.6 MHz (2133 MT/s) (Mul 16)
+ * FMAN -- 700 MHz (HWA_CGA_M1_CLK_SEL=6) (CGA PLL2 divided by 2)
  *
  * RGMII1: MAC3
  * RGMII2: MAC4
@@ -35,14 +37,14 @@
 
 #include <t2080.rcwi>
 
-SYS_PLL_RAT=9
+SYS_PLL_RAT=7
 MEM_PLL_RAT=16
-CGA_PLL1_RAT=23
-CGA_PLL2_RAT=21
+CGA_PLL1_RAT=18
+CGA_PLL2_RAT=14
 HWA_CGA_M1_CLK_SEL=6
 HWA_CGA_M2_CLK_SEL=4
 FM_MAC_RAT=1
-SRDS_PRTCL_S1=0x6d
+SRDS_PRTCL_S1=0x6c
 SRDS_PRTCL_S2=0x2d
 SRDS_PLL_REF_CLK_SEL_S1=0
 SRDS_PLL_REF_CLK_SEL_S2=0
