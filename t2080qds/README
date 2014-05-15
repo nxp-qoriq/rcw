@@ -28,7 +28,7 @@ For the srds_prtcl (k,l):
 k = 'hex value of serdes1 protocol value'
 l = 'hex value of serdes2 protocol value'
 
-So RR_PNNPPH_66_16 means:
+So RR_PNNPPH_66_15 means:
  - RGMII1@DTSEC3 on board
  - RGMII2@DTSEC4 on board
  - PCIe4 on Slot 1
@@ -37,10 +37,10 @@ So RR_PNNPPH_66_16 means:
  - PCIe1 on Slot 4
  - PCIe2 on Slot 5
  - SATA is available
- - SERDES1 Protocol is 0x66 and SERDES2 Protocol is 0x16.
+ - SERDES1 Protocol is 0x66 and SERDES2 Protocol is 0x15.
 
 BIN   Core/Platform/DDR
-Bin1: 1800MHz/666MHz/2133MT/s
+Bin1: 1800MHz/700MHz/2133MT/s
 Bin2: 1533MHz/600MHz/1867MT/s
 Bin3: 1200MHz/533MHz/1600MT/s
 
