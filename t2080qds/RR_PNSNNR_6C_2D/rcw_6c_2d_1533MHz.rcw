@@ -54,3 +54,5 @@ IFC_MODE=39
 DRAM_LAT=1
 UART_BASE=6
 IRQ_BASE=511
+
+#include "../../a007837.rcw"
