@@ -67,4 +67,6 @@ UART_BASE=6
 IRQ_BASE=511
 HWA_CGB_M2_CLK_SEL=5
 
+#include "../../a007837.rcw"
+
 #include <secure_boot_pbi.rcw>
