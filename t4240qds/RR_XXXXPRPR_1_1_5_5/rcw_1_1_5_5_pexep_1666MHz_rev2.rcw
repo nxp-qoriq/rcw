@@ -37,3 +37,5 @@
 #include "rcw_1_1_5_5_1666MHz_rev2.rcw"
 
 HOST_AGT_PEX=3
+
+#include "../../a007837.rcw"
