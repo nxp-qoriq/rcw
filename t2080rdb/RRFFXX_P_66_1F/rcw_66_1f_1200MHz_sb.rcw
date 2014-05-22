@@ -1,12 +1,12 @@
 /*
- * T2080RDB RCW for SerDes Protocol PRTCL_S1=0x66, PRTCL_S2=0x15
+ * T2080RDB RCW for SerDes Protocol PRTCL_S1=0x66, PRTCL_S2=0x1F
  *
  * 42G configuration:
  *     - 2 RGMII ports
  *     - 2 10G SFP+ ports
  *     - 2 10G Base-T ports
  *
- * PEX4 Gen3 x4(slot) + PEX1 Gen2 x4(finger) + PEX2 Gen2 x2(C293) + SATA x2
+ * PEX4 Gen3 x4(slot) + PEX1 Gen3 x4(finger) + PEX2 Gen2 x2(C293), no SATA
  *
  * Frequencies:
  *
@@ -17,7 +17,7 @@
  * SD2_REF1 CLK: 100 MHz
  * SD2_REF2 CLK: 100 MHz
  *
- * Core -- 1800 MHz (Mul 27)
+ * Core -- 1200 MHz (Mul 18)
  * Platform -- 600 MHz (Mul 9)
  * DDR -- 800 MHz (1600 MT/s) (Mul 12)
  * FMAN -- 700 MHz (HWA_CGA_M1_CLK_SEL=6)
@@ -35,13 +35,13 @@
 
 SYS_PLL_RAT=9
 MEM_PLL_RAT=12
-CGA_PLL1_RAT=27
+CGA_PLL1_RAT=18
 CGA_PLL2_RAT=21
 HWA_CGA_M1_CLK_SEL=6
 HWA_CGA_M2_CLK_SEL=4
 FM_MAC_RAT=1
 SRDS_PRTCL_S1=0x66
-SRDS_PRTCL_S2=0x15
+SRDS_PRTCL_S2=0x1f
 SRDS_PLL_REF_CLK_SEL_S1=0
 SRDS_PLL_REF_CLK_SEL_S2=0
 SRDS_DIV_PEX_S1=0
@@ -55,5 +55,10 @@ IFC_MODE=39
 DRAM_LAT=1
 UART_BASE=6
 IRQ_BASE=511
+
+.pbi
+//errata A-007186 for serdes2=0x1F, set SRDS2PLL2CR1=0x80004100
+write 0x0eb028, 0x80004100
+.end
 
 #include <secure_boot_pbi.rcw>
