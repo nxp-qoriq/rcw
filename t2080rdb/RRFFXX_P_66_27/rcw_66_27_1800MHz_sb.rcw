@@ -1,12 +1,12 @@
 /*
- * T2080RDB RCW for SerDes Protocol PRTCL_S1=0x66, PRTCL_S2=0x15
+ * T2080RDB RCW for SerDes Protocol PRTCL_S1=0x66, PRTCL_S2=0x27
  *
  * 42G configuration:
  *     - 2 RGMII ports
  *     - 2 10G SFP+ ports
  *     - 2 10G Base-T ports
  *
- * PEX4 Gen3 x4(slot) + PEX1 Gen2 x4(finger) + PEX2 Gen2 x2(C293) + SATA x2
+ * PEX4 Gen3 x4(slot) + PEX1 Gen2 x4(finger) + SATA x2, no C293
  *
  * Frequencies:
  *
@@ -41,7 +41,7 @@ HWA_CGA_M1_CLK_SEL=6
 HWA_CGA_M2_CLK_SEL=4
 FM_MAC_RAT=1
 SRDS_PRTCL_S1=0x66
-SRDS_PRTCL_S2=0x15
+SRDS_PRTCL_S2=0x27
 SRDS_PLL_REF_CLK_SEL_S1=0
 SRDS_PLL_REF_CLK_SEL_S2=0
 SRDS_DIV_PEX_S1=0

@@ -6,6 +6,8 @@
  *     - 2 10G SFP+ ports
  *     - 2 10G Base-T ports
  *
+ * PEX4 Gen3 x4(slot) + PEX1 Gen2 x4(finger) + PEX2 Gen2 x2(C293) + SATA x2
+ *
  * Frequencies:
  *
  * SYSCLK: 66.66 MHz
@@ -25,7 +27,7 @@
  * 10G SFP+ ports:   MAC9 and MAC10
  * 10G Base-T ports: MAC1 and MAC2
  * SATA: SATA1 and SATA2
- * PCIe1 x4 in the PCI Slot
+ * PCIe4 x4 in the PCI Slot
  *
  */
 
@@ -44,7 +46,7 @@ SRDS_PLL_REF_CLK_SEL_S1=0
 SRDS_PLL_REF_CLK_SEL_S2=0
 SRDS_DIV_PEX_S1=0
 SRDS_DIV_PEX_S2=0
-HOST_AGT_PEX=7
+HOST_AGT_PEX=4
 PBI_SRC=14
 BOOT_HO=0
 SB_EN=1
