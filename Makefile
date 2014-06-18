@@ -2,7 +2,7 @@ DESTDIR = .
 BOARDS = b4420qds b4860qds \
 	 ls1021aqds ls1021atwr \
 	 p2041rdb p3041ds p4080ds p5020ds p5040ds \
-	 t1040rdb t1042rdb_pi t1040qds t2080rdb t2080qds t2081qds t4240qds t4240rdb
+	 t1040rdb t1042rdb t1042rdb_pi t1040qds t2080rdb t2080qds t2081qds t4240qds t4240rdb
 
 VER = $(shell git describe --tags)
 
