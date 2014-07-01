@@ -15,7 +15,7 @@
  * SD2_REF2 CLK: 100 MHz    (SW4[7:8] = 11)
  *
  * Core -- 1800 MHz (Mul 18)
- * Platform -- 700 MHz (Mul 7)
+ * Platform -- 600 MHz (Mul 6)
  * DDR -- 933 MHz (1866 MT/s) (Mul 14)
  * FMAN -- 700 MHz (HWA_CGA_M1_CLK_SEL=6, CGA PLL2 divided by 2)
  *
@@ -37,8 +37,8 @@
 
 #include <t2080.rcwi>
 
-SYS_PLL_RAT=7
-MEM_PLL_RAT=16
+SYS_PLL_RAT=6
+MEM_PLL_RAT=14
 CGA_PLL1_RAT=18
 CGA_PLL2_RAT=14
 HWA_CGA_M1_CLK_SEL=6
