@@ -256,6 +256,7 @@ def build_pbi_uboot(lines):
 # Build a PBI section
 def build_pbi(lines):
     subsection = ''
+    global vars
 
     for l in lines:
         # Check for an instruction without 0-2 parameters
@@ -273,7 +274,7 @@ def build_pbi(lines):
             if p1 == None:
                 print 'Error: "wait" instruction requires one parameter'
                 return ''
-            subsection += struct.pack('>LL', 0x091380c0, p1)
+            subsection += struct.pack('>LL', 0x090000c0 |  int(vars['pbladdr'], 16), p1)
         elif op == 'write':
             if p1 == None or p2 == None:
                 print 'Error: "write" instruction requires two parameters'
@@ -285,7 +286,7 @@ def build_pbi(lines):
                 return ''
             subsection += struct.pack('>LL', 0x89000000 + p1, p2)
         elif op == 'flush':
-            subsection += struct.pack('>LL', 0x09138000, 0)
+            subsection += struct.pack('>LL', 0x09000000 | int(vars['pbladdr'], 16), 0)
         else:
             print 'Unknown PBI subsection command "%s"' % l
             return ''
@@ -490,7 +491,7 @@ def create_binary():
 
     # Add the end-command
     if options.pbl:
-        binary += binascii.unhexlify('08138040')
+        binary += binascii.unhexlify('08'+vars['pbladdr'][0:3]+'040')
 
         # Calculate and add the CRC
         crc = crc32(binary) & 0xffffffff
@@ -566,7 +567,7 @@ command_line()
 
 symbols = {}
 assignments = {}
-vars = {}
+vars = {'pbladdr':'138000'}
 pbi = ''
 
 if options.reverse:
