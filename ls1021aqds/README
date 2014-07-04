@@ -1,0 +1,57 @@
+The RCW directories names for the LS1021AQDS boards conform to the following
+naming convention:
+
+
+abc_def_gh_i:
+
+a = What is available @eTSEC1
+b = What is available @eTSEC2
+c = What is available @eTSEC3
+
+For the eTSEC
+ 'R' indicates RGMII@eTSEC is supported
+ 'N' if not available/not used
+
+d = What is available in slot1
+e = What is available in slot2
+f = What is available in slot3
+
+For the Slots:
+ 'P' if PCIe
+ 'S' if SGMII
+
+g = 'S' indicates sata0 is supported /
+	'N' if not available/not used
+h = 'S' indicates sata1 is supported /
+	'N' if not available/not used
+
+
+For the srds_prtcl:
+i = 'hex value of serdes1 protocol value'
+
+Note: For serdes protocol 0x60, RGMII@EC3,
+So NNR_PSS_NN_60 means:
+ - RGMII@EC3
+ - PCIe*2 on slot 1
+ - SGMII1 on slot 2
+ - SGMII2 on slot 3
+ - SERDES1 Protocol is 0x60
+
+Files naming convention
+=============================
+
+rcw_x.rcw
+rcw_x_bootmode.rcw
+rcw_x_specialsetting.rcw
+x = Core frequency
+bootmode = bootmode:SD/NAND/NOR and so on.
+specialsetting = special setting:
+			LETECH is used for LETECH
+			sben:Secure boot
+
+For example,
+	rcw_1000.rcw means rcw for core frequency of 1000MHz with nor boot.
+
+	rcw_1000_sd.rcw means rcw for core frequency of 1000MHz with sd boot.
+
+	rcw_1000_letech.rcw means rcw for core frequency of 1000MHz with nor boot special for LETECH.
