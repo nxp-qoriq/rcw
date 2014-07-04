@@ -1,0 +1,11 @@
+/*
+ * PBI Commands for LS1021AQDS and LS1021ATWR.
+ */
+
+.pbi
+// Workaround for PCIE link training
+write 0x570200, 0xffffffff
+write 0x570158, 0x00000300
+write 0x570200, 0
+awrite 0x40007c, 0x21f47300
+.end

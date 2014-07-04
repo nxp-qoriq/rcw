@@ -1,0 +1,8 @@
+/*
+ * PBI Commands for LS1021AQDS and LS1021ATWR.
+ */
+
+.pbi
+// Workaround for u-boot address.
+write 0xee0200, 0x67f80000
+.end
