@@ -14,7 +14,7 @@
  *
  * Core -- 1533 MHz (Mul 23)
  * Platform -- 600 MHz (Mul 9)
- * DDR -- 1066.7 MHz (2133 MT/s) (Mul 16)
+ * DDR -- 933 MHz (1867 MT/s) (Mul 14)
  * FMAN -- 700 MHz (HWA_CGA_M1_CLK_SEL=6)
  *
  * RGMII1: MAC3
@@ -36,7 +36,7 @@
 #include <t2080.rcwi>
 
 SYS_PLL_RAT=9
-MEM_PLL_RAT=16
+MEM_PLL_RAT=14
 CGA_PLL1_RAT=23
 CGA_PLL2_RAT=21
 HWA_CGA_M1_CLK_SEL=6
