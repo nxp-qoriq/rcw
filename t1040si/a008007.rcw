@@ -1,0 +1,41 @@
+/*
+ * Errata A-008007 :  Processor Version Register (PVR) may show a random value
+ *
+ * Description:
+ * PVR (SPR 287) or DCFG_CCSR_PVR can return an invalid value when read
+ *
+ * Impact:
+ * PVR (SPR 287) or DCFG_CCSR_PVR cannot be used to determine the e5500
+ * core version
+ *
+ * Workaround:
+ *
+ * Implement following in PBI sequence
+ * 1)Using PBI commands, create a LAW for DCSR space with target ID = 0x1D
+ *   using alternate configuration space registers (ALTCBARH, ALTCBARL and
+ *   ALTCAR).
+ * e.g.:
+ * 	a)set ALTCBARH to DCSR_BASE HIGH ADDR
+ *	 	write 0x00000010, 0x0000000b
+ *	b)set ALTCBARL to DCSR_BASE LOW ADDR
+ *		write 0x00000014, 0xc0000000
+ *	c)configure and enable alternate configuration window by writing to
+ *	  ALTCAR
+ *		write 0x00000018, 0x81d00017
+ *
+ * 2)Assume the base address of LAW, created in 1) is DCSR_BASE, using PBI
+ *   commands , set the following
+ *	a)DCSR_BASE + 0x20400 = 0xa1000000
+ *	b)WAIT
+ *	c)DCSR_BASE + 0x20400 = 0x00000000
+ */
+
+.pbi
+// Erratum A-008007
+write 0x00000010, 0x0000000b
+write 0x00000014, 0xc0000000
+write 0x00000018, 0x81d00017
+awrite 0x00020400, 0xa1000000
+write 0x001380c0, 0x000f0000
+awrite 0x00020400, 0x00000000
+.end

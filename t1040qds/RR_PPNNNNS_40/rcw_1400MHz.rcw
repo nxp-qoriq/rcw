@@ -26,7 +26,7 @@
  * RGMII1: FM1@MAC4
  * RGMII2: FM1@MAC5
  *
- * PBI source is I2C, the RCW also works for the PBI source as MMC or eSPI
+ * PBI source is IFC, the RCW also works for the PBI source as I2C, MMC or eSPI
  */
 
 #include <../t1040si/t1040.rcwi>
@@ -39,7 +39,7 @@ SRDS_PRTCL_S1=64
 FM1_MAC_RAT=1
 SRDS_PLL_PD_S1=1
 DDR_FDBK_MULT=2
-PBI_SRC=15
+PBI_SRC=14
 BOOT_LOC=24
 IFC_MODE=39
 DRAM_LAT=1
@@ -56,3 +56,5 @@ CVDD_VSEL=2
 EVDD_VSEL=2
 DMA1=3
 DMA2=3
+
+#include "../../t1040si/a008007.rcw"

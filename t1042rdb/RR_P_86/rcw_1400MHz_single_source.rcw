@@ -59,3 +59,4 @@ DMA1=3
 DMA2=3
 
 #include "../../t1040si/a007662.rcw"
+#include "../../t1040si/a008007.rcw"
