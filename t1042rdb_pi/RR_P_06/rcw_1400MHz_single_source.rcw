@@ -25,7 +25,7 @@
  * RGMII1: FM1@MAC4
  * RGMII2: FM1@MAC5
  *
- * PBI source is I2C, the RCW also works for the PBI source as MMC or eSPI
+ * PBI source is IFC, the RCW also works for the PBI source as I2C, MMC or eSPI
  */
 
 #include <../t1040si/t1040.rcwi>
@@ -59,3 +59,4 @@ DMA1=1
 DMA2=2
 
 #include "../../t1040si/a007662.rcw"
+#include "../../t1040si/a008007.rcw"
