@@ -1,5 +1,5 @@
 /*
- * LS1021AQDS RCW for SerDes Protocol 0x60
+ * LS1021ATWR RCW for SerDes Protocol 0x20
  *
  * 3G configuration -- 1 RGMII + 2 SGMII
  *
@@ -15,22 +15,21 @@
  * SGMII -- 125MHz
  * PCIE -- 100MHz
  *
- * Serdes Lanes vs Slot information
- * A PCIe1  : Slot 1
- * B PCIe1  : Slot 1
- * C SGMII1 : Slot 2
- * D SGMII2 : Slot 3
+ * Serdes Lanes information
+ * A PCIe*1
+ * B SGMII1
+ * C PCIe*1
+ * D SGMII2
  *
- * Secure boot mode
  *
  */
 
-#include <ls1021a.rcwi>
+#include <../ls1021aqds/ls1021a.rcwi>
 
 SYS_PLL_RAT=3
 MEM_PLL_RAT=8
 CGA_PLL1_RAT=10
-SRDS_PRTCL_S1=96
+SRDS_PRTCL_S1=32
 SRDS_PLL_PD_S1=1
 SRDS_DIV_PEX=1
 USB3_REFCLK_SEL=0
@@ -45,14 +44,19 @@ IFC_MODE=37
 DRAM_LAT=1
 SYS_PLL_SPD=1
 UART_BASE=7
+EC1=4
+EC2=2
 QE-TDMA=6
 QE-TDMB=6
 SDHC=3
 DVDD_VSEL=2
-LVDD_VSEL=1
+LVDD_VSEL=2
+EVDD_VSEL=2
+BVDD_VSEL=2
 SB_EN=1
 BOOT_HO=1
 
 #define PCIE1_ENABLED
-#include <pcie_link_training.rcw>
-#include <uboot_hdr_addr.rcw>
+#define PCIE2_ENABLED
+#include <../ls1021aqds/pcie_link_training.rcw>
+#include <../ls1021aqds/uboot_hdr_addr.rcw>
