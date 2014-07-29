@@ -56,3 +56,4 @@ EVDD_VSEL=2
 BVDD_VSEL=2
 
 #include <../ls1021aqds/pcie_link_training.rcw>
+#include <../ls1021aqds/uboot_address.rcw>
