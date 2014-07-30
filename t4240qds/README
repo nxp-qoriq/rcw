@@ -44,5 +44,17 @@ So RR_SSFSPRPH_28_56_8_12 means:
  - PCIe on Slot 7
  - SATA [Slot 8 not used]
 
+In Rev 1.0
 SERDES1 Protocol is 28 and the SERDES2 Protocol is 56.
 SERDES3 Protocol is 8 and the SERDES4 Protocol is 12.
+
+In Rev 2.0 (Errata A-007186):
+SERDES1 Protocol is 27 and the SERDES2 Protocol is 55.
+SERDES3 Protocol is 7 and the SERDES4 Protocol is 11.
+
+Under RR_XXSSPRPH_1_27_5_11 directory,
+rcw_1_28_6_12_*.rcw are used for rev 1.0.
+Under RR_XXXXPRPR_1_1_5_5 directory,
+rcw_1_1_6_6_*.rcw are used for rev 1.0.
+We don't create a separate directory because
+there are very few customers using rev 1.0 now.
