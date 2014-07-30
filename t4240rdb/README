@@ -1,7 +1,7 @@
 The RCW directories names for the T4240RDB board conform to the following
 naming convention:
 
-abcdefg_h_i_j_k (default SSFFPPH_28_56_2_10) means:
+abcdefg_h_i_j_k (default SSFFPPH_27_55_1_9) means:
 a   = 'S'  indicates FM1 @ DTSEC1 DTSEC2 DTSEC3 DTSEC4 ports are supported
 b   = 'S'  indicates FM2 @ DTSEC1 DTSEC2 DTSEC3 DTSEC4 ports are supported
 c   = 'F'  indicates FM1 @ TGEC1 TGEC2 SFP+ fiber ports are supported
@@ -9,8 +9,8 @@ d   = 'F'  indicates FM2 @ TGEC1 TGEC2 SFP+ fiber ports are supported
 e   = 'P'  indicates PCIe x8 in the PCI slot
 f   = 'P'  indicates PCIe x4 in the PCI slot
 g   = 'H'  indicates SATA port is supported
-h   = '28' indicates SerDes1 protocol 0x1c
-i   = '56' indicates SerDes2 protocol 0x38
-j   = '2'  indicates SerDes3 protocol 0x2
-k   = '10' indicates SerDes4 protocol 0xa
+h   = '27' indicates SerDes1 protocol 0x1B
+i   = '55' indicates SerDes2 protocol 0x37
+j   = '1'  indicates SerDes3 protocol 0x1
+k   = '9'  indicates SerDes4 protocol 0x9
 
