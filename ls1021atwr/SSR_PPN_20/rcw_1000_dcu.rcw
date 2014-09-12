@@ -21,6 +21,8 @@
  * C PCIe*1
  * D SGMII2
  *
+ * Since the DCU has pins confilict with UART,
+ * so the DCU will use the LPUART instead.
  *
  */
 
@@ -51,7 +53,7 @@ QE-TDMA=6
 QE-TDMB=6
 SDHC=3
 DVDD_VSEL=2
-LVDD_VSEL=2
+LVDD_VSEL=1
 EVDD_VSEL=2
 BVDD_VSEL=2
 
