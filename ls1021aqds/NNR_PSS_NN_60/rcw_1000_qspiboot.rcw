@@ -59,5 +59,7 @@ LVDD_VSEL=1
 // QSPI flash clock
 write 0x57015c, 0x00000803
 .end
+
+#define PCIE1_ENABLED
 #include <pcie_link_training.rcw>
 #include <uboot_address.rcw>
