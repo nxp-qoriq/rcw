@@ -6,7 +6,7 @@
  * Frequencies:
  * single source clocking
  * Sys Clock = DDR_Refclock: 100 MHz
- * SDREFCLK_FSEL: 100 MHz
+ * SDREFCLK_FSEL: 125 MHz
  *
  * Core -- 1400 MHz (Mul 14 )
  * Platform - 600 MHz (Mul 6)
@@ -35,6 +35,7 @@ CGA_PLL1_RAT=14
 CGA_PLL2_RAT=14
 SRDS_PRTCL_S1=167
 FM1_MAC_RAT=1
+SRDS_PLL_REF_CLK_SEL_S1=2
 DDR_REFCLK_SEL=1
 DDR_FDBK_MULT=2
 PBI_SRC=14
