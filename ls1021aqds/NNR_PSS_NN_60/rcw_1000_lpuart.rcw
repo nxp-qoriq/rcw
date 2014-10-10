@@ -6,12 +6,12 @@
  * Frequencies:
  *
  * Sys Clock: 100 MHz
- * DDR_Refclock: 66.67 MHz
+ * DDR_Refclock: 100 MHz
  * SDREFCLK_FSEL: 100 MHz
  *
  * Core -- 1000 MHz (Mul 10 )
  * Platform - 300 MHz (Mul 3)
- * DDR -- 667 MHz (Mul 10)
+ * DDR -- 800 MHz (Mul 8)
  * SGMII -- 100MHz
  * PCIE -- 100MHz
  *
@@ -21,14 +21,13 @@
  * C SGMII1 : Slot 2
  * D SGMII2 : Slot 3
  *
- * For LETECH DDR_Refclock should be 66.67 MHz.
  *
  */
 
 #include <ls1021a.rcwi>
 
 SYS_PLL_RAT=3
-MEM_PLL_RAT=10
+MEM_PLL_RAT=8
 CGA_PLL1_RAT=10
 SRDS_PRTCL_S1=96
 SRDS_PLL_PD_S1=1

@@ -6,12 +6,12 @@
  * Frequencies:
  *
  * Sys Clock: 100 MHz
- * DDR_Refclock: 66 MHz
+ * DDR_Refclock: 100 MHz
  * SDREFCLK_FSEL: 100 MHz
  *
  * Core -- 1000 MHz (Mul 10 )
  * Platform - 300 MHz (Mul 3)
- * DDR -- 660 MHz (Mul 10)
+ * DDR -- 800 MHz (Mul 8)
  * SGMII -- 125MHz
  * PCIE -- 100MHz
  *
@@ -22,13 +22,12 @@
  * D SGMII2
  *
  *
- * set DDR 660MHZ as 1300MT/s, Need the DDR_refcolck 66MHZ.
  */
 
 #include <../ls1021aqds/ls1021a.rcwi>
 
 SYS_PLL_RAT=3
-MEM_PLL_RAT=10
+MEM_PLL_RAT=8
 CGA_PLL1_RAT=10
 SRDS_PRTCL_S1=32
 SRDS_PLL_PD_S1=1
