@@ -54,3 +54,8 @@ For example,
 
 	rcw_1000MHz_single_source.rcw means rcw for core frequency of 1000MHz
 	having single clock source
+
+5*1G case for CISCO
+=============================
+Add rcw files for serdes protocol 0x86.
+This serdes configuration is only for CISCO T1042QDS/T1022QDS case.
