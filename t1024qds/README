@@ -1,0 +1,41 @@
+The RCW directories names for the T1024QDS board conforming to
+the following naming convention:
+
+ab_cdefg_h:
+
+a = 'R' indicates RGMII1@DTSEC3 is supported
+b = 'R' indicates RGMII2@DTSEC4 is supported
+    'N' indicates not available/not used
+
+c = What is available in Slot 1
+d = What is available in Slot 2
+e = What is available in Slot 3
+f = What is available in Slot 4
+g = What is available in Slot 5
+
+For the Slots (c..g):
+ 'N' is NULL, not available/not used
+ 'P' is PCIe
+ 'X' is XFI
+ 'S' is SGMII
+ 'Q' is QSGMII
+ 'H' is SATA
+ 'A' is AURORA
+
+For the srds_prtcl (h):
+h = 'hex value of serdes protocol value'
+
+So NR_NPSSS_6F  means:
+ - RGMII1@DTSEC3 not available
+ - RGMII2@DTSEC4 on board
+ - NULL  on Slot 1
+ - PCIe1 on Slot 2
+ - SGMII on Slot 3
+ - SGMII on Slot 4
+ - SGMII on Slot 5
+ - SERDES Protocol is 0x6F.
+
+BIN   Core/DDR/Platform/FMan clock frequency
+Bin1: 1400MHz/1600MT/s/400MHz/700MHz
+Bin2: 1200MHz/1600MT/s/400MHz/600MHz
+Bin3: 1000MHz/1600MT/s/400MHz/500MHz
