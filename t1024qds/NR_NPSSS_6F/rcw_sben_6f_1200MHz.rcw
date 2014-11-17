@@ -1,0 +1,58 @@
+/*
+ * T1024QDS RCW for SerDes Protocol 0x6F
+ *
+ * 7G configuration -- 2x 2.5G SGMII + 1x 1G SGMII + 1x 1G RGMII + 1x PCIex1
+ *
+ * Frequencies:
+ *
+ * Sys_Clock = DDR_Refclock = Diff_Sysclk = 100 MHz (SW2[4] = 0)
+ * SD1_REF1 CLK: 100 MHz (SW4[1:2] = 11)
+ * SD1_REF2 CLK: 125 MHz (SW4[3:4] = 01)
+ *
+ * Core -- 1200 MHz   (Mul 12)
+ * Platform - 400 MHz (Mul 4)
+ * DDR -- 1600 MT/s   (Mul 16)
+ * FMAN -- 600 MHz
+ *
+ * SerDes Lanes vs Slot information
+ * A PCIe1 x1:   Slot 2
+ * B SGMII 1G:   Slot 3
+ * C SGMII 2.5G: Slot 4
+ * D SGMII 2.5G: Slot 5
+ *
+ * RGMII1: MAC4
+ *
+ * This RCW is selecting DIU instead of QE-TDM.
+ *
+ */
+
+#include <t1024.rcwi>
+
+SYS_PLL_RAT=4
+MEM_PLL_RAT=16
+CGA_PLL1_RAT=12
+SRDS_PRTCL_S1=0x6f
+FM1_MAC_RAT=1
+DDR_FDBK_MULT=2
+PBI_SRC=14
+BOOT_LOC=24
+BOOT_HO=0
+SB_EN=1
+IFC_MODE=39
+DRAM_LAT=1
+UART_BASE=6
+IRQ_OUT=1
+IRQ_BASE=4
+DDR_REFCLK_SEL=1
+I2C4=3
+QE-TDMA=3
+QE-TDMB=3
+TVDD_VSEL=1
+L1VDD_VSEL=1
+LVDD_VSEL=1
+CVDD_VSEL=2
+EVDD_VSEL=2
+HWA_CGA_M1_CLK_SEL=1
+HWA_CGA_M2_CLK_SEL=6
+
+#include <../t1024rdb/secure_boot_pbi.rcw>
