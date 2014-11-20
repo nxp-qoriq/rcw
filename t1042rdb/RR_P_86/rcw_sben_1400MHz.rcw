@@ -1,0 +1,66 @@
+/*
+ * T1042RDB RCW for SerDes Protocol 0x86
+ *
+ * 3G configuration -- 2 RGMII + 1 SGMII
+ *
+ * Frequencies:
+ *
+ * Sys Clock: 100 MHz
+ * DDR_Refclock: 66.66 MHz
+ * SDREFCLK_FSEL: 100 MHz
+ *
+ * Core -- 1400 MHz (Mul 14 )
+ * Platform - 600 MHz (Mul 6)
+ * DDR -- 1600 MHz (Mul 24 of DDR_Refclock: 66.66 MHz)
+ *
+ * Slot  Card
+ * 1 PCIe1 x1
+ *
+ * Serdes Lanes information
+ * 1 none
+ * 2 SGMII
+ * 3 none
+ * 4 none
+ * 5 PCIe1 x1 slot
+ * 6 mini PCIe connector
+ * 7 mini PCIe connector
+ * 8 SATA connector
+ *
+ * RGMII1: FM1@MAC4
+ * RGMII2: FM1@MAC5
+ *
+ * PBI source is IFC, the RCW also works for the PBI source as MMC or eSPI
+ */
+
+#include <../t1040si/t1040.rcwi>
+
+SYS_PLL_RAT=6
+MEM_PLL_RAT=24
+CGA_PLL1_RAT=14
+CGA_PLL2_RAT=14
+SRDS_PRTCL_S1=134
+FM1_MAC_RAT=1
+SRDS_PLL_REF_CLK_SEL_S1=2
+DDR_FDBK_MULT=2
+PBI_SRC=14
+BOOT_LOC=24
+BOOT_HO=0
+SB_EN=1
+IFC_MODE=39
+DRAM_LAT=1
+UART_BASE=6
+RTC=1
+IRQ_OUT=1
+IRQ_BASE=4
+I2C3=3
+I2C4=1
+DVDD_VSEL=2
+L1VDD_VSEL=1
+LVDD_VSEL=1
+DMA1=3
+DMA2=3
+
+#include "../../t1040si/a007662.rcw"
+#include "../../t1040si/a008007.rcw"
+
+#include "../../t1040si/secure_boot_pbi.rcw"
