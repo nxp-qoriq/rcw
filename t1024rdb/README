@@ -1,15 +1,25 @@
-The RCW directories names for the T2080RDB board
+The RCW directories names for the T1024RDB board
 conforming to the following naming convention:
 
-abcdef_g_h_i (default RRX_PPP_95) nomenclature means:
-a = 'R'  indicates RGMII1 @ DTSEC3 is supported
-b = 'R'  indicates RGMII2 @ DTSEC4 is supported
+abc_def_g (RRX_PPP_95) nomenclature means:
+a = 'R'  indicates RGMII1 @ DTSEC4 is supported
+b = 'R'  indicates RGMII2 @ DTSEC3 is supported
 c = 'X'  indicates 10G Base-T is supported
 d = 'P'  indicates PCIe3 in the PCIe slot
-e = 'P'  indicates PCIe2 in the mini-PCI
-f = 'P'  indicates PCIe1 in the mini-PCI
+e = 'P'  indicates PCIe2 in the 1st mini-PCI
+f = 'P'  indicates PCIe1 in the 2nd mini-PCI
 g = '95' indicates SerDes protocol 0x95
 
-Default Core/DDR/Platform/FMan = 1200MHz/1600MT/s/400MHz/600MHz
+
+abc_def_g (RNS_NPP_135) nomenclature means:
+a = 'R'  indicates RGMII1 @ DTSEC4 is supported
+b = 'N'  indicates RGMII2 is not available
+c = 'S'  indicates 2.5G SGMII on-board is supported
+d = 'N'  indicates PCIe3 in the PCIe slot is not available
+e = 'P'  indicates PCIe2 in the 1st mini-PCI
+f = 'P'  indicates PCIe1 in the 2nd mini-PCI
+g = '135' indicates SerDes protocol 0x135
+
+Default Core/DDR/Platform/FMan = 1400MHz/1600MT/s/400MHz/700MHz
 User can change the default RCW configuraton for different frequency.
 
