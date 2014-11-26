@@ -1,13 +1,13 @@
 /*
- * T1024RDB RCW for SerDes Protocol 0x95
+ * T1024RDB RCW for SerDes Protocol 0x135
  *
- * 12G configuration -- 1x 10G XFI + 2x 1G RGMII + 3x PCIe.
+ * 3.5G configuration -- 1x 2.5G SGMII + 1x 1G RGMII + 2x PCIe.
  *
  * Frequencies:
  *
  * Sys_Clock = DDR_Refclock = Diff_Sysclk = 100 MHz (SW3[1] = 0)
- * SD1_REF1 CLK: 156.25 MHz
- * SD1_REF2 CLK: 100 MHz
+ * SD1_REF1 CLK: 100 MHz
+ * SD1_REF2 CLK: 125 MHz
  *
  * Core -- 1400 MHz   (Mul 14)
  * Platform - 400 MHz (Mul 4)
@@ -15,16 +15,15 @@
  * FMAN -- 700 MHz
  *
  * SerDes Lanes   Protocol/Interface	Comments
- * Lane A	  XFI			10G Base-T (MAC1)
- * Lane B	  PCIe3			PCIe Slot
+ * Lane A	  Aurora		NULL
+ * Lane B	  SGMII(MAC3)		2.5G SGMII(AQR105 PHY on-board)
  * Lane C	  PCIe2			Mini-PCIe connector
  * Lane D	  PCIe1			Mini-PCIe connector
  *
  * RGMII1: MAC4
- * RGMII2: MAC3
+ * RGMII2: NULL
  *
- *
- * PBI source is IFC, the RCW also works for the PBI source as I2C, MMC or eSPI
+ * QE-TDM is enabled.
  */
 
 #include <../t1024qds/t1024.rcwi>
@@ -33,8 +32,8 @@ SYS_PLL_RAT=4
 MEM_PLL_RAT=16
 CGA_PLL1_RAT=14
 DDR_REFCLK_SEL=1
-SRDS_PLL_REF_CLK_SEL_S1=2
-SRDS_PRTCL_S1=0x95
+SRDS_PLL_REF_CLK_SEL_S1=0
+SRDS_PRTCL_S1=0x135
 FM1_MAC_RAT=0
 DDR_FDBK_MULT=2
 PBI_SRC=14
@@ -44,8 +43,8 @@ DRAM_LAT=1
 UART_BASE=6
 IRQ_OUT=1
 IRQ_BASE=4
-GPIO=2
-1588_EC2=2
+GPIO=0
+1588_EC2=1
 I2C4=3
 QE-TDMA=0
 QE-TDMB=0
