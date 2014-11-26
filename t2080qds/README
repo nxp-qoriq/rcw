@@ -40,6 +40,6 @@ So RR_PNNPPH_66_15 means:
  - SERDES1 Protocol is 0x66 and SERDES2 Protocol is 0x15.
 
 BIN   Core/Platform/DDR
-Bin1: 1800MHz/600MHz/1867MT/s
+Bin1: 1800MHz/700MHz/1867MT/s
 Bin2: 1533MHz/600MHz/1867MT/s
 Bin3: 1200MHz/533MHz/1600MT/s
