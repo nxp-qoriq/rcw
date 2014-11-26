@@ -1,9 +1,8 @@
 /*
- * T2080QDS RCW for SerDes Protocol PRTCL_S1=0x66, PRTCL_S2=0x15
+ * RCW for T2080 silicon v1.1 on T2080QDS board
+ * SerDes Protocol PRTCL_S1=0x66, PRTCL_S2=0x15
  *
  * 42G configuration -- 2 RGMII + 4 XFI
- *
- * set SW9[1:2] = '11' to change VDD to 1.050V when core frequency is 1.8GHz.
  *
  * Frequencies:
  *
@@ -15,8 +14,8 @@
  * SD2_REF2 CLK: 100 MHz    (SW4[7:8] = 11)
  *
  * Core -- 1800 MHz (Mul 18)
- * Platform -- 600 MHz (Mul 6)
- * DDR -- 933 MHz (1867 MT/s) (Mul 14)
+ * Platform -- 700 MHz (Mul 7)
+ * DDR -- 933 MHz (1867 MT/s) (Mul 7)
  * FMAN -- 700 MHz (HWA_CGA_M1_CLK_SEL=6, CGA PLL2 divided by 2)
  *
  * RGMII1: MAC3
@@ -37,8 +36,8 @@
 
 #include <t2080.rcwi>
 
-SYS_PLL_RAT=6
-MEM_PLL_RAT=14
+SYS_PLL_RAT=7
+MEM_PLL_RAT=7
 CGA_PLL1_RAT=18
 CGA_PLL2_RAT=14
 HWA_CGA_M1_CLK_SEL=6
