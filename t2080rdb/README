@@ -10,7 +10,7 @@ g   = 'P'  indicates PCIe4 x4 in the PCI slot
 h   = '66' indicates SerDes1 protocol 0x66
 i   = '15' indicates SerDes2 protocol 0x15
 
-Default Core/Platform/DDR = 1533MHz/600MHz/1600MT/s
+Default Core/Platform/DDR = 1800MHz/666MHz/1600MT/s
 User can change the RCW configuraton for different frequency
 according to actual requirements.
 
