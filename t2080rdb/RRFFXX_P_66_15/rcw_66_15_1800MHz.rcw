@@ -1,5 +1,6 @@
 /*
- * T2080RDB RCW for SerDes Protocol PRTCL_S1=0x66, PRTCL_S2=0x15
+ * T2080 silicon v1.1 on T2080RDB Rev-C board
+ * RCW for SerDes Protocol PRTCL_S1=0x66, PRTCL_S2=0x15
  *
  * 42G configuration:
  *     - 2 RGMII ports
@@ -18,8 +19,8 @@
  * SD2_REF2 CLK: 100 MHz
  *
  * Core -- 1800 MHz (Mul 27)
- * Platform -- 600 MHz (Mul 9)
- * DDR -- 800 MHz (1600 MT/s) (Mul 12)
+ * Platform -- 666 MHz (Mul 10)
+ * DDR -- 800 MHz (1600 MT/s) (Mul 6)
  * FMAN -- 700 MHz (HWA_CGA_M1_CLK_SEL=6)
  *
  * RGMII1: MAC3
@@ -33,8 +34,8 @@
 
 #include <../t2080qds/t2080.rcwi>
 
-SYS_PLL_RAT=9
-MEM_PLL_RAT=12
+SYS_PLL_RAT=10
+MEM_PLL_RAT=6
 CGA_PLL1_RAT=27
 CGA_PLL2_RAT=21
 HWA_CGA_M1_CLK_SEL=6
