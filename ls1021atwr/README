@@ -40,12 +40,14 @@ rcw_x_specialsetting.rcw
 x = Core frequency
 bootmode = bootmode:SD/NAND/NOR and so on.
 specialsetting = special setting:
-			LETECH is used for LETECH
+			lpuart:used for lpuart
 			sben:Secure boot
-
+			dcu:2D-ACE support
 For example,
 	rcw_1000.rcw means rcw for core frequency of 1000MHz with nor boot.
 
 	rcw_1000_sd.rcw means rcw for core frequency of 1000MHz with sd boot.
 
-	rcw_1000_letech.rcw means rcw for core frequency of 1000MHz with nor boot special for LETECH.
+	rcw_1000_lpuart.rcw means rcw for core frequency of 1000MHz with nor boot special for lpuart.
+
+For more information please refer to the comments in rcw file.
