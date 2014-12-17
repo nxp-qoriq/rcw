@@ -1,0 +1,16 @@
+The RCW directories names for the T1023RDB board
+conforming to the following naming convention:
+
+abc_def_g (RNSS_NPP_77) nomenclature means:
+a = 'R'  indicates RGMII1 @ DTSEC4 is supported
+b = 'N'  indicates RGMII2 is not available
+c = 'S'  indicates 1G SGMII on-board is supported
+d = 'S'  indicates 2.5G SGMII on-board is supported
+e = 'N'  indicates PCIe3 in the PCIe slot is not available
+f = 'P'  indicates PCIe2 in the 1st mini-PCI
+g = 'P'  indicates PCIe1 in the 2nd mini-PCI
+h = '77' indicates SerDes protocol 0x77
+
+Default Core/DDR/Platform/FMan = 1400MHz/1600MT/s/400MHz/700MHz
+User can change the default RCW configuraton for different frequency.
+
