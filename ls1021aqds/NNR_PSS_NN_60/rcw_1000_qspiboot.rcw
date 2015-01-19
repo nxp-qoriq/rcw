@@ -63,3 +63,4 @@ write 0xee0200, 0x40010000
 
 #define PCIE1_ENABLED
 #include <pcie_link_training.rcw>
+#include <io_drive_strenth.rcw>

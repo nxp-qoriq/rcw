@@ -55,4 +55,5 @@ BOOT_HO=1
 
 #define PCIE1_ENABLED
 #include <pcie_link_training.rcw>
+#include <io_drive_strenth.rcw>
 #include <uboot_hdr_addr.rcw>
