@@ -1,0 +1,43 @@
+The RCW directories names for the T1040D4RDB boards conform to the following
+naming convention:
+
+
+ab_c_d:
+
+a = 'R' if RGMII@MAC4 or RGMII@MAC2 is supported /
+        'N' if not available/not used
+b = 'R' if RGMII@MAC5 is supported / 'N' if not available/not used
+
+c = What is available in slot1
+
+For the Slots (c):
+ 'P' if PCIe
+ 'S' if SGMII
+ 'Q' if QSGMII
+
+For the srds_prtcl (d):
+d = 'hex value of serdes1 protocol value'
+
+Note: For serdes protocol 0x66, RGMII is avaliable on FM@MAC4 and FM@MAC5
+So RR_P_66 means:
+ - RGMII@mac4
+ - RGMII@mac5
+ - One PCIe slot
+ - SERDES1 Protocol is 0x66
+
+Files naming convention
+=============================
+
+rcw_x.rcw
+rcw_x_clockmode.rcw
+
+x = Core frequency
+clockmode = single_source for single_source clocking. If single_source is not
+        present, it means separate clock source for sysclk and ddrclock
+
+For example,
+        rcw_1000MHz.rcw means rcw for core frequency of 1000MHz having
+        separate clock sources
+
+        rcw_1000MHz_single_source.rcw means rcw for core frequency of 1000MHz
+        having single clock source
