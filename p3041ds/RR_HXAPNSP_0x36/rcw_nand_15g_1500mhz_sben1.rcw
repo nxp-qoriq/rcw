@@ -1,0 +1,117 @@
+/*
+ * 15g configuration -- 3 SGMII 1g ports  +  2 * 1G RGMII + 1 10G
+ *
+ * Frequencies
+ * System Clock 83 Mhz
+ * SDREFCLK1_FSEL: 100 MHz
+ * SDREFCLK2_FSEL: 125 MHz
+ * SDREFCLK3_FSEL: 125 MHz
+ *
+ * Core -- 1500 MHz (Multiplier 18)
+ * Platform - 750 MHz (Multiplier 9)
+ * DDR -- 1333 MHz (multiplier 16)
+ * FMAN -- 581 MHz (mul 14)(CC2 PLL/2)
+ *
+ * Serdes Bank1 -- Ratio 50:1 /2 for PCIE Lanes and 50:1/1 for SGMII
+ * Bank2    -- 25:1 /1  - XAUI
+ * Bank3   -- 24:1 /1 - SATA
+ *
+ * Additionaly this RCW also has PBI commands for setting LAW for NOR
+ * and writing ESBC CSF header location in SCRATCHPAD1 register
+ * required for secure boot flow.
+ */
+
+#include <p3041.rcwi>
+
+SYS_PLL_RAT=9
+MEM_PLL_CFG=1
+MEM_PLL_RAT=16
+CC1_PLL_RAT=18
+CC2_PLL_RAT=14
+SRDS_PRTCL=54
+SRDS_RATIO_B1=4
+SRDS_DIV_B1=24
+SRDS_RATIO_B2=2
+SRDS_RATIO_B3=5
+SRDS_LPD_B1=4
+SRDS_LPD_B3=12
+SRDS_EN=1
+PBI_SRC=13
+BOOT_LOC=29
+SB_EN=1
+BOOT_HO=1
+FM_CLK_SEL=1
+DRAM_LAT=1
+I2C=4
+GPIO=1
+UART=6
+
+.pbi
+#define ALTCBARH	0x10
+#define ALTCBARL	0x14
+#define ALTCAR		0x18
+
+wait 2500
+write ALTCBARH, 0	// Set ALTCBAR to 0
+wait 2500
+write ALTCBARL, 0
+wait 2500
+write ALTCAR, 0x81d00000 // Set DCSR law target
+
+// Erratum A004849
+wait 2500
+awrite 0xb0050, 2
+wait 2500
+awrite 0xb0054, 2
+wait 2500
+awrite 0xb0058, 2
+wait 2500
+awrite 0xb005c, 2
+wait 2500
+awrite 0xb0090, 2
+wait 2500
+awrite 0xb0094, 2
+wait 2500
+awrite 0xb0098, 2
+wait 2500
+awrite 0xb009c, 2
+wait 2500
+awrite 0xb0108, 0x12
+wait 2500
+.end
+
+#include "../../a006559.rcw"
+// #include "../../a004580.rcw"
+
+.pbi
+write 0xe0200, 0xbff00000
+flush
+write 0x10000, 0x00200400
+write 0x10100, 0x00000000
+write 0x10104, 0xbff0000b
+write 0x10f00, 0x08000000
+write 0x10000, 0x80000000
+flush
+write 0xd00, 0x00000000
+write 0xd04, 0xbff00000
+write 0xd08, 0x81000013
+flush
+write 0x010, 0x00000000
+write 0x014, 0xbf000000
+write 0x018, 0x81000000
+flush
+write 0x110000, 0x80000403
+write 0x110020, 0x2d170008
+write 0x110024, 0x00100008
+write 0x110028, 0x00100008
+write 0x11002c, 0x00100008
+flush
+
+/* hdr_uboot.out and u-boot.bin must also be loaded on NAND
+ * ALT_CONFIG_WRITE command must be used for the same.
+ * Starting offset for ALT_CONFIG_WRITE command would be
+ * hdr_uboot.out - 0xf00000
+ * u-boot.bin    - 0xf40000
+ */
+
+.end
