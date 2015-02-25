@@ -1,0 +1,112 @@
+/*
+ *
+ * P5040DS RCW for SerDes Protocol 0x02
+ *
+ * 26g configuration -- 2 RGMII + 4 SGMII + 2 XAUI
+ *
+ * Frequencies:
+ *
+ * Sys Clock -- 133.33 Mhz
+ * SDREFCLK1_FSEL: 100 MHz
+ * SDREFCLK2_FSEL: 125 MHz
+ * SDREFCLK3_FSEL: 125 MHz
+ * SDREFCLK4_FSEL: 125 MHz
+ *
+ * Core -- 2267 MHz (Mul 17)
+ * Platform - 800 MHz (Mul 6)
+ * DDR -- 1600 MHz (Mul 12)
+ * FMAN -- 600 MHz (CC3 PLL)/2 (Mul 9)
+ *
+ * Serdes Bank1 -- Clock Ratio 50:1 /2 for PCIe and 50:1/1 for SGMII
+ * LANE A, B, C, D /2 for PCIe
+ * Bank2 -- 25:1 /1 - XAUI
+ * Bank3 -- 25:1 /1 - XAUI
+ * Bank4 -- 24:1 /1 - SATA
+ *
+ * Slot  Card        Notes
+ * 1     XAUI        SW2[6] = 1
+ * 2     XAUI
+ * 3     SGMII       SW2[5] = 1, SW11[6] = 0
+ * 4     empty
+ * 5     SGMII       SW2[3:4] = 00
+ * 6     PCIe2 x2    SW2[2] = 0
+ * 7     PCIe1 x4    SW2[1] = 1
+ *
+ * For the SGMII cards, only the top two connectors are available
+ *
+ * FM1@DTSEC3 -> Slot 5, Port 1
+ * FM1@DTSEC4 -> Slot 5, Port 2
+ * FM2@DTSEC3 -> Slot 3, Port 1
+ * FM2@DTSEC4 -> Slot 3, Port 2
+ *
+ * Additionaly this RCW also has PBI commands for setting LAW for NOR
+ * and writing ESBC CSF header location in SCRATCHPAD1 register
+ * required for secure boot flow.
+ */
+
+#include <p5040.rcwi>
+
+SYS_PLL_CFG=2
+SYS_PLL_RAT=6
+MEM_PLL_CFG=3
+MEM_PLL_RAT=12
+CC1_PLL_CFG=2
+CC1_PLL_RAT=17
+CC2_PLL_CFG=2
+CC2_PLL_RAT=17
+CC3_PLL_CFG=2
+CC3_PLL_RAT=9
+C2_PLL_SEL=4
+C3_PLL_SEL=4
+SRDS_PRTCL=2
+SRDS_RATIO_B1=4
+SRDS_DIV_B1=28
+SRDS_RATIO_B2=2
+SRDS_RATIO_B3=2
+SRDS_RATIO_B4=5
+SRDS_EN_S1=1
+SRDS_EN_S2=1
+PBI_SRC=13
+BOOT_LOC=29
+SB_EN=1
+FM1_CLK_SEL=1
+FM2_CLK_SEL=1
+DRAM_LAT=1
+I2C=4
+UART=6
+
+#define A4580_HAS_B3_LCD
+// #include "../../a004580.rcw"
+
+.pbi
+write 0xe0200, 0xbff00000
+flush
+write 0x10000, 0x00200400
+write 0x10100, 0x00000000
+write 0x10104, 0xbff0000b
+write 0x10f00, 0x08000000
+write 0x10000, 0x80000000
+flush
+write 0xd00, 0x00000000
+write 0xd04, 0xbff00000
+write 0xd08, 0x81000013
+flush
+write 0x010, 0x00000000
+write 0x014, 0xbf000000
+write 0x018, 0x81000000
+flush
+write 0x110000, 0x80000403
+write 0x110020, 0x2d170008
+write 0x110024, 0x00100008
+write 0x110028, 0x00100008
+write 0x11002c, 0x00100008
+flush
+
+/* hdr_uboot.out and u-boot.bin must also be loaded on NAND
+ * ALT_CONFIG_WRITE command must be used for the same.
+ * Starting offset for ALT_CONFIG_WRITE command would be
+ * hdr_uboot.out - 0xf00000
+ * u-boot.bin    - 0xf40000
+ */
+
+.end
