@@ -57,3 +57,4 @@ BVDD_VSEL=2
 #define PCIE2_ENABLED
 #include <../ls1021aqds/pcie_link_training.rcw>
 #include <../ls1021aqds/uboot_address.rcw>
+#include <../ls1021aqds/serdes_sata.rcw>
