@@ -51,7 +51,7 @@ SDHC=3
 DVDD_VSEL=2
 LVDD_VSEL=1
 SB_EN=1
-BOOT_HO=1
+BOOT_HO=0
 
 #define PCIE1_ENABLED
 #include <pcie_link_training.rcw>
