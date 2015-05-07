@@ -3,6 +3,5 @@
  */
 
 .pbi
-// Workaround for u-boot address.
-write 0xee0200, 0x67f80000
+write 0xee0200, 0x60100000
 .end
