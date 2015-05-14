@@ -1,17 +1,17 @@
 /*
- * T4240QDS RCW for SerDes[1:4] Protocol 1, 27, 5, 11
+ * T4240QDS RCW for SerDes[1:4] Protocol 27, 55, 5, 11
  *
- * 29G configuration -- 2 RGMII + 7 SGMII + 2 XAUI
+ * 48G configuration -- 6 SGMII + 4 XFI + 2 RGMII
  *
  * Frequencies:
  *
  * Sys Clock -- 66.67 Mhz
  * SDREFCLK1_FSEL: 125 MHz
- * SDREFCLK2_FSEL: 125 MHz
+ * SDREFCLK2_FSEL: 156.25 MHz
  * SDREFCLK3_FSEL: 100 MHz
  * SDREFCLK3_FSEL: 100 MHz
  *
- * Core -- 1666 MHz (Mul 25 )
+ * Core -- 1800 MHz (Mul 27 )
  * Platform - 733 MHz (Mul 11)
  * DDR -- 1867 MHz (Mul 7 of SW_DDRCLK: 133.33MHz)
  * FMAN1 -- 733 MHz (Platform / 1)
@@ -19,9 +19,9 @@
  * PME -- 533MHz (Cluster group A PLL 2) / 3
  *
  * Slot  Card
- * 1     XAUI
- * 2     XAUI
- * 3     SGMII
+ * 1     SGMII
+ * 2     SGMII
+ * 3     XFI x4
  * 4     SGMII
  * 5     PCIe1 x4
  * 6     SRIO x4
@@ -38,18 +38,17 @@
 
 SYS_PLL_RAT=11
 MEM_PLL_RAT=7
-CGA_PLL1_RAT=25
+CGA_PLL1_RAT=27
 CGA_PLL2_RAT=24
 CGA_PLL3_RAT=16
-CGB_PLL1_RAT=25
+CGB_PLL1_RAT=27
 CGB_PLL2_RAT=22
-SRDS_PRTCL_S1=1
-SRDS_PRTCL_S2=27
+SRDS_PRTCL_S1=27
+SRDS_PRTCL_S2=55
 SRDS_PRTCL_S3=5
 SRDS_PRTCL_S4=11
-SRDS_PLL_REF_CLK_SEL_S2=3
+SRDS_PLL_REF_CLK_SEL_S1=3
 SRDS_PLL_PD_S1=1
-SRDS_PLL_PD_S2=1
 SRDS_PLL_PD_S3=1
 SRDS_DIV_PEX_S3=2
 SRDS_DIV_AURORA_S4=1
