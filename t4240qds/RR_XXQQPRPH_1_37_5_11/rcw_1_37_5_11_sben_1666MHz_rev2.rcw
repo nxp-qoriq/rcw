@@ -1,7 +1,7 @@
 /*
- * T4240QDS RCW for SerDes[1:4] Protocol 1, 27, 5, 11
+ * T4240QDS RCW for SerDes[1:4] Protocol 1, 37, 5, 11
  *
- * 29G configuration -- 2 RGMII + 7 SGMII + 2 XAUI
+ * 29G configuration -- 2 XAUI + 2 QSGMII + 2 RGMII
  *
  * Frequencies:
  *
@@ -21,8 +21,8 @@
  * Slot  Card
  * 1     XAUI
  * 2     XAUI
- * 3     SGMII
- * 4     SGMII
+ * 3     QSGMII
+ * 4     QSGMII
  * 5     PCIe1 x4
  * 6     SRIO x4
  * 7     PCIe3 x4
@@ -44,7 +44,7 @@ CGA_PLL3_RAT=16
 CGB_PLL1_RAT=25
 CGB_PLL2_RAT=22
 SRDS_PRTCL_S1=1
-SRDS_PRTCL_S2=27
+SRDS_PRTCL_S2=37
 SRDS_PRTCL_S3=5
 SRDS_PRTCL_S4=11
 SRDS_PLL_REF_CLK_SEL_S2=3
