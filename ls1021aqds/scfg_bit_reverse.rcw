@@ -1,0 +1,8 @@
+/*
+ * PBI Commands for LS1021AQDS and LS1021ATWR.
+ */
+
+.pbi
+/* set SCFG bit reverse */
+write 0x570200, 0xffffffff
+.end

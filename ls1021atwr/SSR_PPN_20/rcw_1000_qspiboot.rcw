@@ -65,6 +65,4 @@ write 0xee0200, 0x40010000
 flush
 .end
 
-#define PCIE1_ENABLED
-#define PCIE2_ENABLED
-#include <../ls1021aqds/pcie_link_training.rcw>
+#include <../ls1021aqds/scfg_bit_reverse.rcw>
