@@ -53,7 +53,6 @@ LVDD_VSEL=1
 SB_EN=1
 BOOT_HO=0
 
-#define PCIE1_ENABLED
-#include <pcie_link_training.rcw>
+#include <scfg_bit_reverse.rcw>
 #include <io_drive_strenth.rcw>
 #include <uboot_hdr_addr.rcw>

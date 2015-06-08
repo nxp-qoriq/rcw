@@ -56,7 +56,5 @@ BVDD_VSEL=2
 SB_EN=1
 BOOT_HO=0
 
-#define PCIE1_ENABLED
-#define PCIE2_ENABLED
-#include <../ls1021aqds/pcie_link_training.rcw>
+#include <../ls1021aqds/scfg_bit_reverse.rcw>
 #include <../ls1021aqds/uboot_hdr_addr.rcw>

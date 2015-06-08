@@ -4,6 +4,5 @@
 
 .pbi
 // Increase IO drive strength to avoid FCS error on RGMII ports
-write 0x570200, 0xffffffff
 write 0x570d00, 0xb7fb4000
 .end
