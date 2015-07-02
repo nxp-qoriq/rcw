@@ -1,0 +1,8 @@
+/*
+ * PBI Commands for LS1043ARDB and LS1043AQDS.
+ */
+
+.pbi
+// Workaround for u-boot address.
+write 0xee0200, 0x60080000
+.end
