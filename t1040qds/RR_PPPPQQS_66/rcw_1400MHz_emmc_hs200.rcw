@@ -1,0 +1,61 @@
+/*
+ * T1040QDS RCW for SerDes Protocol 0x66
+ *
+ * 11G configuration -- 2 RGMII + 1 SGMII + 2 QSGMII
+ *
+ * Frequencies:
+ *
+ * Sys Clock: 100 MHz
+ * DDR_Refclock: 66.66 MHz
+ * SDREFCLK_FSEL: 100 MHz
+ *
+ * Core -- 1400 MHz (Mul 14 )
+ * Platform - 600 MHz (Mul 6)
+ * DDR -- 1600 MHz (Mul 24 of DDR_Refclock: 66.66MHz)
+ *
+ * Serdes Lanes vs Slot information
+ * A PCIe1  : Slot 2
+ * B SGMII3 : Slot 7
+ * C QSGMII : Slot 6
+ * D QSGMII : Slot 5
+ * E PCIe2  : Slot 1
+ * F PCIe3  : Slot 4
+ * G PCIe4  : Slot 3
+ * H SATA1  : Sata connector
+ *
+ * RGMII1: FM1@MAC4
+ * RGMII2: FM1@MAC5
+ *
+ * PBI source is IFC, the RCW also works for the PBI source as I2C, MMC or eSPI
+ *
+ * Support eMMC HS200 mode
+ */
+
+#include <../t1040si/t1040.rcwi>
+
+SYS_PLL_RAT=6
+MEM_PLL_RAT=24
+CGA_PLL1_RAT=14
+CGA_PLL2_RAT=14
+SRDS_PRTCL_S1=102
+FM1_MAC_RAT=1
+DDR_FDBK_MULT=2
+PBI_SRC=14
+BOOT_LOC=24
+IFC_MODE=39
+HWA_CGA_M1_CLK_SEL=1
+DRAM_LAT=1
+UART_BASE=6
+IRQ_OUT=1
+IRQ_BASE=4
+I2C3=3
+I2C4=3
+QE-TDMA=3
+QE-TDMB=3
+L1VDD_VSEL=1
+LVDD_VSEL=1
+DMA1=3
+DMA2=3
+
+#include "../../t1040si/a007662.rcw"
+#include "../../t1040si/a008007.rcw"
