@@ -1,0 +1,90 @@
+The RCW directories names for the LS1046AQDS boards conform to the following
+naming convention:
+
+ab_cdefghij_k_l:
+
+a = 'R' indicates RGMII1@DTSEC3 is supported
+b = 'R' indicates RGMII2@DTSEC4 is supported
+    'N' indicates not available/not used
+
+c = What is available in SFP cage 1
+d = What is available in SFP cage 2
+e = What is available in Slot 1
+f = What is available in Slot 2
+g = What is available in Slot 3
+h = What is available in Slot 4
+i = What is available in Slot 5
+j = What is available in Slot 6
+
+For the Slots (c..j):
+ 'N' is NULL, not available/not used
+ 'P' is PCIe
+ 'X' is XAUI
+ 'S' is SGMII
+ 'Q' if QSGMII
+ 'F' is XFI
+ 'H' is SATA
+ 'A' is AURORA
+
+Serdes1 protocol (k):
+k = 'hex value of serdes1 protocol value'
+
+Serdes2 protocol (l):
+l = 'hex value of serdes2 protocol value'
+
+BIN   Core/Platform/FMan/DDR
+Bin1: 1600MHz/600MHz/700MHz/2100MT/s
+
+Serdes ptotocol:
+================
+RR_FFSNPPPH_1133_5559 means:
+ - RGMII1@DTSEC3 on board
+ - RGMII2@DTSEC4 on board
+ - XFI9@TGEC1 on SFP cage 1
+ - XFI10@TGEC2 on SFP cage 2
+ - SGMII5@DTSEC5 on Slot 1
+ - SGMII6@DTSEC6 on Slot 1
+ - PCIe1 on Slot 3
+ - PCIe2 on Slot 4
+ - PCIe3 on Slot 5
+ - SATA
+ - SERDES1 Protocol is 0x1133
+ - SERDES2 Protocol is 0x5559
+
+RR_FFSNPNNN_1133_8888 means:
+ - RGMII1@DTSEC3 on board
+ - RGMII2@DTSEC4 on board
+ - XFI9@TGEC1 on SFP cage 1
+ - XFI10@TGEC2 on SFP cage 2
+ - SGMII5@DTSEC5 on Slot 1
+ - SGMII6@DTSEC6 on Slot 1
+ - PCIe1 x4 on Slot 3
+ - SERDES1 Protocol is 0x1133
+ - SERDES2 Protocol is 0x8888
+
+RR_FNNQNPNP_1040_0506 means:
+ - RGMII1@DTSEC3 on board
+ - RGMII2@DTSEC4 on board
+ - XFI9@TGEC1 on SFP cage 1
+ - QSGMII on Slot 2
+ - PCIe2 on Slot 4
+ - PCIe3 on Slot 6
+ - SERDES1 Protocol is 0x1040, Lane D for XFI, Lane B for QSGMII
+ - SERDES2 Protocol is 0x0506, Lane B for PCIe2, Lane D for PCIe3
+
+Files naming convention
+=============================
+rcw_x.rcw
+rcw_x_bootmode.rcw
+rcw_x_specialsetting.rcw
+x = Core frequency
+bootmode = bootmode:qspiboot and so on.
+specialsetting = special setting:
+			lpuart:used for lpuart
+			sben:Secure boot
+For example,
+	rcw_1600.rcw means rcw for core frequency of 1600MHz with nor boot.
+
+	rcw_1600_lpuart.rcw means rcw for core frequency of 1600MHz with nor boot special for lpuart.
+
+For more information please refer to the comments in rcw file.
