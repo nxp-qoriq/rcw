@@ -4,5 +4,4 @@
 
 .pbi
 write 0xea085c, 0x00502880
-write 0xea0560, 0x80800000
 .end
