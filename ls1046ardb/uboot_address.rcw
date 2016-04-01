@@ -1,0 +1,8 @@
+/*
+ * PBI Commands for LS1046AQDS and LS1046ARDB
+ */
+
+.pbi
+write 0x570600, 0x00000000
+write 0x570604, 0x60100000
+.end
