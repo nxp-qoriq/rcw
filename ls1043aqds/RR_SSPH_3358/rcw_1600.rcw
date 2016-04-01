@@ -24,10 +24,9 @@
  * D SATA   :
  *
  * Serdes configuration
- * SRDS_PRTCL_S1	: 0x1455
+ * SRDS_PRTCL_S1	: 0x3358
  * SRDS_PLL_REF_CLK_SEL_S1 :
- *  SerDes 1, PLL1 : 1 - 156.25MHz for XFI
- *  SerDes 1, PLL2 : 0 - 100MHz for QSGMII and PCIe
+ *  SerDes 1, PLL1 : 1 - 100MHz for SGMII and PCIe
  * SRDS_DIV_PEX		: 00 Can train up to a max rate of 5G
  *
  * DDR clock:
