@@ -56,6 +56,6 @@ UART_BASE=6
 IRQ_BASE=511
 
 .pbi
-//errata A-007186 for serdes2=0x1F, set SRDS2PLL2CR1=0x80004100
-write 0x0eb028, 0x80004100
+//errata A-007186 for serdes2=0x1F, set SRDS2PLL2CR1=0x08004100
+write 0x0eb028, 0x08004100
 .end
