@@ -1,0 +1,7 @@
+/*
+ * Set GIC offset to 4K for LS1043A rev1.1 silicon
+ */
+
+.pbi
+write 0x570188, 0x80000000
+.end
