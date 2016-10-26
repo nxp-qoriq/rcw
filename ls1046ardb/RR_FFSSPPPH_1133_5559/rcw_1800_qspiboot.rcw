@@ -9,9 +9,9 @@
  * DDR_Refclock: 100 MHz
  *
  * Core		-- 1800 MHz (Mul 16)
- * Platform	-- 600 MHz (Mul 6)
+ * Platform	-- 700 MHz (Mul 7)
  * DDR		-- 2100 MT/s (Mul 21)
- * FMan		-- 700 MHz (CGA2 /2)
+ * FMan		-- 800 MHz (CGA2 /2)
  * XFI		-- 156.25 MHz (10.3125G)
  * SGMII	-- 100 MHz (5G)
  * PCIE		-- 100 MHz (5G)
@@ -65,10 +65,10 @@
 
 #include <ls1046a.rcwi>
 
-SYS_PLL_RAT=6
+SYS_PLL_RAT=7
 MEM_PLL_RAT=21
 CGA_PLL1_RAT=18
-CGA_PLL2_RAT=14
+CGA_PLL2_RAT=16
 SRDS_PRTCL_S1=4403
 SRDS_PRTCL_S2=21849
 SRDS_PLL_REF_CLK_SEL_S1=1
