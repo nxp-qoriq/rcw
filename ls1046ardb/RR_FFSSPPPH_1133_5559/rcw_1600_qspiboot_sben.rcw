@@ -100,8 +100,6 @@ HWA_CGA_M2_CLK_SEL=1
 .pbi
 // QSPI flash clock
 write 0x57015c, 0x40100000
-// QSPI END_CFG 64 bit LE
-write 0x550000, 0x000f400c
 // U-boot header address
 write 0xee0200, 0x40700000
 .end
@@ -109,3 +107,8 @@ write 0xee0200, 0x40700000
 #include <cci_barrier_disable.rcw>
 #include <usb_phy_freq.rcw>
 #include <serdes_sata.rcw>
+
+.pbi
+// QSPI END_CFG 64 bit LE
+write 0x550000, 0x000f400c
+.end

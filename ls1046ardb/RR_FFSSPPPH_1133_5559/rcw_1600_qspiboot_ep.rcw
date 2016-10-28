@@ -101,10 +101,13 @@ HWA_CGA_M2_CLK_SEL=1
 write 0x57015c, 0x40100000
 write 0x570600, 0x00000000
 write 0x570604, 0x40100000
-// QSPI END_CFG 64 bit LE
-write 0x550000, 0x000f400c
 .end
 
 #include <cci_barrier_disable.rcw>
 #include <usb_phy_freq.rcw>
 #include <serdes_sata.rcw>
+
+.pbi
+// QSPI END_CFG 64 bit LE
+write 0x550000, 0x000f400c
+.end
