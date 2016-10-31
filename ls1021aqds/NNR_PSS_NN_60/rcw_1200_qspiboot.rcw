@@ -63,3 +63,7 @@ write 0xee0200, 0x40010000
 
 #include <scfg_bit_reverse.rcw>
 #include <io_drive_strenth.rcw>
+
+.pbi
+write 0x550000, 0x000f400c
+.end

@@ -65,3 +65,7 @@ flush
 .end
 
 #include <../ls1021aqds/scfg_bit_reverse.rcw>
+
+.pbi
+write 0x550000, 0x000f400c
+.end
