@@ -1,0 +1,78 @@
+The RCW directories names for the LS2088ARDB  boards conform to the following
+naming convention:
+
+abcdefgh_ij_kl_mn:
+
+a = What is available in SFP cage 1
+b = What is available in SFP cage 2
+c = What is available in SFP cage 3
+d = What is available in SFP cage 4
+e = What is available in SFP cage 5
+f = What is available in SFP cage 6
+g = What is available in SFP cage 7
+h = What is available in SFP cage 8
+i = What is available in Slot 1
+j = What is available in Slot 2
+k = SATA1
+l = SATA2
+
+For the Slots (c..j):
+ 'N' is NULL, not available/not used
+ 'P' is PCIe
+ 'S' is SGMII
+ 'Q' if QSGMII
+ 'F' is XFI
+ 'H' is SATA
+
+Serdes1 protocol (m):
+m = 'hex value of serdes1 protocol value'
+
+Serdes2 protocol (n):
+n = 'hex value of serdes2 protocol value'
+
+BIN   Core/Platform/DDR
+Bin1: 1800MHz/700MHz/1866MT/s
+
+Ref clock setting on board
+==========================
+DDR Ref clock: 100MHz
+Sys PLL Ref clock:133.33MHz
+
+Files naming convention
+=============================
+PBL_o_p_q_r_s_t.bin
+
+o = SerDes1 Protocol
+p = SerDes2 Protocol
+q = Core frequency
+r = Platform frequency
+s = DDR frequency
+t = DDR3 frequency
+
+For example,
+	PBL_0x2a_0x41_1800_700_1866_1600.bin
+
+Errata Workaround Implemented
+=============================
+A-010679:
+	RCW[7] must be set to 1 to enable SYS_PLL_FB
+	(Only required for Rev1.0)
+
+A-009102:
+	Default SERDES setting may cause excess errors in SATA controller
+	Workaround: Write 0x502880 to LNmSSCR1 register for every lane
+		before enabling SATA operation.Using PBI commands
+		write 0x802880 to 0x01eb099c
+		write 0x802880 to 0x01eb09dc
+
+A-010554:
+	SATA controller may fail to detect some hard drives
+	Workaround: Before enabling SATA controller
+		write 0x80104e20 to 0x1eb1300
+		write 0x80104e20 to 0x1eb1310
+
+A-000009:
+	SATA Gen3 speed (6Gbps) exhibit high error rate
+	Workaround: Before enabling SATA controller
+		write 0x00502880 to 0x1eb099c
+		write 0x00502880 to 0x1eb09dc
