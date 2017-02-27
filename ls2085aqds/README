@@ -1,0 +1,53 @@
+The RCW directories names for the LS2085AQDS boards conform to the following
+naming convention:
+
+abcdefgh_ijklmn_op_qr:
+
+a = What is available in SFP cage 1
+b = What is available in SFP cage 2
+c = What is available in SFP cage 3
+d = What is available in SFP cage 4
+e = What is available in SFP cage 5
+f = What is available in SFP cage 6
+g = What is available in SFP cage 7
+h = What is available in SFP cage 8
+i = What is available in Slot 1
+j = What is available in Slot 2
+k = What is available in Slot 3
+l = What is available in Slot 4
+m = What is available in Slot 5
+n = What is available in Slot 6
+o = SATA1
+p = SATA2
+
+For the Slots (c..j):
+ 'N' is NULL, not available/not used
+ 'P' is PCIe
+ 'S' is SGMII
+ 'Q' if QSGMII
+ 'F' is XFI
+ 'H' is SATA
+
+Serdes1 protocol (q):
+q = 'hex value of serdes1 protocol value'
+
+Serdes2 protocol (r):
+r = 'hex value of serdes2 protocol value'
+
+BIN   Core/Platform/DDR/DP-DDR
+Bin1: 1867MHz/533MHz/1867MT/s/1600MT/s
+
+
+Files naming convention
+=============================
+PBL_q_r_x_y_z_w.bin
+
+s = SerDes1 Protocol
+t = SerDes2 Protocol
+x = Core frequency
+y = Platform frequency
+z = DDR frequency
+w = DP-DDR frequency
+
+For example,
+	PBL_0x2a_0x07_1800_600_1867_1600.bin
