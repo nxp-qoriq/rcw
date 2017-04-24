@@ -3,5 +3,5 @@
  */
 
 .pbi
-write 0xee0200, 0x60080000
+write 0xee0200, 0x606c0000
 .end

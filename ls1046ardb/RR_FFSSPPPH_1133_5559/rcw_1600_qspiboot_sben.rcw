@@ -101,7 +101,7 @@ HWA_CGA_M2_CLK_SEL=1
 // QSPI flash clock
 write 0x57015c, 0x40100000
 // U-boot header address
-write 0xee0200, 0x40700000
+write 0xee0200, 0x406c0000
 .end
 
 #include <cci_barrier_disable.rcw>
