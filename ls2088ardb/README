@@ -35,8 +35,8 @@ Bin1: 1800MHz/700MHz/1866MT/s
 
 Ref clock setting on board
 ==========================
-DDR Ref clock: 100MHz
-Sys PLL Ref clock:133.33MHz
+DDR Ref clock: 133.33MHz
+Sys PLL Ref clock: 100MHz
 
 Files naming convention
 =============================
