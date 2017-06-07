@@ -58,7 +58,7 @@ LVDD_VSEL=1
 .pbi
 // QSPI flash clock
 write 0x57015c, 0x00000803
-write 0xee0200, 0x40010000
+write 0xee0200, 0x40100000
 .end
 
 #include <scfg_bit_reverse.rcw>
