@@ -88,3 +88,13 @@ A-008851:
 		write 0x47474747 to 0x03700158
 		write 0x00800401 to 0x03600890
 		write 0x00800401 to 0x03700890
+A-010477:
+	PCI Express Gen3 link training equalization fails with default
+	controller configuration.
+	Workaround: Write the value of 0x0080_0401 to the GEN3 Control Register
+	(GEN3_RELATED_OFF) located at each PCI Express controller’s
+	configuration space offset 0x890 during the pre-boot initialization
+	(PBI) stage.Using PBI commands
+		write addr 0x03500890 data 0x00800401
+		write addr 0x03600890 data 0x00800401
+		write addr 0x03700890 data 0x00800401
