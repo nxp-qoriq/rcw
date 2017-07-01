@@ -1,3 +1,5 @@
+# Copyright 2014-2016 Freescale Semiconductor, Inc.
+
 puts $argv
 set i_file [lindex $argv 0]
 set o_file [lindex $argv 1]

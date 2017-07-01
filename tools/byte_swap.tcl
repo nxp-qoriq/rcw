@@ -1,3 +1,5 @@
+# Copyright 2014-2016 Freescale Semiconductor, Inc.
+
 #######Swap the 8bytes endian##########
 #This tclsh script is used for swap the 8bytes endian.
 #It used for QSPI boot rcw on:
