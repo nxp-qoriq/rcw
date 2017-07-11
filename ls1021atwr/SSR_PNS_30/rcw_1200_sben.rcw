@@ -58,3 +58,4 @@ BOOT_HO=1
 #include <../ls1021aqds/scfg_bit_reverse.rcw>
 #include <../ls1021aqds/uboot_hdr_addr.rcw>
 #include <../ls1021aqds/serdes_sata.rcw>
+#include <../ls1021aqds/pcie_hotplug_status_clear.rcw>

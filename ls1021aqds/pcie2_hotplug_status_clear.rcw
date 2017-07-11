@@ -1,0 +1,16 @@
+/*
+ * fix the errata A-007815 and A-007997 on ls1021a
+ * PCIE hotplug related bits with slot capabilities register cleared on LS1021AQDS and LS1021ATWR.
+ * PCIE read-only-write-enable bit cleard to prevent overwriting read-only registers.
+ * PCIe1 GEN3_RELATED_OFF register: 0x0340_0084 little endian
+ * PCIe2 GEN3_RELATED_OFF register: 0x0350_0084 little endian
+ * ALTCBAR Register (SCFG_ALTCBAR): 0x0157_0158 big endia
+ * PBL is also big endian block on LS1021A
+ */
+.pbi
+write 0x570158, 0x00000300
+awrite 0x4008bc, 0x01000000
+awrite 0x400084, 0x00000000
+awrite 0x500084, 0x00000000
+awrite 0x4008bc, 0x00000000
+.end
