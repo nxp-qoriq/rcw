@@ -64,3 +64,4 @@ HWA_CGA_M2_CLK_SEL=1
 #include <uboot_address.rcw>
 #include <dcsr_mbist.rcw>
 #include <serdes_sata.rcw>
+#include <pcie_outband_mem.rcw>

@@ -74,6 +74,7 @@ write 0x570604, 0x40010000
 #include <usb_phy_freq.rcw>
 #include <dcsr_mbist.rcw>
 #include <serdes_sata.rcw>
+#include <pcie_outband_mem.rcw>
 .pbi
 write 0x550000, 0x000f400c
 .end

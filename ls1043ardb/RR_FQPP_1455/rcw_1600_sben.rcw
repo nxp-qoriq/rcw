@@ -66,3 +66,4 @@ HWA_CGA_M2_CLK_SEL=1
 #include <../ls1043aqds/usb_phy_freq.rcw>
 #include <../ls1043aqds/uboot_hdr_addr.rcw>
 #include <../ls1043aqds/dcsr_mbist.rcw>
+#include <../ls1043aqds/pex_gen3_link.rcw>
