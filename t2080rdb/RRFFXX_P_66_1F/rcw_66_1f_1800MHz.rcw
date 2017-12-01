@@ -59,3 +59,5 @@ IRQ_BASE=511
 //errata A-007186 for serdes2=0x1F, set SRDS2PLL2CR1=0x08004100
 write 0x0eb028, 0x08004100
 .end
+#include "a008851_pex1.rcw"
+#include "a008851_pex4.rcw"

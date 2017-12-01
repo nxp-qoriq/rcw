@@ -59,3 +59,4 @@ UART_BASE=6
 IRQ_BASE=511
 
 #include <secure_boot_pbi.rcw>
+#include "../../t2080rdb/a008851_pex4.rcw"
