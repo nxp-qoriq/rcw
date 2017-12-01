@@ -58,3 +58,5 @@ UART_BASE=6
 IRQ_BASE=511
 
 #include <secure_boot_pbi.rcw>
+#include "a008851_pex1.rcw"
+#include "a008851_pex4.rcw"

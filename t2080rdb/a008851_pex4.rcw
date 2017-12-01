@@ -1,0 +1,18 @@
+/*
+ * Work-around of erratum A-008851 for PEX4.
+ *
+ * Workaround:
+ * if the PCI Express controller is configured as Gen3 RC
+ * mode, each lane’s Lane Equalization Control Register of the
+ * controller should be programmed with the value of 4747h.
+ */
+
+.pbi
+
+write 0x270000, 0x8100005c        // PEX4: config_address set lane45_eq_control
+write 0x270004, 0x47474747        // PEX4: config_data set value 0x47474747
+write 0x270000, 0x81000060        // PEX4: config_address set lane67_eq_control
+write 0x270004, 0x47474747        // PEX4: config_data set value 0x47474747
+
+flush
+.end
