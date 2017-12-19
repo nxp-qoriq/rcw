@@ -1,5 +1,8 @@
 /*
- * PEX Gen3 linkup for LS1046AQDS and LS1046ARDB
+ * PEX Gen3 linkup ERRATAs for LS1046AQDS and LS1046ARDB
+ *
+ * A-010477: PCI Express Gen3 link training equalization fails
+ * with default controller configuration
  * PCIe1 GEN3_RELATED_OFF register: 0x0340_0890 little endian
  * PCIe2 GEN3_RELATED_OFF register: 0x0350_0890 little endian
  * PCIe3 GEN3_RELATED_OFF register: 0x0360_0890 little endian
