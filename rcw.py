@@ -2,7 +2,8 @@
 
 # rcw.py -- compiles an RCW source file into an PBL/RCW binary
 
-# Copyright 2011 Freescale Semiconductor, Inc.
+# Copyright 2011-2016 Freescale Semiconductor, Inc.
+# Copyright 2017-2018 NXP
 # Author: Timur Tabi <timur@freescale.com>
 
 # Redistribution and use in source and binary forms, with or without
@@ -34,7 +35,7 @@
 # 1. A bit field definition.  Bit fields are defined in the format XXX[b:e],
 # where XXX is the name of the field (only letters, numbers, and an underscore
 # are allowed), 'b' is the starting bit position, and 'e' is the ending bit
-# position.
+# position. A declaration of [0:5] is different from [5:0] in bit sequence!
 #
 # 2. A value assigned to a bit field.  Assignments are defined in the format
 # XXX=v, where XXX is the name of the field (which must have been previously
@@ -45,6 +46,17 @@
 # meanings.  Variables are used to define parts of the RCW or PBL that cannot
 # be defined by a symbol assignment.
 #
+# Examples for use of special variables:
+#       %size=1024              -- Must be set to RCW bit count
+#       %pbiformat=2            -- Must be set to 2 for Gen3 platform PBI
+#       %classicbitnumbers=1    -- Non-Power Architecture bit numbering
+#       %littleendian=1         -- Needed for Gen3 style platform
+#       %littleendian64b=1      -- Swaps eight bytes instead of four
+#       %dont64bswapcrc          -- Can be set if CRC should stay normal
+#                                  for %littleendian64b=1
+#       %sysaddr, %pbladdr      -- Hex needed for pbiformat=1
+#
+#
 # 4. A PBI can be defined in a .pbi/.end block.  Start the section with a line
 # containing the string ".pbi".  The following PBI commands are available:
 #
@@ -52,6 +64,9 @@
 #   write <a> <v>   -- write value <v> to address <a>
 #   awrite <a> <v>  -- write value <v> to address <a>, with ACS bit set
 #   flush           -- flush (perform a read at the addr of the previous write)
+#   loadacwindow    -- Gen3 family PBI, one arg
+#   poll[.long]     -- Gen3 family PBI, three args
+#   blockcopy       -- Gen3 family PBI, four args
 #
 # Terminate the PBI section with ".end".
 #
@@ -139,13 +154,13 @@ def command_line():
         action='store_false', default=True)
 
     parser.add_option('-r', dest='reverse', help='generate a source file from a binary.  '
-        'Must also specify --rcw.  --pbl option is ignored.', action='store_true',
+        'Must also specify --rcwi.  --pbl option is ignored.', action='store_true',
             default=False)
 
     parser.add_option('-I', dest='include', help='include path.  '
         'Can be specified multiple times', action="append")
 
-    parser.add_option('--rcwi', dest='rcwi', help='RCWI defintion filename.  '
+    parser.add_option('--rcwi', dest='rcwi', help='RCWI definition filename.  '
         'Used only if -r is specified.')
 
     parser.add_option('-w', dest='warnings', help='enable warning messages',
@@ -258,35 +273,112 @@ def build_pbi(lines):
     subsection = ''
     global vars
 
+    if 'pbiformat' in vars:
+        pbiformat = int(vars['pbiformat'], 0)
+    else:
+        pbiformat = 0
+    endianess = ">"
+    if 'littleendian' in vars and int(vars['littleendian'], 0):
+        endianess = "<"
+
     for l in lines:
         # Check for an instruction without 0-2 parameters
         # The + ' ' is a hack to make the regex work for just 'flush'
-        m = re.search('([a-z]+)\s*(?<=\s)([^,]*),?(.*)', l + ' ')
+        m = re.search('([a-z]+)(|\.b1|\.b2|\.b4|\.short|\.long)\s*(?<=\s)([^,]*),?([^,]*),?([^,]*),?([^,]*)', l + ' ')
         if not m:
             print 'Unknown PBI subsection command "%s"' % l
             return ''
         op = m.group(1)
-        p1 = m.group(2).strip()
-        p2 = m.group(3).strip()
+        opsize = m.group(2)
+        opsizebytes = 3
+        if opsize == '.b1':
+            opsizebytes = 1
+
+        p1 = m.group(3).strip()
+        p2 = m.group(4).strip()
+        p3 = m.group(5).strip()
+        p4 = m.group(6).strip()
         p1 = eval(p1, {"__builtins__":None}, {}) if len(p1) else None
         p2 = eval(p2, {"__builtins__":None}, {}) if len(p2) else None
+        p3 = eval(p3, {"__builtins__":None}, {}) if len(p3) else None
+        p4 = eval(p4, {"__builtins__":None}, {}) if len(p4) else None
         if op == 'wait':
             if p1 == None:
                 print 'Error: "wait" instruction requires one parameter'
                 return ''
-            subsection += struct.pack('>LL', 0x090000c0 |  int(vars['pbladdr'], 16), p1)
+            if pbiformat == 2:
+                v1 = struct.pack(endianess + 'L', 0x80820000 | p1)
+                subsection += v1
+            else:
+                v1 = struct.pack(endianess + 'L', 0x090000c0 |  (int(vars['pbladdr'], 16) & 0x00ffff00))
+                v2 = struct.pack(endianess + 'L', p1)
+                subsection += v1
+                subsection += v2
         elif op == 'write':
             if p1 == None or p2 == None:
                 print 'Error: "write" instruction requires two parameters'
                 return ''
-            subsection += struct.pack('>LL', 0x09000000 + p1, p2)
+            if pbiformat == 2:
+                v1 = struct.pack(endianess + 'L', (opsizebytes << 28) | p1)
+            else:
+                v1 = struct.pack(endianess + 'L', 0x09000000 + p1)
+            v2 = struct.pack(endianess + 'L', p2)
+            subsection += v1
+            subsection += v2
         elif op == 'awrite':
             if p1 == None or p2 == None:
                 print 'Error: "awrite" instruction requires two parameters'
                 return ''
-            subsection += struct.pack('>LL', 0x89000000 + p1, p2)
+            if pbiformat == 2:
+                v1 = struct.pack(endianess + 'L', 0x80000000 + (opsizebytes << 26) + p1)
+            else:
+                v1 = struct.pack(endianess + 'L', 0x89000000 + p1)
+            v2 = struct.pack(endianess + 'L', p2)
+            subsection += v1
+            subsection += v2
+        elif op == 'poll':
+            if pbiformat != 2:
+                print 'Error: "poll" not support for old PBI format'
+                return ''
+            if p1 == None or p2 == None or p3 == None:
+                print 'Error: "poll" instruction requires three parameters'
+                return ''
+            if opsize == '.long':
+                cmd = 0x81
+            else:
+                cmd = 0x80
+            v1 = struct.pack(endianess + 'L', 0x80000000 + (cmd << 24) + p1)
+            v2 = struct.pack(endianess + 'L', p2)
+            v3 = struct.pack(endianess + 'L', p3)
+            subsection += v1
+            subsection += v2
+            subsection += v3
+        elif op == 'loadacwindow':
+            if pbiformat != 2:
+                print 'Error: "loadacwindow" not supported for old PBI format'
+                return ''
+            if p1 == None:
+                print 'Error: "loadacwindow" instruction requires one parameter'
+                return ''
+            v1 = struct.pack(endianess + 'L', 0x80120000 + p1)
+            subsection += v1
+        elif op == 'blockcopy':
+            if pbiformat != 2:
+                print 'Error: "blockcopy" not supported for old PBI format'
+                return ''
+            if p1 == None or p2 == None or p3 == None or p4 == None:
+                print 'Error: "blockcopy" instruction requires four parameters'
+                return ''
+            v1 = struct.pack(endianess + 'L', 0x80000000 + (p1 & 0xff))
+            v2 = struct.pack(endianess + 'L', p2)
+            v3 = struct.pack(endianess + 'L', p3)
+            v4 = struct.pack(endianess + 'L', p4)
+            subsection += v1
+            subsection += v2
+            subsection += v3
+            subsection += v4
         elif op == 'flush':
-            subsection += struct.pack('>LL', 0x09000000 | int(vars['pbladdr'], 16), 0)
+            subsection += struct.pack('>LL', 0x09000000 | (int(vars['pbladdr'], 16) & 0x00ffff00), 0)
         else:
             print 'Unknown PBI subsection command "%s"' % l
             return ''
@@ -340,7 +432,7 @@ def parse_source_file(source):
             continue
 
         # Is it an identifier?  %var=value
-        m = re.search(r'%([a-zA-Z]+)=(.+)', l)
+        m = re.search(r'%([a-zA-Z]+[a-zA-Z0-9]+)=(.+)', l)
         if m:
             identifier, value = m.groups()
             vars[identifier] = value
@@ -442,10 +534,18 @@ def check_vars():
         sys.exit(1)
 
     if options.pbl:
-        # If we want the PBL header/footer, the vars for those must be defined
-        if not vars['sysaddr']:
-            print 'Error: PBL format requires %sysaddr to be defined'
-            sys.exit(1)
+        if 'pbiformat' in vars and int(vars['pbiformat'], 0) == 2:
+            if 'sysaddr' in vars:
+                print 'Error: PBL format does not use %sysaddr'
+                sys.exit(1)
+            #if 'pbladdr' in vars:
+            #    print 'Error: PBL format does not use %pbladdr'
+            #    sys.exit(1)
+        else:
+            # If we want the PBL header/footer, the vars for those must be defined
+            if not 'sysaddr' in vars:
+                print 'Error: PBL format requires %sysaddr to be defined'
+                sys.exit(1)
 
 # Create a .bin file
 def create_binary():
@@ -457,12 +557,41 @@ def create_binary():
 
     # Create the RCW data.  We encode it into 'bits' as a giant (2^size)-bit number
     size = int(vars['size'], 0)
+    if 'pbiformat' in vars:
+        pbiformat = int(vars['pbiformat'], 0)
+    else:
+        pbiformat = 0
+    if 'classicbitnumbers' in vars:
+        classicbitnumbers = int(vars['classicbitnumbers'], 0)
+    else:
+        classicbitnumbers = 0
+    endianess = ">"
+    if 'littleendian' in vars and int(vars['littleendian'], 0):
+        endianess = "<"
+    endianess64b = 0
+    if 'littleendian64b' in vars and int(vars['littleendian64b'], 0):
+        endianess64b = 1
+    dont64bswapcrc = 0
+    if 'dont64bswapcrc' in vars and int(vars['dont64bswapcrc'], 0):
+        dont64bswapcrc = 1
     bits = 0L
 
+    # Magic hack. If a pbi is specified and we didn't set the size,
+    # set it for the new format!
+    if 'PBI_LENGTH' in symbols and not 'PBI_LENGTH' in assignments:
+        if pbiformat == 2:
+            pbilen = len(pbi) / 4
+            if options.pbl:
+                # CRC and Stop adds two words
+                pbilen += 2
+            assignments['PBI_LENGTH'] = pbilen
+            
     for n, v in assignments.iteritems():
         # n = name of symbol
         # v = value to assign
-        b, e = symbols[n]   # First bit and last bit
+        bb, ee = symbols[n]   # First bit and last bit
+        b = min(bb, ee)
+        e = max(bb, ee)
         s = 1 + e - b       # number of bits in field
 
         # Make sure it's not too large
@@ -470,6 +599,11 @@ def create_binary():
             print 'Error: Value', v, 'is too large for field', n
             continue
 
+        # If we treat the bitfield as "classic" numbered, reverse
+        # the value before adding it!
+        if b != bb:
+            v = int(bin(v)[2:].zfill(s)[::-1], 2)
+                
         # Set the bits.  We assume that bits [b:e] are already zero.  They can be
         # non-zero only if we have overlapping bitfield definitions, which we
         # already report as an error.
@@ -478,24 +612,83 @@ def create_binary():
     # Generate the binary.  First, apply the preamble, if requested
     binary = ''
     if options.pbl:
-        length_byte = (((size / 8) & 63) << 1) | 1
-        binary = binascii.unhexlify('aa55aa55') + chr(length_byte) + \
-            binascii.unhexlify(vars['sysaddr'])
+        # Starting with LS2, we have a larger field and a different
+        # format.
+        binary = struct.pack(endianess + 'L', 0xaa55aa55)
+        if pbiformat == 2:
+            # Load RCW command
+            binary += struct.pack(endianess + 'L', 0x80100000)
+        else:
+            length_byte = (((size / 8) & 63) << 1) | 1
+            binary += struct.pack(endianess + 'L', (length_byte << 24) | (int(vars['sysaddr'], 16) & 0x00ffffff))
 
     # Then convert 'bits' into an array of bytes
     for i in range(size - 8, -1, -8):
-        binary += chr(bits >> i & 0xff)
+        byte = bits >> i & 0xff
+        if classicbitnumbers:
+            byte = int(bin(byte)[2:].zfill(8)[::-1], 2)
+        binary += chr(byte)
 
+    if options.pbl:
+        if pbiformat == 2:
+            # Add the simple checksum to the Load RCW command
+            checksum = 0
+            for i in range(0, len(binary), 4):
+                word = struct.unpack(endianess + 'L', binary[i:i+4])[0]
+                checksum += word;
+            checksum = checksum & 0xffffffff
+            binary += struct.pack(endianess + 'L', checksum)
+                
+        
     # Add any PBI commands
     binary += pbi
 
     # Add the end-command
     if options.pbl:
-        binary += binascii.unhexlify('08'+vars['pbladdr'][0:3]+'040')
+        if pbiformat == 2:
+            crcbinary = pbi
+
+            # CRC and Stop
+            cmd = struct.pack(endianess + 'L', 0x808f0000)
+            invert = 0xffffffff
+        else:
+            crcbinary = binary
+            cmd = struct.pack(endianess + 'L', 0x08000040 | (int(vars['pbladdr'], 16) & 0x00ffff00))
+            invert = 0
+
+        crcbinary += cmd
+
+        # Precise bit any byte ordering of the CRC calculation is
+        # not clearly specified. This is empirical.
+        if classicbitnumbers:
+                newcrcbinary = ''
+                for c in crcbinary:
+                    byte = ord(c)
+                    byte = int(bin(byte)[2:].zfill(8)[::-1], 2)
+                    newcrcbinary += chr(byte)
+                crcbinary = newcrcbinary
 
         # Calculate and add the CRC
-        crc = crc32(binary) & 0xffffffff
-        binary += struct.pack('>L', crc)
+        crc = crc32(crcbinary) & 0xffffffff
+
+        if classicbitnumbers:
+                crc = int(bin(crc)[2:].zfill(32)[::-1], 2)
+
+        crc ^= invert
+        binary += cmd
+        binary += struct.pack(endianess + 'L', crc)
+
+    if endianess64b:
+        l = len(binary)
+        if dont64bswapcrc and options.pbl:
+            l -= 8
+        newbinary = ''
+        for i in range(0, l, 8):
+                x64 = struct.unpack('>Q', binary[i:i + 8])[0]
+                newbinary += struct.pack('<Q', x64)
+        if l < len(binary):
+                newbinary += binary[i+8:i+16]
+        binary = newbinary
 
     return binary
 
@@ -510,6 +703,43 @@ def create_source():
     f.close()
 
     size = int(vars['size'], 0)
+    if 'pbiformat' in vars:
+        pbiformat = int(vars['pbiformat'], 0)
+    else:
+        pbiformat = 0
+    if 'classicbitnumbers' in vars:
+        classicbitnumbers = int(vars['classicbitnumbers'], 0)
+    else:
+        classicbitnumbers = 0
+    endianess = ">"
+    endianessrev = "<"
+    if 'littleendian' in vars and int(vars['littleendian'], 0):
+        endianess = "<"
+        endianessrev = ">"
+        #binary = binary[0:len(binary) & ~3]
+        #newbinary = ''
+        #for i in range(0, len(binary), 4):
+        #        x32 = struct.unpack('>L', binary[i:i + 4])[0]
+        #        newbinary += struct.pack('<L', x32)
+        #binary = newbinary
+
+    dont64bswapcrc = 0
+    if 'dont64bswapcrc' in vars and int(vars['dont64bswapcrc'], 0):
+        dont64bswapcrc = 1
+
+    # Re-sort words in 64b quads
+    if 'littleendian64b' in vars and int(vars['littleendian64b'], 0):
+        binary = binary[0:len(binary) & ~7]
+        l = len(binary)
+        if dont64bswapcrc and l > (size / 8):
+            l -= 8
+        newbinary = ''
+        for i in range(0, l, 8):
+                x64 = struct.unpack('>Q', binary[i:i + 8])[0]
+                newbinary += struct.pack('<Q', x64)
+        if l < len(binary):
+                newbinary += binary[i+8:i+16]
+        binary = newbinary
 
     # Insert the #include statement for the RCWI file.  We assume that the
     # file will be in the include path, so we use <> and strip any paths
@@ -520,23 +750,64 @@ def create_source():
     # preamble and an end-command, so remove them.  This is bit hackish,
     # but it'll work for now.
     if len(binary) > (size / 8):
-        preamble = binary[0:8]
-
-        # Convert the binary into a large integer
-        rcw = binary[8:8 + (size / 8)]
-        bits = int(binascii.hexlify(rcw), 16)
+        preambletst = struct.pack(endianess + 'L', 0xaa55aa55)
+        if pbiformat == 2:
+            if binary[0:4] == preambletst:
+                # Convert the binary into a large integer
+                rcw = binary[8:8 + (size / 8)]
+                bitbytes = rcw
+                # We skip the checksum field
+                pbi = binary[8 + (size / 8) + 4:]
+            else:
+                print 'Weird binary RCW format!'
+                bitbytes = ''
+        else:
+            if binary[0:4] == preambletst:
+                # Convert the binary into a large integer
+                rcw = binary[8:8 + (size / 8)]
+                bitbytes = rcw
+                pbi = binary[8 + (size / 8):]
+            else:
+                print 'Weird binary RCW format!'
+                bitbytes = ''
     else:
-        bits = int(binascii.hexlify(binary), 16)
+        bitbytes = binary
+        pbi = ''
+
+    if classicbitnumbers:
+        # We do the weird thing and rebitswap the bit string to ensure
+        # we have the right bit significance matched up with numbering
+        newbitbytes = ''
+        for c in bitbytes:
+            byte = ord(c)
+            newbitbytes += chr(int(bin(byte)[2:].zfill(8)[::-1], 2))
+        bitbytes = newbitbytes
+
+    # After this stage, all the RCW bits should be formatted with lsb on
+    # the right side and msb on the left side to permit conversion into
+    # a very long uint.
+    bitstring = ''.join(['{0:08b}'.format(ord(x)) for x in bitbytes])[::-1]
+    bits = int(bitstring, 2)
 
     # Loop over all the known symbols
-    for n, [b, e] in symbols.ordered_items():
+    for n, [bb, ee] in symbols.ordered_items():
+        b = min(bb, ee)
+        e = max(bb, ee)
         s = 1 + e - b       # number of bits in field
 
-        shift = (size - 1) - e  # number of bits to shift
+        shift = b  # number of bits to shift defined by lsb
         mask = ((1 << s) - 1)
         v = (bits >> shift) & mask
+        # If we treat the bitfield as "ppc" numbered, reverse
+        # the value before adding it!
+        if b == bb:
+            v = int(bin(v)[2:].zfill(s)[::-1], 2)
+
         if v:
-            source += "%s=%u\n" % (n, v)
+            if s > 8:
+                source += "%s=0x%x\n" % (n, v)
+            else:
+                source += "%s=%u\n" % (n, v)
 
             # Clear out the bits we just parsed, so that we can see if
             # there are any left over.  If there are, then it means that
@@ -545,14 +816,161 @@ def create_source():
 
     if bits:
         print 'Unknown bits in positions:',
-        mask = 1 << (size - 1)
+        mask = 1
         n = 0
-        while mask:
+        while bits:
             if (bits & mask):
                 print n,
             n += 1
-            mask >>= 1
+            bits &= ~mask
+            mask <<= 1
         print
+
+    if len(pbi) > 0:
+        l = len(pbi)
+        # Deal reasonably with broken PBIs with, e.g., an extra LF
+        # at the end
+        pbi += "\0\0\0"
+        l += 3;
+        l &= ~3;
+        source += "\n.pbi\n"
+        i = 0
+        while i < l:
+            word = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+            i += 4
+            if pbiformat == 2:
+                hdr = (word & 0xff000000) >> 24
+                if hdr == 0x80:
+                    cmd = (word & 0x00ff0000) >> 16
+                    if cmd == 0x00:
+                        arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        arg2 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        arg3 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        source += "blockcopy 0x%02x,0x%08x,0x%08x,0x%08x\n" % ((word & 0xff), arg1, arg2, arg3)
+                    elif cmd == 0x10:
+                        source += "/* Disassemble not implemented for word 0x%08x */\n" % (word)
+                    elif cmd == 0x11:
+                        source += "/* Disassemble not implemented for word 0x%08x */\n" % (word)
+                    elif cmd == 0x12:
+                        source += "loadacwindow 0x%08x\n" % (word & 0x3fff)
+                    elif cmd == 0x14:
+                        arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        arg2 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        source += "loadcondition 0x%08x,0x%08x\n" % (arg1, arg2)
+                    elif cmd == 0x20:
+                        source += "/* Disassemble not implemented for word 0x%08x */\n" % (word)
+                    elif cmd == 0x22:
+                        source += "/* Disassemble not implemented for word 0x%08x */\n" % (word)
+                    elif cmd == 0x80:
+                        arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        arg2 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        arg3 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        source += "poll.short 0x%08x,0x%08x,0x%08x\n" % (arg1, arg2, arg3)
+                    elif cmd == 0x81:
+                        arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        arg2 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        arg3 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        source += "poll.long 0x%08x,0x%08x,0x%08x\n" % (arg1, arg2, arg3)
+                    elif cmd == 0x82:
+                        source += "wait 0x%08x\n" % (word & 0xffff)
+                    elif cmd == 0x84:
+                        source += "/* Disassemble not implemented for word 0x%08x */\n" % (word)
+                    elif cmd == 0x85:
+                        source += "/* Disassemble not implemented for word 0x%08x */\n" % (word)
+                    elif cmd == 0x8f:
+                        arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        source += "/* CRC and Stop command (CRC 0x%08x)*/\n" % (arg1)
+                    elif cmd == 0xff:
+                        i += 4
+                        source += "/* Stop command */\n"
+                    else:
+                        source += "/* Unknown word 0x%08x */\n" % (word)
+                elif (hdr & 0xc0) == 0x00:
+                    cmd = (hdr & 0x30) >> 4
+                    if cmd == 0x1:
+                        arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        source += "write.b1 0x%08x,0x%08x\n" % (word & 0x0fffffff, arg1)
+                    elif cmd == 0x3:
+                        arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        source += "write 0x%08x,0x%08x\n" % (word & 0x0fffffff, arg1)
+                    else:
+                        source += "/* Unknown word 0x%08x */\n" % (word)
+                elif (hdr & 0xc0) == 0x80:
+                    cmd = (hdr & 0x3c) >> 2
+                    if cmd:
+                        source += "awrite 0x%08x" % (word & 0x03ffffff)
+                        for j in range(0, 1 << (cmd - 1), 4):
+                            arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                            i += 4
+                            source += ",0x%08x" % (arg1)
+                        source += "\n"
+                    else:
+                        source += "/* Unknown word 0x%08x */\n" % (word)
+                else:
+                    source += "/* Unknown word 0x%08x */\n" % (word)
+            else:
+                # Traditional pbi format
+
+                hdr = (word & 0xff000000) >> 24
+
+                # Magic hack to overcome broken binary PBI entries
+                # shipping in the SDK for LS1
+                pbladdr = (int(vars['pbladdr'], 16) & 0x00ffff00)
+                crcstopcheck = 0x08000040 | pbladdr
+                if ('littleendian64b' in vars and int(vars['littleendian64b'], 0) and
+                    i + 4 == l and struct.unpack(endianessrev + 'L', pbi[i:i+4])[0] == crcstopcheck):
+                    source += "/* CRC and Stop command (CRC 0x%08x)*/\n" % (word)
+                    i += 4
+                elif (hdr & 0x01) == 0x01:
+                    addr = word & 0x00ffffff
+                    cnt = (hdr >> 1) & 0x3f
+                    if cnt == 0:
+                        cnt = 64
+                    if i + cnt >= l:
+                        print 'Error in write 0x%08x at offset %d within PBI\n' % (word, i)
+                    if (addr & 0x00ffff00 == pbladdr):
+                        arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                        i += 4
+                        if (addr & 0xff == 0x00):
+                            source += "flush"
+                        elif (addr & 0xff == 0x40):
+                            source += "/* CRC command (CRC 0x%08x)*/" % (arg1)
+                        elif (addr & 0xff == 0x80):
+                            source += "jump 0x%08x" %(arg1)
+                        elif (addr & 0xff == 0xc0):
+                            source += "wait %u" %(arg1)
+                    else:
+                        if (hdr & 0x80) == 0x80:
+                            source += "a"
+                        source += "write 0x%08x" % (addr)
+                        for j in range(0, cnt, 4):
+                            arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                            i += 4
+                            source += ",0x%08x" % (arg1)
+                    source += "\n"
+                elif (hdr & 0x81) == 0x00:
+                    arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
+                    i += 4
+                    source += "/* CRC and Stop command (CRC 0x%08x)*/\n" % (arg1)
+                else:
+                    source += "/* Unknown word 0x%08x */\n" % (word)
+                        
+        source += ".end\n"
+        
 
     return source
 
@@ -567,7 +985,7 @@ command_line()
 
 symbols = {}
 assignments = {}
-vars = {'pbladdr':'138000'}
+vars = {'pbladdr':'0x138000'}
 pbi = ''
 
 if options.reverse:
