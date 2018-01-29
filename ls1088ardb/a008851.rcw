@@ -1,0 +1,24 @@
+
+/*
+ * Errata workaround for A-008851 on LS1088A:
+ *      - PCIe Gen 3 training settings are not ok for RC
+ *
+ */
+
+.pbi
+write 0x034008bc,0x00000001
+write 0x03400164,0x47474747
+write 0x03400168,0x47474747
+
+write 0x035008bc,0x00000001
+write 0x03500154,0x47474747
+write 0x03500158,0x47474747
+
+write 0x036008bc,0x00000001
+write 0x03600154,0x47474747
+write 0x03600158,0x47474747
+
+write 0x034008bc,0x00000000
+write 0x035008bc,0x00000000
+write 0x036008bc,0x00000000
+.end

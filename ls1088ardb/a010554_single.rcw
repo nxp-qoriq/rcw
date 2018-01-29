@@ -1,0 +1,9 @@
+
+/*
+ * Errata workaround for A-010554 on LS1088A:
+ *      - SATA recognition may not work
+ */
+
+.pbi
+write 0x1eb1300,0x80104e20
+.end

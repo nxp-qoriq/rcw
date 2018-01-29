@@ -1,0 +1,9 @@
+
+/*
+ * Errata workaround for A-009102 on LS1088A:
+ *      - SATA 6G settings are not correct
+ */
+
+.pbi
+write 0x01eb08dc,0x00502880
+.end
