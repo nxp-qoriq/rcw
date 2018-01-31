@@ -1,6 +1,6 @@
 DESTDIR = .
 BOARDS = b4420qds b4860qds \
-	 ls1012ardb ls1012a2g5rdb \
+	 ls1012ardb ls1012a2g5rdb ls1012afrdm \
 	 ls1021aqds ls1021atwr ls1043aqds ls1043ardb ls1046ardb ls1046aqds \
 	 ls1088ardb ls1088aqds\
 	 p2041rdb p3041ds p4080ds p5020ds p5040ds \
