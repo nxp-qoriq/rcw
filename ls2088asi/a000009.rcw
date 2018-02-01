@@ -1,0 +1,9 @@
+/*
+ * SATA Gen3 speed (6Gbps) exhibit high error rate.
+ * Workaround: Before enabling SATA controller perform below write operations
+ */
+
+.pbi
+write 0x1eb099c,0x00502880
+write 0x1eb09dc,0x00502880
+.end
