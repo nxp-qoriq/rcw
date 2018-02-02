@@ -1,0 +1,51 @@
+/*
+ * SerDes Protocol 1 -  0x2a
+ * SerDes Protocol 2 -  0x49
+ *
+ * Frequencies:
+ * Core     -- 2000 MHz
+ * Platform -- 800  MHz
+ * DDR      -- 2133 MHz
+ * DDR3     -- 1600 MHz
+ */
+
+#include <../ls2088asi/ls2088a.rcwi>
+
+SYS_PLL_RAT=16
+RESERVED_7=1
+MEM_PLL_RAT=16
+MEM2_PLL_RAT=16
+CGA_PLL1_RAT=20
+CGA_PLL2_RAT=20
+CGB_PLL1_RAT=20
+CGB_PLL2_RAT=20
+DRAM_LAT=1
+DDR_RATE=1
+BOOT_LOC=21
+FLASH_MODE=2
+PBI_LENGTH=20
+SYSCLK_FREQ=600
+UART_BASE=3
+IIC2_BASE=2
+SPI_BASE_BASE=2
+SPI_PCS_BASE=3
+USB3_CLK_FSEL=39
+SRDS_PRTCL_S1=42
+SRDS_PRTCL_S2=73
+
+/* Errata to write on scratch reg for validation */
+#include <../ls2088asi/scratchrw1.rcw>
+
+/* Copy SPL Uboot to Ocram */
+.pbi
+blockcopy 0x40,0x00100000,0x1800a000,0x00015000
+.end
+
+/* Boot Location Pointer */
+#include <../ls2088asi/bootlocptr_sdhc.rcw>
+
+/* Errata for SATA controller */
+#include <../ls2088asi/a000009.rcw>
+
+/* Errata for SATA controller */
+#include <../ls2088asi/a010554.rcw>

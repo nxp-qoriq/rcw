@@ -1,0 +1,51 @@
+The RCW directories names for the LS2088AQDS boards conform to the following
+naming convention:
+
+abcdefgh_ijklmn_op_qr:
+
+a = What is available in SFP cage 1
+b = What is available in SFP cage 2
+c = What is available in SFP cage 3
+d = What is available in SFP cage 4
+e = What is available in SFP cage 5
+f = What is available in SFP cage 6
+g = What is available in SFP cage 7
+h = What is available in SFP cage 8
+i = What is available in Slot 1
+j = What is available in Slot 2
+k = What is available in Slot 3
+l = What is available in Slot 4
+m = What is available in Slot 5
+n = What is available in Slot 6
+o = SATA1
+p = SATA2
+
+For the Slots (c..j):
+ 'N' is NULL, not available/not used
+ 'P' is PCIe
+ 'S' is SGMII
+ 'Q' if QSGMII
+ 'F' is XFI
+ 'H' is SATA
+
+Serdes1 protocol (q):
+q = 'hex value of serdes1 protocol value'
+
+Serdes2 protocol (r):
+r = 'hex value of serdes2 protocol value'
+
+BIN   Core/Platform/DDR/DP-DDR
+Bin1: 2000MHz/800MHz/2133MT/s/1600MT/s
+
+
+Files naming convention
+=============================
+rcw_x.rcw
+rcw_x_bootmode.rcw
+
+x = Core frequency
+bootmode = nor(default)/sd/qspi
+
+For example,
+  rcw_2000.rcw means rcw for core frequency of 2000MHz with nor boot.
+  rcw_2000_sd.rcw means rcw for core frequency of 2000MHz with SD boot.
