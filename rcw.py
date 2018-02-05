@@ -2,9 +2,9 @@
 
 # rcw.py -- compiles an RCW source file into an PBL/RCW binary
 
-# Copyright 2011-2016 Freescale Semiconductor, Inc.
-# Copyright 2017-2018 NXP
+# Copyright 2017 NXP Semiconductor, Inc.
 # Author: Timur Tabi <timur@freescale.com>
+# Further updates: Heinz Wrobel <Heinz.Wrobel@nxp.com>
 
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -48,11 +48,11 @@
 #
 # Examples for use of special variables:
 #       %size=1024              -- Must be set to RCW bit count
-#       %pbiformat=2            -- Must be set to 2 for Gen3 platform PBI
+#       %pbiformat=2            -- Must be set to 2 for LS2 platform PBI
 #       %classicbitnumbers=1    -- Non-Power Architecture bit numbering
-#       %littleendian=1         -- Needed for Gen3 style platform
+#       %littleendian=1         -- Needed for LS2 style platform
 #       %littleendian64b=1      -- Swaps eight bytes instead of four
-#       %dont64bswapcrc          -- Can be set if CRC should stay normal
+#       %dont64swapcrc          -- Can be set if CRC should stay normal
 #                                  for %littleendian64b=1
 #       %sysaddr, %pbladdr      -- Hex needed for pbiformat=1
 #
@@ -64,9 +64,9 @@
 #   write <a> <v>   -- write value <v> to address <a>
 #   awrite <a> <v>  -- write value <v> to address <a>, with ACS bit set
 #   flush           -- flush (perform a read at the addr of the previous write)
-#   loadacwindow    -- Gen3 family PBI, one arg
-#   poll[.long]     -- Gen3 family PBI, three args
-#   blockcopy       -- Gen3 family PBI, four args
+#   loadacwindow    -- LS2 family PBI, one arg
+#   poll[.long]     -- LS2 family PBI, three args
+#   blockcopy       -- LS2 family PBI, four args
 #
 # Terminate the PBI section with ".end".
 #
@@ -284,7 +284,7 @@ def build_pbi(lines):
     for l in lines:
         # Check for an instruction without 0-2 parameters
         # The + ' ' is a hack to make the regex work for just 'flush'
-        m = re.search('([a-z]+)(|\.b1|\.b2|\.b4|\.short|\.long)\s*(?<=\s)([^,]*),?([^,]*),?([^,]*),?([^,]*)', l + ' ')
+        m = re.match(r'\s*([a-z]+)(|\.b1|\.b2|\.b4|\.short|\.long)\s*(?<=\s)([^,]*),?([^,]*),?([^,]*),?([^,]*)', l + ' ')
         if not m:
             print 'Unknown PBI subsection command "%s"' % l
             return ''
@@ -415,7 +415,7 @@ def parse_source_file(source):
             continue
 
         # Is it a subsection?
-        m = re.search(r'\.([a-zA-Z]+)', l)
+        m = re.match(r'\.([a-zA-Z]+)', l)
         if m:
             if in_subsection:
                 in_subsection = False
@@ -432,14 +432,14 @@ def parse_source_file(source):
             continue
 
         # Is it an identifier?  %var=value
-        m = re.search(r'%([a-zA-Z]+[a-zA-Z0-9]+)=(.+)', l)
+        m = re.match(r'%([a-zA-Z]+[a-zA-Z0-9]+)=(.+)', l)
         if m:
             identifier, value = m.groups()
             vars[identifier] = value
             continue
 
         # Is it a single field definition?  NAME[position]
-        m = re.search(r'([A-Z0-9_]+)\[([0-9a-zA-Z]+)]', l)
+        m = re.match(r'([A-Z0-9_]+)\[([0-9a-zA-Z]+)]', l)
         if m:
             name, position = m.groups()
             position = int(position, 0)
@@ -449,7 +449,7 @@ def parse_source_file(source):
             continue
 
         # Is it a ranged field definition?  NAME[begin:end]
-        m = re.search(r'([A-Z0-9_]+)\[([0-9a-zA-Z]+):([0-9a-zA-Z]+)\]', l)
+        m = re.match(r'([A-Z0-9_]+)\[([0-9a-zA-Z]+):([0-9a-zA-Z]+)\]', l)
         if m:
             (name, begin, end) = m.groups()
             begin = int(begin, 0)
@@ -459,7 +459,7 @@ def parse_source_file(source):
             continue
 
         # Is it a field assignment? NAME=value
-        m = re.search(r'([A-Z0-9_]+)=([0-9a-zA-Z]+)', l)
+        m = re.match(r'([A-Z0-9_]+)=([0-9a-zA-Z]+)', l)
         if m:
             (name, value) = m.groups()
             value = int(value, 0)
@@ -745,6 +745,7 @@ def create_source():
     # file will be in the include path, so we use <> and strip any paths
     # from the filename.
     source = '#include <%s>\n\n' % os.path.basename(options.rcwi)
+
 
     # If the binary is larger than the RCW, then we assume that it has a
     # preamble and an end-command, so remove them.  This is bit hackish,
