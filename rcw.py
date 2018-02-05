@@ -49,6 +49,8 @@
 # Examples for use of special variables:
 #       %size=1024              -- Must be set to RCW bit count
 #       %pbiformat=2            -- Must be set to 2 for LS2 platform PBI
+#       %nocrc=1                -- Must be set to 1 if only 'STOP' command 
+#                                  is required instead of 'CRC and STOP' cmd
 #       %classicbitnumbers=1    -- Non-Power Architecture bit numbering
 #       %littleendian=1         -- Needed for LS2 style platform
 #       %littleendian64b=1      -- Swaps eight bytes instead of four
@@ -556,6 +558,11 @@ def create_binary():
     global pbi
 
     # Create the RCW data.  We encode it into 'bits' as a giant (2^size)-bit number
+    if 'nocrc' in vars:
+        nocrc = int(vars['nocrc'], 0)
+    else:
+        nocrc = 0
+
     size = int(vars['size'], 0)
     if 'pbiformat' in vars:
         pbiformat = int(vars['pbiformat'], 0)
@@ -645,38 +652,42 @@ def create_binary():
 
     # Add the end-command
     if options.pbl:
-        if pbiformat == 2:
-            crcbinary = pbi
-
-            # CRC and Stop
-            cmd = struct.pack(endianess + 'L', 0x808f0000)
-            invert = 0xffffffff
+        if nocrc == 1:
+            binary += struct.pack(endianess + 'L', 0x80ff0000)
+            binary += struct.pack(endianess + 'L', 0x00000000)
         else:
-            crcbinary = binary
-            cmd = struct.pack(endianess + 'L', 0x08000040 | (int(vars['pbladdr'], 16) & 0x00ffff00))
-            invert = 0
+            if pbiformat == 2:
+                crcbinary = pbi
 
-        crcbinary += cmd
+                # CRC and Stop
+                cmd = struct.pack(endianess + 'L', 0x808f0000)
+                invert = 0xffffffff
+            else:
+                crcbinary = binary
+                cmd = struct.pack(endianess + 'L', 0x08000040 | (int(vars['pbladdr'], 16) & 0x00ffff00))
+                invert = 0
 
-        # Precise bit any byte ordering of the CRC calculation is
-        # not clearly specified. This is empirical.
-        if classicbitnumbers:
-                newcrcbinary = ''
-                for c in crcbinary:
-                    byte = ord(c)
-                    byte = int(bin(byte)[2:].zfill(8)[::-1], 2)
-                    newcrcbinary += chr(byte)
-                crcbinary = newcrcbinary
+            crcbinary += cmd
 
-        # Calculate and add the CRC
-        crc = crc32(crcbinary) & 0xffffffff
+            # Precise bit any byte ordering of the CRC calculation is
+            # not clearly specified. This is empirical.
+            if classicbitnumbers:
+                    newcrcbinary = ''
+                    for c in crcbinary:
+                        byte = ord(c)
+                        byte = int(bin(byte)[2:].zfill(8)[::-1], 2)
+                        newcrcbinary += chr(byte)
+                    crcbinary = newcrcbinary
 
-        if classicbitnumbers:
-                crc = int(bin(crc)[2:].zfill(32)[::-1], 2)
+            # Calculate and add the CRC
+            crc = crc32(crcbinary) & 0xffffffff
 
-        crc ^= invert
-        binary += cmd
-        binary += struct.pack(endianess + 'L', crc)
+            if classicbitnumbers:
+                    crc = int(bin(crc)[2:].zfill(32)[::-1], 2)
+
+            crc ^= invert
+            binary += cmd
+            binary += struct.pack(endianess + 'L', crc)
 
     if endianess64b:
         l = len(binary)
