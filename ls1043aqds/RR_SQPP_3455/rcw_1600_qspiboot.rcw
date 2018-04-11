@@ -24,7 +24,7 @@
  * D SATA   :
  *
  * Serdes configuration
- * SRDS_PRTCL_S1	: 0x3358
+ * SRDS_PRTCL_S1	: 0x3555
  * SRDS_PLL_REF_CLK_SEL_S1 :
  *  SerDes 1, PLL1 : 0 - 100MHz for SGMII and PCIe
  * SRDS_DIV_PEX		: 00 Can train up to a max rate of 5G
@@ -40,7 +40,7 @@ SYS_PLL_RAT=4
 MEM_PLL_RAT=16
 CGA_PLL1_RAT=16
 CGA_PLL2_RAT=10
-SRDS_PRTCL_S1=13144
+SRDS_PRTCL_S1=13397
 FM1_MAC_RAT=1
 SRDS_PLL_REF_CLK_SEL_S1=0
 SRDS_DIV_PEX=1
@@ -74,7 +74,7 @@ write 0x570604, 0x40100000
 #include <usb_phy_freq.rcw>
 #include <dcsr_mbist.rcw>
 #include <serdes_sata.rcw>
-#include <pex_gen3_link.rcw>
+/* #include <pcie_outband_mem.rcw> */
 .pbi
 write 0x550000, 0x000f400c
 .end
