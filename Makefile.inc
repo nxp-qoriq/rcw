@@ -2,6 +2,8 @@ DESTDIR = .
 INSTALL = install
 PYTHON ?= python2
 RCW = $(PYTHON) ../rcw.py
+QSPI_SWAP_LIST = $(shell pwd)/../qspi_swap_list.txt
+QSPI_SWAP_SCRIPT=$(shell pwd)/../qspi_swap.sh
 
 rcw_sources := $(wildcard */*.rcw)
 txt_sources := $(wildcard */*.txt)
@@ -14,6 +16,7 @@ targets = $(txt_sources:.txt=.bin) $(rcw_sources:.rcw=.bin)
 	$(RCW) -i $< -o $@
 
 all: $(targets)
+	$(QSPI_SWAP_SCRIPT) $(QSPI_SWAP_LIST)
 
 install: $(targets)
 	$(INSTALL) -d $(DESTDIR)
@@ -24,3 +27,4 @@ install: $(targets)
 
 clean:
 	$(RM) -r $(targets)
+	find . -name "*.swapped" | xargs rm -rf
