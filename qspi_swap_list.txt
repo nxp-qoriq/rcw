@@ -30,3 +30,5 @@ ls1012aqds/R_SPNH_3508/rcw_1000_default.bin
 ls1012afrdm/N_SSNP_3305/rcw_800.bin
 ls1012a2g5rdb/NN_SSHN_2208/rcw_1000.bin
 ls1012a2g5rdb/NN_SSHN_2208/rcw_800.bin
+ls1012afrwy/N_SSNP_3305/rcw_1000_default.bin
+ls1012afrwy/N_SSNP_3305/rcw_1000_sben.bin
