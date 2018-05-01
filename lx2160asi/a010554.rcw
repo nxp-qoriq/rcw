@@ -1,0 +1,9 @@
+/*
+ * SATA controller may fail to detect some hard drives
+ * Workaround: Before enabling SATA controller perform below write operations
+ */
+
+.pbi
+write 0x1eb1300,0x80104e20
+write 0x1eb1310,0x80104e20
+.end
