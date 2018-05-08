@@ -7,7 +7,8 @@ QSPI_SWAP_SCRIPT=$(shell pwd)/../qspi_swap.sh
 
 rcw_sources := $(wildcard */*.rcw)
 txt_sources := $(wildcard */*.txt)
-targets = $(txt_sources:.txt=.bin) $(rcw_sources:.rcw=.bin)
+swap_sources := $(wildcard */*.swapped)
+targets = $(txt_sources:.txt=.bin) $(rcw_sources:.rcw=.bin) $(swap_sources)
 
 %.bin: %.txt
 	sed '/^\#/d' $< | grep -v '^($)' | xxd -r > $@
@@ -27,4 +28,4 @@ install: $(targets)
 
 clean:
 	$(RM) -r $(targets)
-	find . -name "*.swapped" | xargs rm -rf
+	$(RM) -rf $(DESTDIR)/*
