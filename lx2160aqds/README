@@ -127,3 +127,17 @@ Serdes Protocol 1_2_2:
   Slot2: M4
   Slot3 & Slot4: M6
   Slot5 & Slot6: M6
+
+
+
+
+DSPI Enablement
+===============
+SDHC & SPI lanes are muxed.
+Below RCW Fields should be modified in order to access DSPI flashes.
+
+1) For DSPI1:- Set RCW field 'SDHC1_BASE_PMUX' to 2.
+2) For DSPI2:- Set RCW field 'SDHC2_BASE_PMUX' to 2.
+3) For DSPI3:- Set RCW field 'IIC5_PMUX' to 3.
+             - Set RCW field 'SDHC1_BASE_PMUX' to 3.
+             - Set RCW field 'SDHC1_DS_PMUX' to 2.
