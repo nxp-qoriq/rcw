@@ -141,3 +141,5 @@ Below RCW Fields should be modified in order to access DSPI flashes.
 3) For DSPI3:- Set RCW field 'IIC5_PMUX' to 3.
              - Set RCW field 'SDHC1_BASE_PMUX' to 3.
              - Set RCW field 'SDHC1_DS_PMUX' to 2.
+             - Set RCW field 'SDHC1_DIR_PMUX' to 3 (FOR PCS1,PCS2 & PCS3)
+
