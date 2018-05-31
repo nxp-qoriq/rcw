@@ -70,7 +70,7 @@ rcw_x_y_z_l_m_n.rcw
 
 x = Core frequency
 y = Platform frequency
-y = DDR frequency
+z = DDR frequency
 bootmode = nor(default)/sd
 l = 'serdes1 protocol value'
 m = 'serdes2 protocol value'
