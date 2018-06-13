@@ -27,7 +27,7 @@ C8_PLL_SEL=0
 HWA_CGA_M1_CLK_SEL=1
 HWA_CGB_M1_CLK_SEL=6
 BOOT_LOC=26
-PBI_LENGTH=14
+PBI_LENGTH=16
 SYSCLK_FREQ=600
 IIC2_PMUX=6
 IIC3_PMUX=2
@@ -52,3 +52,6 @@ SRDS_DIV_PEX_S3=3
 
 /* Modify FlexSPI Clock Divisor value */
 #include <../lx2160asi/flexspi_divisor_28.rcw>
+
+/* common PBI commands */
+#include <../lx2160asi/common.rcw>
