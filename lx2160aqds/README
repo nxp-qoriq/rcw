@@ -143,3 +143,45 @@ Below RCW Fields should be modified in order to access DSPI flashes.
              - Set RCW field 'SDHC1_DS_PMUX' to 2.
              - Set RCW field 'SDHC1_DIR_PMUX' to 3 (FOR PCS1,PCS2 & PCS3)
 
+
+Switch Settings for different serdes protocols
+==============================================
+Below are the switch settings for different serdes protocols..
+
+Serdes Protocol : 1_2_2 
+SW4[1:8] = 00000000
+SW5[1:8] = 00000000
+SW6[1:4] = 0000
+
+
+Serdes Protocol : 15_5_2 
+SW4[1:8] = 00110000
+SW5[1:8] = 00000000
+SW6[1:4] = 0000
+
+
+Serdes Protocol : 18_2_2
+SW4[1:8] = 00110010
+SW5[1:8] = 00000000
+SW6[1:4] = 0000
+
+
+Serdes Protocol : 7_5_2 - 
+SW4[1:8] = 00010010
+SW5[1:8] = 00000000
+SW6[1:4] = 0000
+
+Serdes Protocol : 19_5_2 - 
+SW4[1:8] = 00110011
+SW5[1:8] = 00000000
+SW6[1:4] = 0000
+
+Serdes Protocol : 3_3_2 -
+SW4[1:8] = 00000010
+SW5[1:8] = 00000000
+SW6[1:4] = 0000
+
+Serdes Protocol : 13_5_2 -
+SW4[1:8] = 00000000
+SW5[1:8] = 00000000
+SW6[1:4] = 0000
