@@ -27,7 +27,7 @@ C8_PLL_SEL=0
 HWA_CGA_M1_CLK_SEL=1
 HWA_CGB_M1_CLK_SEL=6
 BOOT_LOC=26
-PBI_LENGTH=8
+PBI_LENGTH=10
 SYSCLK_FREQ=600
 IIC2_PMUX=6
 IIC3_PMUX=2
@@ -43,3 +43,6 @@ HOST_AGT_PEX5=1
 
 /* Boot Location Pointer */
 #include <../lx2160asi/bootlocptr_nor.rcw>
+
+/* Modify FlexSPI Clock Divisor value */
+#include <../lx2160asi/flexspi_divisor_28.rcw>

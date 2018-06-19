@@ -27,7 +27,7 @@ C8_PLL_SEL=0
 HWA_CGA_M1_CLK_SEL=1
 HWA_CGB_M1_CLK_SEL=6
 BOOT_LOC=26
-PBI_LENGTH=16
+PBI_LENGTH=18
 SYSCLK_FREQ=600
 IIC2_PMUX=6
 IIC3_PMUX=2
@@ -51,3 +51,6 @@ blockcopy 0x08,0x00100000,0x1800a000,0x00020000
 
 /* Errata for SATA controller */
 #include <../lx2160asi/a010554.rcw>
+
+/* Modify FlexSPI Clock Divisor value */
+#include <../lx2160asi/flexspi_divisor_24.rcw>
