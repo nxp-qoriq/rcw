@@ -43,7 +43,7 @@ SRDS_PLL_REF_CLK_SEL_S1=2
 
 /* Copy SPL Uboot to Ocram */
 .pbi
-blockcopy 0x08,0x00100000,0x1800a000,0x00015000
+blockcopy 0x08,0x00100000,0x1800a000,0x00020000
 .end
 
 /* Boot Location Pointer */
