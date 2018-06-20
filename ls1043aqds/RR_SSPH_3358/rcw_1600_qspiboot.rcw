@@ -75,6 +75,3 @@ write 0x570604, 0x40010000
 #include <dcsr_mbist.rcw>
 #include <serdes_sata.rcw>
 #include <pex_gen3_link.rcw>
-.pbi
-write 0x550000, 0x000f400c
-.end
