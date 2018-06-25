@@ -47,3 +47,6 @@ SRDS_PRTCL_S3=2
 
 /* Modify FlexSPI Clock Divisor value */
 #include <../lx2160asi/flexspi_divisor_28.rcw>
+
+/* common PBI commands */
+#include <../lx2160asi/common.rcw>

@@ -48,3 +48,6 @@ SRDS_PLL_REF_CLK_SEL_S1=1
 
 /* Modify FlexSPI Clock Divisor value */
 #include <../lx2160asi/flexspi_divisor_24.rcw>
+
+/* common PBI commands */
+#include <../lx2160asi/common.rcw>
