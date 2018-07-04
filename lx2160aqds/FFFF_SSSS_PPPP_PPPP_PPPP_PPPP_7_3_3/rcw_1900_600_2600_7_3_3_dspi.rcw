@@ -39,6 +39,9 @@ USB3_CLK_FSEL=39
 SRDS_PRTCL_S1=7
 SRDS_PRTCL_S2=3
 SRDS_PRTCL_S3=3
+SRDS_DIV_PEX_S1=1
+SRDS_DIV_PEX_S2=1
+SRDS_DIV_PEX_S3=1
 
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>

@@ -36,6 +36,9 @@ SRDS_PRTCL_S1=18
 SRDS_PRTCL_S2=2
 SRDS_PRTCL_S3=2
 HOST_AGT_PEX5=1
+SRDS_DIV_PEX_S1=1
+SRDS_DIV_PEX_S2=1
+SRDS_DIV_PEX_S3=1
 
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>

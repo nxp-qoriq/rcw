@@ -42,9 +42,9 @@ SRDS_PLL_PD_PLL6=1
 SRDS_REFCLKF_DIS_S1=1
 SRDS_REFCLKF_DIS_S2=1
 SRDS_REFCLKF_DIS_S3=1
-SRDS_DIV_PEX_S1=3
-SRDS_DIV_PEX_S2=3
-SRDS_DIV_PEX_S3=3
+SRDS_DIV_PEX_S1=1
+SRDS_DIV_PEX_S2=1
+SRDS_DIV_PEX_S3=1
 
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>
