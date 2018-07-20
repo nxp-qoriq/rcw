@@ -21,6 +21,7 @@ For the Slots (a..k):
  'S' is SGMII
  'P' is PCIe
  'F' is XFI
+ 'I' is 4 XFI (40G ports used as 4*10G)
  'G' is 25G
  'L' is 50G
  'X' is 40G
