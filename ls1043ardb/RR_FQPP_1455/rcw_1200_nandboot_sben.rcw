@@ -1,0 +1,68 @@
+/*
+ * LS1043ARDB RCW for SerDes Protocol 0x1455
+ *
+ * 15G configuration -- 2 RGMII + 1 QSGMII + 1 XFI
+ *
+ * Frequencies:
+ *
+ * Sys Clock: 100 MHz
+ * DDR_Refclock: 100 MHz
+ *
+ * Core		-- 1200 MHz (Mul 12)
+ * Platform	-- 300 MHz (Mul 3)
+ * DDR		-- 1600 MT/s (Mul 16)
+ * FMan		-- 500 MHz (CGA2 /2)
+ * XFI		-- 156.25 MHz (10.3125G)
+ * QSGMII	-- 100 MHz (5G)
+ * PCIE		-- 100 MHz (5G)
+ * eSDHC	-- 1000 MHz (CGA2 /1)
+ *
+ * Serdes Lanes vs Slot information
+ * A XFI    : on board PHY chip
+ * B QSGMII : on board PHY chip
+ * C PCIe2  : mini PCIe slot
+ * D PCIe3  : PCIe slot
+ *
+ * Serdes configuration
+ * SRDS_PRTCL_S1	: 0x1455
+ * SRDS_PLL_REF_CLK_SEL_S1 :
+ *  SerDes 1, PLL1 : 1 - 156.25MHz for XFI
+ *  SerDes 1, PLL2 : 0 - 100MHz for QSGMII and PCIe
+ * SRDS_DIV_PEX		: 00 Can train up to a max rate of 5G
+ *
+ * DDR clock:
+ * DDR_REFCLK_SEL : 1 - DDRCLK pin provides the reference clock to the DDR PLL
+ *
+ */
+
+#include <../ls1043aqds/ls1043a.rcwi>
+
+SYS_PLL_RAT=3
+MEM_PLL_RAT=16
+CGA_PLL1_RAT=12
+CGA_PLL2_RAT=10
+SRDS_PRTCL_S1=5205
+FM1_MAC_RAT=1
+SRDS_PLL_REF_CLK_SEL_S1=2
+SRDS_DIV_PEX=1
+DDR_FDBK_MULT=2
+DDR_REFCLK_SEL=1
+PBI_SRC=14
+SB_EN=1
+BOOT_HO=1
+IFC_MODE=262
+HWA_CGA_M1_CLK_SEL=6
+DRAM_LAT=1
+SYS_PLL_SPD=1
+UART_BASE=7
+IRQ_OUT=1
+TVDD_VSEL=0
+DVDD_VSEL=2
+EVDD_VSEL=2
+IIC2_EXT=0
+SYSCLK_FREQ=600
+HWA_CGA_M2_CLK_SEL=1
+
+#include <../ls1043aqds/atf_address.rcw>
+#include <../ls1043aqds/cci_barrier_disable.rcw>
+#include <../ls1043aqds/usb_phy_freq.rcw>
