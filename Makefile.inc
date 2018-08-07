@@ -1,4 +1,4 @@
-DESTDIR = .
+DESTDIR = $(shell basename $(CURDIR))
 INSTALL = install
 PYTHON ?= python2
 RCW = $(PYTHON) ../rcw.py
@@ -28,4 +28,4 @@ install: $(targets)
 
 clean:
 	$(RM) -r $(targets)
-	$(RM) -rf $(DESTDIR)/*
+	$(RM) -rf $(DESTDIR)
