@@ -148,12 +148,17 @@ Switch Settings for different serdes protocols
 ==============================================
 Below are the switch settings for different serdes protocols..
 
-Serdes Protocol : 7_5_3 -
-SW4[1:8] = 00000010
-SW5[1:8] = 00000000
-SW6[1:4] = 0000
+Serdes Protocol : 7_5_3 - 
+SW4[1:8] = 00000011
+SW5[1:8] = 11110000
+SW6[1:4] = 1111
 
 Serdes Protocol : 19_5_2 - 
 SW4[1:8] = 00110011
-SW5[1:8] = 00000000
-SW6[1:4] = 0000
+SW5[1:8] = 11110000
+SW6[1:4] = 1111
+
+Serdes Protocol : 8_3_3 -
+SW4[1:8] = 00110011
+SW5[1:8] = 11111111
+SW6[1:4] = 1111
