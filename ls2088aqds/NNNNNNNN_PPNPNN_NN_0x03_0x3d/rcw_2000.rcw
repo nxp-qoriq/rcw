@@ -38,3 +38,5 @@ SRDS_PRTCL_S2=61
 /* Boot Location Pointer */
 #include <../ls2088asi/bootlocptr_nor.rcw>
 
+/* Errata for PCIe Gen3 */
+#include <../ls2088asi/a008851_0x03_0x3d.rcw>
