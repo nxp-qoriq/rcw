@@ -1,0 +1,208 @@
+
+LS2160AQDS supports 3 serdes, devided into 6 slots.
+
+The RCW directories names for the LS2160AQDS boards conform to the following
+naming convention:
+
+abcd_efgh_ijkl_mnop_qrst_uvwx_RR_A_B_C:
+
+For Serdes1:
+a = What is available on serdes 1 slot 1, LANE 0
+b = What is available on serdes 1 slot 1, LANE 1
+c = What is available on serdes 1 slot 1, LANE 2
+d = What is available on serdes 1 slot 1, LANE 3
+e = What is available on serdes 1 slot 2, LANE 4
+f = What is available on serdes 1 slot 2, LANE 5
+g = What is available on serdes 1 slot 2, LANE 6
+h = What is available on serdes 1 slot 2, LANE 7
+
+For Serdes2:
+i = What is available on serdes 2 slot 3, LANE 0
+j = What is available on serdes 2 slot 3, LANE 1
+k = What is available on serdes 2 slot 3, LANE 2
+l = What is available on serdes 2 slot 3, LANE 3
+m = What is available on serdes 2 slot 4, LANE 4
+n = What is available on serdes 2 slot 4, LANE 5
+o = What is available on serdes 2 slot 4, LANE 6
+p = What is available on serdes 2 slot 4, LANE 7
+
+For Serdes3:
+q = What is available on serdes 3 slot 5, LANE 0
+r = What is available on serdes 3 slot 5, LANE 1
+s = What is available on serdes 3 slot 5, LANE 2
+t = What is available on serdes 3 slot 5, LANE 3
+u = What is available on serdes 3 slot 6, LANE 4
+v = What is available on serdes 3 slot 6, LANE 5
+w = What is available on serdes 3 slot 6, LANE 6
+x = What is available on serdes 3 slot 6, LANE 7
+
+For the Serdes(6 Slots) Lanes (a..x):
+ 'N' is NULL, not available/not used
+ 'H' is SATA
+ 'S' is SGMII
+ 'P' is PCIe
+ 'F' is XFI/USXGMII
+ 'G' is 25G
+ 'L' is 50G
+ 'X' is 40G
+ 'C' is 100G
+
+RGMII Interface (R):
+  'R' is RGMII Interface 1G
+
+Serdes1 protocol (A):
+A = 'serdes1 protocol value (decimal)'
+
+Serdes2 protocol (B):
+B = 'serdes2 protocol value (decimal)'
+
+Serdes3 protocol (C):
+C = 'serdes3 protocol value (decimal)'
+
+Ref clock setting on board
+==========================
+DDR Ref clock: 100 MHz
+Sys PLL Ref clock: 100MHz
+
+Files naming convention
+=============================
+rcw_x_l_m_n.rcw
+rcw_x_l_m_n_bootmode.rcw
+rcw_x_y_l_m_n.rcw
+rcw_x_y_z_l_m_n.rcw
+
+x = Core frequency
+y = Platform frequency
+z = DDR frequency
+bootmode = nor(default)/sd
+l = 'serdes1 protocol value'
+m = 'serdes2 protocol value'
+n = 'serdes3 protocol value'
+
+For example,
+  rcw_2000_19_5_2.rcw means rcw for core frequency of 2000MHz, with serdes1=19 serdes2=5 serdes3=2.
+  rcw_2000_700_19_5_2.rcw means rcw for core frequency 2000MHz and Platform frequecny 700MHz, with serdes1=19 serdes2=5 serdes3=2.
+  rcw_2000_700_2400_19_5_2.rcw means rcw for core frequency 2000MHz, Platform frequecny 700MHz and DDR Memory Data Rate as 2400 MT/s, with serdes1=19 serdes2=5 serdes3=2.
+  rcw_2000_19_5_2_sd.rcw means rcw for core frequency of 2000MHz with SD boot, with serdes1=19 serdes2=5 serdes3=2.
+
+
+
+Reference card connections on different serdes slots (as per serdes protocol)
+=============================================================================
+Serdes Protocol 19_5_2:
+  Slot1: M11(USXGMII)/M12(XFI) for lane 0 ,lane1
+         M13(25G) for lane2, lane3
+  Slot2: M7
+  Slot3: M4
+  Slot4: M5
+  Slot5 & Slot6: M1
+
+Serdes Protocol 15_5_2:
+  Slot1: M8
+  Slot2: M4
+  Slot3: M4
+  Slot4: M5
+  Slot5 & Slot6: M1
+
+Serdes Protocol 13_5_2:
+  Slot1: M8
+  Slot2: M13
+  Slot3: M4
+  Slot4: M5
+  Slot5 & Slot6: M1
+
+Serdes Protocol 13_3_2:
+  Slot1: M8
+  Slot2: M13
+  Slot3: M4
+  Slot4: M4
+  Slot5 & Slot6: M1
+
+Serdes Protocol 8_3_2:
+  Slot1: M12 (XF) for lane (0-3)
+  Slot2: M12 (XF) for lane (4-7)
+  Slot3: M4
+  Slot4: M4
+  Slot5 & Slot6: M1
+
+Serdes Protocol 3_3_2:
+  Slot1: M12 (XF) for lane (0-3)
+  Slot2: M4
+  Slot3: M4
+  Slot4: M4
+  Slot5 & Slot6: M1
+
+Serdes Protocol 8_3_3:
+  Slot1: M12 (XF) for lane (0-3)
+  Slot2: M12 (XF) for lane (4-7)
+  Slot3: M4
+  Slot4: M4
+  Slot5: M4
+  Slot6: M4
+
+Serdes Protocol 13_3_3:
+  Slot1: M8
+  Slot2: M13
+  Slot3: M4
+  Slot4: M4
+  Slot5: M4
+  Slot6: M4
+
+Serdes Protocol 7_5_2:
+  Slot1: M11(USXGMII)/M12(XFI)
+  Slot2: M4
+  Slot3: M4
+  Slot4: M5
+  Slot5 & Slot6: M1
+
+Serdes Protocol 7_3_3:
+  Slot1: M11(USXGMII)/M12(XFI)
+  Slot2: M4
+  Slot3: M4
+  Slot4: M4
+  Slot5: M4
+  Slot6: M4
+
+Serdes Protocol 3_3_2:
+  Slot1: M11(USXGMII)/M12(XFI)
+  Slot2: M4
+  Slot3: M4
+  Slot4: M4
+  Slot5 & Slot6: M1
+
+Serdes Protocol 1_2_2:
+  Slot1: M4
+  Slot2: M4
+  Slot3 & Slot4: M1
+  Slot5 & Slot6: M1
+
+Serdes Protocol 18_2_2:
+  Slot1: M11(USXGMII)/M12(XFI) for lane 0 ,lane1
+         M13(25G) for lane2, lane3
+  Slot2: M12(XFI) for lane 4-7
+  Slot3 & Slot4: M1
+  Slot5 & Slot6: M1
+
+Serdes Protocol 20_11_3:
+  Slot1: M7
+  Slot2: M7
+  Slot3: M4 for PCIe (lane 0)
+         M4 for SGMII (lane1-3)
+  Slot4: M4 for PCIe (lane 4)
+         M4 for SGMII (lane5-7)
+  Slot5: M4
+  Slot6: M4
+
+Note: For Mezzanine card details, Please refer to LX2160AQDS Board RM.
+
+DSPI Enablement
+===============
+SDHC & SPI lanes are muxed.
+Below RCW Fields should be modified in order to access DSPI flashes.
+
+1) For DSPI1:- Set RCW field 'SDHC1_BASE_PMUX' to 2.
+2) For DSPI2:- Set RCW field 'SDHC2_BASE_PMUX' to 2.
+3) For DSPI3:- Set RCW field 'IIC5_PMUX' to 3.
+             - Set RCW field 'SDHC1_BASE_PMUX' to 3.
+             - Set RCW field 'SDHC1_DS_PMUX' to 2.
+             - Set RCW field 'SDHC1_DIR_PMUX' to 3 (FOR PCS1,PCS2 & PCS3)
