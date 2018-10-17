@@ -1,0 +1,61 @@
+/*
+ * SerDes Protocol 1 -  19
+ * SerDes Protocol 2 -  5
+ * SerDes Protocol 3 -  2
+ *
+ * Frequencies:
+ * Core     -- 1900 MHz
+ * Platform -- 600  MHz
+ * DDR      -- 2600 MT/s
+ */
+
+#include <../lx2160asi/lx2160a.rcwi>
+
+SYS_PLL_RAT=12
+MEM_PLL_CFG=3
+MEM_PLL_RAT=26
+MEM2_PLL_CFG=3
+MEM2_PLL_RAT=26
+CGA_PLL1_RAT=19
+CGA_PLL2_RAT=19
+CGB_PLL1_RAT=19
+CGB_PLL2_RAT=9
+C5_PLL_SEL=0
+C6_PLL_SEL=0
+C7_PLL_SEL=0
+C8_PLL_SEL=0
+HWA_CGA_M1_CLK_SEL=1
+HWA_CGB_M1_CLK_SEL=7
+BOOT_LOC=26
+SYSCLK_FREQ=600
+IIC2_PMUX=6
+IIC3_PMUX=2
+IIC4_PMUX=2
+USB3_CLK_FSEL=39
+SRDS_PRTCL_S1=19
+SRDS_PRTCL_S2=5
+SRDS_PRTCL_S3=2
+SRDS_PLL_REF_CLK_SEL_S1=2
+SRDS_DIV_PEX_S1=1
+SRDS_DIV_PEX_S2=3
+SRDS_DIV_PEX_S3=1
+
+/* Errata to write on scratch reg for validation */
+#include <../lx2160asi/scratchrw1.rcw>
+
+/* Copy SPL Uboot to Ocram */
+.pbi
+blockcopy 0x08,0x00100000,0x1800a000,0x00020000
+.end
+
+/* Boot Location Pointer */
+#include <../lx2160asi/bootlocptr_sd.rcw>
+
+/* Errata for SATA controller */
+#include <../lx2160asi/a010554.rcw>
+
+/* Modify FlexSPI Clock Divisor value */
+#include <../lx2160asi/flexspi_divisor_24.rcw>
+
+/* common PBI commands */
+#include <../lx2160asi/common.rcw>
