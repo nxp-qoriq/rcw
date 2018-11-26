@@ -1,0 +1,7 @@
+/*
+ * Copy SPL driver from MMC to OCRAM.
+ */
+
+.pbi
+blockcopy 0x08,0x00100000,0x18010000,0x00015000
+.end
