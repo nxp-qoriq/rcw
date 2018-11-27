@@ -2,7 +2,7 @@
  * SerDes Protocol -  0x85bb
  *
  * Frequencies:
- * Core     -- 1300 MHz
+ * Core     -- 1600 MHz
  * Platform -- 400  MHz
  * DDR      -- 1600 MHz
  * DDR Data Rate -- 1.600 GT/s
@@ -29,7 +29,7 @@ IIC2_PMUX=6
 IIC3_PMUX=2
 IIC4_PMUX=2
 IIC5_PMUX=2
-IIC6_PMUX=3
+IIC6_PMUX=2
 CLK_OUT_PMUX=2
 EC1_SAI4_5_PMUX=5
 EC1_SAI3_6_PMUX=5
@@ -45,6 +45,6 @@ SRDS_PRTCL_S1_L3=11
 #include <../ls1028asi/bootlocptr_sdhc.rcw>
 
 /* Copy SPL to OCRAM */
-#include <../ls1028asi/block_copy_cmds_sdhc.rcw>
+#include <../ls1028asi/block_copy_cmds_emmc.rcw>
 
 
