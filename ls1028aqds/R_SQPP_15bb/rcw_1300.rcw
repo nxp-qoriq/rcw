@@ -40,6 +40,6 @@ SRDS_PRTCL_S1_L0=1
 SRDS_PRTCL_S1_L1=5
 SRDS_PRTCL_S1_L2=11
 SRDS_PRTCL_S1_L3=11
-
+SRDS_DIV_PEX_S1=2
 /* Boot Location Pointer */
 #include <../ls1028asi/bootlocptr_flexspi.rcw>
