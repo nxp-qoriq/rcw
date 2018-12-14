@@ -99,7 +99,7 @@ HWA_CGA_M2_CLK_SEL=1
 
 .pbi
 // QSPI flash clock
-write 0x57015c, 0x40100000
+write 0x57015c, 0x20100000
 // U-boot header address
 write 0xee0200, 0x406c0000
 .end
