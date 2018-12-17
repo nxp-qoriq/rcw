@@ -9,7 +9,11 @@ do
 	if [ "$board_name" = "$current_dir" ]; then
 		if [ -e $filename ]; then
 			swapped_file="$filename.swapped"
-			tclsh ../tools/byte_swap.tcl $filename $swapped_file 8
+			if [ -e "byte_swap.tcl" ]; then
+				tclsh ./byte_swap.tcl $filename $swapped_file 8
+			else
+				tclsh ../tools/byte_swap.tcl $filename $swapped_file 8
+			fi
 		fi
 	fi
 done < $1
