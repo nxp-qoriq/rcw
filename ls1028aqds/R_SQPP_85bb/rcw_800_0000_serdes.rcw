@@ -23,7 +23,7 @@ DDR_REFCLK_SEL=2
 DRAM_LAT=1
 BOOT_LOC=26
 FLASH_CFG1=3
-PBI_LENGTH=6
+PBI_LENGTH=26
 SYSCLK_FREQ=600
 IIC2_PMUX=6
 IIC3_PMUX=2
@@ -45,3 +45,4 @@ SRDS_PRTCL_S1_L3=0
 
 /* Boot Location Pointer */
 #include <../ls1028asi/bootlocptr_flexspi.rcw>
+#include <../ls1028asi/pex_gen3_link_ls1028a.rcw>
