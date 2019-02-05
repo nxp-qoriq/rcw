@@ -1,0 +1,9 @@
+/*
+ * Disable PCIe1 controller
+ * Enable PLL2 configuration  
+ */
+
+.pbi
+write 0x0e000078,0x00000001
+write 0x01ea08c0,0x11650000
+.end
