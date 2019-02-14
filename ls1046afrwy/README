@@ -36,14 +36,14 @@ BIN   Core/Platform/FMan/DDR
 Bin1: 1600MHz/600MHz/700MHz/1800MT/s
 Bin2: 1200MHz/400MHz/500MHz/1800MT/s
 
-Serdes ptotocol:
+Serdes protocol:
 ================
 NN_SNQNNPNP_3040_0506 means:
  - Not used on  board
  - Not used on board
  - SGMII5@DTSEC5 on board
  - Not used on board
- - QGMII6@DTSEC6 on board
+ - QSGMII6@DTSEC6 on board
  - Not used on board
  - Not used on board
  - PCIe1 on Slot 1, mPCIe
