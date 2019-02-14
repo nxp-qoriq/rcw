@@ -38,10 +38,10 @@ Bin2: 1200MHz/400MHz/500MHz/1800MT/s
 
 Serdes protocol:
 ================
-NN_SNQNNPNP_3040_0506 means:
+NN_NNQNNPNP_3040_0506 means:
  - Not used on  board
  - Not used on board
- - SGMII5@DTSEC5 on board
+ - Not used on board
  - Not used on board
  - QSGMII6@DTSEC6 on board
  - Not used on board
