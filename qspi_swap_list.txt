@@ -1,6 +1,6 @@
-ls1046afrwy/NN_SNQNNPNP_3040_0506/rcw_1600_qspiboot.bin
-ls1046afrwy/NN_SNQNNPNP_3040_0506/rcw_1800_qspiboot.bin
-ls1046afrwy/NN_SNQNNPNP_3040_0506/rcw_1800_sdboot.bin
+ls1046afrwy/NN_NNQNNPNP_3040_0506/rcw_1600_qspiboot.bin
+ls1046afrwy/NN_NNQNNPNP_3040_0506/rcw_1800_qspiboot.bin
+ls1046afrwy/NN_NNQNNPNP_3040_0506/rcw_1800_sdboot.bin
 ls1046ardb/RR_FFSSPPPH_1133_5559/rcw_1800_qspiboot.bin
 ls1046ardb/RR_FFSSPPPH_1133_5559/rcw_1600_qspiboot_emmc.bin
 ls1046ardb/RR_FFSSPPPH_1133_5559/rcw_1600_qspiboot_sben.bin
