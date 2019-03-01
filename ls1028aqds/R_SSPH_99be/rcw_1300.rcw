@@ -45,3 +45,4 @@ SRDS_DIV_PEX_S1=1
 /* Boot Location Pointer */
 #include <../ls1028asi/bootlocptr_flexspi.rcw>
 #include <../ls1028asi/pex_gen3_link_ls1028a.rcw>
+#include <../ls1028asi/sata_errata010554.rcw>
