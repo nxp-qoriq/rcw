@@ -206,3 +206,9 @@ Below RCW Fields should be modified in order to access DSPI flashes.
              - Set RCW field 'SDHC1_BASE_PMUX' to 3.
              - Set RCW field 'SDHC1_DS_PMUX' to 2.
              - Set RCW field 'SDHC1_DIR_PMUX' to 3 (FOR PCS1,PCS2 & PCS3)
+
+Errata Workaround Implemented
+=============================
+A-011270:
+	Software will read incorrect Function Dependency List for PF1
+	Workaround: Set FDL field in the SRIOV_FDL_DEVICE_ID1 to 0x1

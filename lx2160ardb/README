@@ -65,3 +65,8 @@ For example,
   rcw_2000_700_2400_19_5_2.rcw means rcw for core frequency 2000MHz, Platform frequecny 700MHz and DDR Memory Data Rate as 2400 MT/s, with serdes1=19 serdes2=5 serdes3=2.
   rcw_2000_19_5_2_sd.rcw means rcw for core frequency of 2000MHz with SD boot, with serdes1=19 serdes2=5 serdes3=2.
 
+Errata Workaround Implemented
+=============================
+A-011270:
+	Software will read incorrect Function Dependency List for PF1
+	Workaround: Set FDL field in the SRIOV_FDL_DEVICE_ID1 to 0x1

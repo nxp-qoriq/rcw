@@ -1,0 +1,13 @@
+/*
+ * PCIe: Software will read incorrect Function Dependency List for PF1
+ * Workaround: Program the FDL field in the SRIOV_FDL_DEVICE_ID1 register to 0x1
+ */
+
+.pbi
+write 0x03400688,0x00000001
+write 0x03500688,0x00000001
+write 0x03600688,0x00000001
+write 0x03700688,0x00000001
+write 0x03800688,0x00000001
+write 0x03900688,0x00000001
+.end

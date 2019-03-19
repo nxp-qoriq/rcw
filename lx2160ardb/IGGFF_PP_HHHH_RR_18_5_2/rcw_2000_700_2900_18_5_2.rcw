@@ -49,6 +49,9 @@ SRDS_DIV_PEX_S3=1
 /* Errata for SATA controller */
 #include <../lx2160asi/a010554.rcw>
 
+/* Errata for PCIe controller */
+#include <../lx2160asi/a011270.rcw>
+
 /* common PBI commands */
 #include <../lx2160asi/common.rcw>
 

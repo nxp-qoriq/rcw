@@ -57,5 +57,8 @@ blockcopy 0x08,0x00100000,0x1800a000,0x00015000
 /* Modify FlexSPI Clock Divisor value */
 #include <../lx2160asi/flexspi_divisor_28.rcw>
 
+/* Errata for PCIe controller */
+#include <../lx2160asi/a011270.rcw>
+
 /* common PBI commands */
 #include <../lx2160asi/common.rcw>
