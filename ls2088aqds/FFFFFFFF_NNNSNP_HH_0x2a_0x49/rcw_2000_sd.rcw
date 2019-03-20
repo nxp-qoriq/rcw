@@ -48,3 +48,5 @@ blockcopy 0x40,0x00100000,0x1800a000,0x00015000
 
 /* Errata for SATA controller */
 #include <../ls2088asi/a010554.rcw>
+
+#include <../ls2088asi/a009531.rcw>

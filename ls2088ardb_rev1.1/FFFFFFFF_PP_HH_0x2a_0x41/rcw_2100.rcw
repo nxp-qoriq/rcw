@@ -47,3 +47,4 @@ SRDS_DIV_PEX_S2=1
 /* Errata for SATA controller */
 #include <../ls2088asi/a010554.rcw>
 
+#include <../ls2088asi/a009531.rcw>

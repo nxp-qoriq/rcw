@@ -48,3 +48,4 @@ SPI_BASE_BASE=0
 /* Errata for SATA controller */
 #include <../ls2088asi/a010554.rcw>
 
+#include <../ls2088asi/a009531.rcw>
