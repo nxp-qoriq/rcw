@@ -59,3 +59,4 @@ SYSCLK_FREQ=600
 #include <clock_out.rcw>
 #include <secure_boot.rcw>
 #include <qspi_endianness.rcw>
+#include <a009531.rcw>

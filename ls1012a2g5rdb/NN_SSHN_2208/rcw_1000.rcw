@@ -55,3 +55,4 @@ SYSCLK_FREQ=600
 #include <serdes_sata.rcw>
 #include <clock_out.rcw>
 #include <qspi_endianness.rcw>
+#include <../ls1012ardb/a009531.rcw>

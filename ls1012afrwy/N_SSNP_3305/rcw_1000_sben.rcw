@@ -60,3 +60,4 @@ SYSCLK_FREQ=600
 #include <clock_out.rcw>
 #include <secure_boot.rcw>
 #include <qspi_endianness.rcw>
+#include <../ls1012ardb/a009531.rcw>
