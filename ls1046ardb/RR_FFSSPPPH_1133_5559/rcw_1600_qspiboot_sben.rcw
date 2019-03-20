@@ -107,6 +107,7 @@ write 0xee0200, 0x406c0000
 #include <cci_barrier_disable.rcw>
 #include <usb_phy_freq.rcw>
 #include <serdes_sata.rcw>
+#include <a009531.rcw>
 
 .pbi
 // QSPI END_CFG 64 bit LE

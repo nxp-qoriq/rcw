@@ -107,6 +107,7 @@ write 0x570604, 0x10000000
 #include <usb_phy_freq.rcw>
 #include <serdes_sata.rcw>
 #include <pex_gen3_link.rcw>
+#include <a009531.rcw>
 
 .pbi
 // Alt base register

@@ -106,6 +106,7 @@ write 0x570604, 0x40100000
 #include <cci_barrier_disable.rcw>
 #include <usb_phy_freq.rcw>
 #include <serdes_sata.rcw>
+#include <a009531.rcw>
 
 .pbi
 // QSPI END_CFG 64 bit LE

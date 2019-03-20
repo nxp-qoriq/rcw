@@ -111,6 +111,7 @@ write 0x570158, 0x00001000
 #include <../ls1046ardb/cci_barrier_disable.rcw>
 #include <../ls1046ardb/usb_phy_freq.rcw>
 #include <../ls1046ardb/serdes_sata.rcw>
+#include <../ls1046ardb/a009531.rcw>
 
 .pbi
 // flush PBI data

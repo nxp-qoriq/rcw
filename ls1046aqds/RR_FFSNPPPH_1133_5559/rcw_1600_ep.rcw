@@ -96,3 +96,4 @@ HWA_CGA_M2_CLK_SEL=1
 #include <../ls1046ardb/usb_phy_freq.rcw>
 #include <../ls1046ardb/uboot_address.rcw>
 #include <../ls1046ardb/serdes_sata.rcw>
+#include <../ls1046ardb/a009531.rcw>
