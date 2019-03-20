@@ -60,3 +60,4 @@ write 0x124010, 0x00000101
 write 0x124130, 0x0000000c
 .end
 
+#include <../t4240qds/a008098.rcw>

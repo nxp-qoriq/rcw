@@ -65,3 +65,4 @@ IRQ_BASE=511
 HWA_CGB_M2_CLK_SEL=5
 
 #include "../../a007837.rcw"
+#include <a008098.rcw>
