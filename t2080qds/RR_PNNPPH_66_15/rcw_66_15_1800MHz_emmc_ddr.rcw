@@ -62,3 +62,4 @@ SPI_EXT=1
 SPI_BASE=2
 
 #include "../../t2080rdb/a008851_pex4.rcw"
+#include <a008098.rcw>

@@ -65,3 +65,4 @@ write 0x0eb028, 0x08004100
 #include <secure_boot_pbi.rcw>
 #include "a008851_pex1.rcw"
 #include "a008851_pex4.rcw"
+#include <../t2080qds/a008098.rcw>
