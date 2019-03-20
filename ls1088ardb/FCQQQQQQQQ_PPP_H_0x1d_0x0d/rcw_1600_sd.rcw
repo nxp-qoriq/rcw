@@ -40,5 +40,6 @@ blockcopy 0x40,0x00100000,0x1800a000,0x00015000
 #include <bootlocptr_sdhc.rcw>
 #include <a009102_single.rcw>
 #include <a010554_single.rcw>
+#include <a009531.rcw>
 #include <tcpz_nosecure_region.rcw>
 /* CRC and Stop command (CRC 0x90c59bb0)*/

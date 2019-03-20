@@ -35,4 +35,5 @@ SRDS_DIV_PEX_S2=1
 #include <bootlocptr_nor.rcw>
 #include <a009102_single.rcw>
 #include <a010554_single.rcw>
+#include <../ls1088ardb/a009531.rcw>
 /* CRC and Stop command (CRC 0x128124f8)*/
