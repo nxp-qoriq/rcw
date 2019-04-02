@@ -26,10 +26,10 @@
  *  Serdes1 Lane 2 (B) - QSGMII6, QSGMII5,QSGMII10, QSGMII1 port
  *  Serdes1 Lane 3 (A) - Unused 
  *
- *  Serdes2 Lane 0 (A) - PCIe1 Gen3 x1  
- *  Serdes2 Lane 1 (B) - Unused 
+ *  Serdes2 Lane 0 (A) - Unused
+ *  Serdes2 Lane 1 (B) - PCIe2 Gen3 x1
  *  Serdes2 Lane 2 (C) - Unused
- *  Serdes2 Lane 3 (D) - PCIe1 Gen3 x1
+ *  Serdes2 Lane 3 (D) - PCIe3 Gen3 x1
  *
  * PLL mapping: 2222_2222
  *
