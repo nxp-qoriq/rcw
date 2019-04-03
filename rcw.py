@@ -47,6 +47,7 @@
 # be defined by a symbol assignment.
 #
 # Examples for use of special variables:
+#       %loadwochecksum         -- Set to 1 if RCW need to be loaded without performing checksum
 #       %size=1024              -- Must be set to RCW bit count
 #       %pbiformat=2            -- Must be set to 2 for LS2 platform PBI
 #       %nocrc=1                -- Must be set to 1 if only 'STOP' command 
@@ -563,6 +564,11 @@ def create_binary():
     else:
         nocrc = 0
 
+    if 'loadwochecksum' in vars:
+        loadwochecksum = int(vars['loadwochecksum'], 0)
+    else:
+        loadwochecksum = 0
+
     size = int(vars['size'], 0)
     if 'pbiformat' in vars:
         pbiformat = int(vars['pbiformat'], 0)
@@ -623,8 +629,12 @@ def create_binary():
         # format.
         binary = struct.pack(endianess + 'L', 0xaa55aa55)
         if pbiformat == 2:
-            # Load RCW command
-            binary += struct.pack(endianess + 'L', 0x80100000)
+            if loadwochecksum == 1:
+                # Load RCW w/o checksum command
+                binary += struct.pack(endianess + 'L', 0x80110000)
+            else:
+                # Load RCW with checksum command
+                binary += struct.pack(endianess + 'L', 0x80100000)
         else:
             length_byte = (((size / 8) & 63) << 1) | 1
             binary += struct.pack(endianess + 'L', (length_byte << 24) | (int(vars['sysaddr'], 16) & 0x00ffffff))
@@ -638,14 +648,16 @@ def create_binary():
 
     if options.pbl:
         if pbiformat == 2:
-            # Add the simple checksum to the Load RCW command
-            checksum = 0
-            for i in range(0, len(binary), 4):
-                word = struct.unpack(endianess + 'L', binary[i:i+4])[0]
-                checksum += word;
-            checksum = checksum & 0xffffffff
-            binary += struct.pack(endianess + 'L', checksum)
-                
+            if loadwochecksum == 1:
+                binary += struct.pack(endianess + 'L', 0x00000000)
+            else:
+                # Add the simple checksum to the Load RCW command
+                checksum = 0
+                for i in range(0, len(binary), 4):
+                    word = struct.unpack(endianess + 'L', binary[i:i+4])[0]
+                    checksum += word;
+                checksum = checksum & 0xffffffff
+                binary += struct.pack(endianess + 'L', checksum)
         
     # Add any PBI commands
     binary += pbi
