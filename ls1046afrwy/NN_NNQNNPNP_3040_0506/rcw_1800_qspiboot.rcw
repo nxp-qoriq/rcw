@@ -1,7 +1,7 @@
 /*
- * LS1046ARDB RCW for SerDes Protocol 0x1133_5559
+ * LS1046AFRWY RCW for SerDes Protocol 0x3040_0506
  *
- * 4G configuration -- 4 QSGMII + 2 PCIe 
+ * 4G configuration -- 4G QSGMII + 2 PCIe 
  *
  * Frequencies:
  *
@@ -147,6 +147,7 @@ write 0x570604, 0x40100000
 #include <../ls1046ardb/cci_barrier_disable.rcw>
 #include <../ls1046ardb/usb_phy_freq.rcw>
 #include <../ls1046ardb/serdes_sata.rcw>
+#include <../ls1046ardb/pex_gen3_link.rcw>
 
 .pbi
 // QSPI END_CFG 64 bit LE

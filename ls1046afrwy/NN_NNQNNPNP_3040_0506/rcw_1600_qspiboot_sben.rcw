@@ -1,7 +1,7 @@
 /*
  * LS1046AFRWY RCW for SerDes Protocol 0x3040_0506
  *
- * 4G configuration -- 1G QSGMII +  2 PCIe 
+ * 4G configuration -- 4G QSGMII +  2 PCIe 
  *
  * Frequencies:
  *
@@ -47,7 +47,7 @@
  * Serdes 2:
  *  PLL mapping: 2222
  *  SRDS_PLL_REF_CLK_SEL_S2 : 0b'00
- *    SerDes 2, PLL1[162] : 0 - 100MHz for SATA
+ *    SerDes 2, PLL1[162] : 0 - 100MHz for PCIe
  *    SerDes 2, PLL2[163] : 0 - 100MHz for PCIe
  *  SRDS_PLL_PD_S2 : 0b'00
  *    SerDes 2, PLL1 : 0 - not power down
@@ -79,8 +79,8 @@ SRDS_PLL_REF_CLK_SEL_S1=0
 SRDS_PLL_REF_CLK_SEL_S2=0
 SRDS_PLL_PD_S1=2
 SRDS_PLL_PD_S2=0
-SRDS_DIV_PEX_S1=1
-SRDS_DIV_PEX_S2=1
+SRDS_DIV_PEX_S1=0
+SRDS_DIV_PEX_S2=0
 DDR_REFCLK_SEL=1
 SRDS_REFCLK_SEL_S1=0
 SRDS_REFCLK_SEL_S2=0
@@ -146,6 +146,7 @@ write 0xee0200, 0x406c0000
 #include <../ls1046ardb/cci_barrier_disable.rcw>
 #include <../ls1046ardb/usb_phy_freq.rcw>
 #include <../ls1046ardb/serdes_sata.rcw>
+#include <../ls1046ardb/pex_gen3_link.rcw>
 
 .pbi
 // QSPI END_CFG 64 bit LE
