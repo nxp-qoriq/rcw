@@ -1,7 +1,7 @@
 /*
- * LS1046AFRWY RCW for SerDes Protocol 0x3040_0506
+ * LS1046AFRWY RCW for SerDes Protocol 0x3040_0506 
  *
- * 4G configuration -- 4G QSGMII +  2 PCIe 
+ * 4G configuration -- 4G QSGMII + 2 PCIe
  *
  * Frequencies:
  *
@@ -21,10 +21,11 @@
  *   eSDHC, QSPI - HWA_CGA_M2_CLK_SEL = 1 - Async mode, CGA PLL 2 /1 is clock
  *
  * Serdes Lanes vs Slot information
- *  Serdes1 Lane 0 (D) - Unused 
+ * Serdes Lanes vs Slot information
+ *  Serdes1 Lane 0 (D) - Unused
  *  Serdes1 Lane 1 (C) - Unused
  *  Serdes1 Lane 2 (B) - QSGMII6,QSGMII5,QSGMII10,QSGMII1 port
- *  Serdes1 Lane 3 (A) - Unused 
+ *  Serdes1 Lane 3 (A) - Unused
  *
  *  Serdes2 Lane 0 (A) - Unused
  *  Serdes2 Lane 1 (B) - PCIe2 Gen3 x1
@@ -85,10 +86,10 @@ DDR_REFCLK_SEL=1
 SRDS_REFCLK_SEL_S1=0
 SRDS_REFCLK_SEL_S2=0
 DDR_FDBK_MULT=2
-PBI_SRC=4
-BOOT_HO=1
-SB_EN=1
-IFC_MODE=37
+PBI_SRC=6
+BOOT_HO=0
+SB_EN=0
+IFC_MODE=64
 HWA_CGA_M1_CLK_SEL=6
 DRAM_LAT=1
 DDR_RATE=0
@@ -139,8 +140,8 @@ HWA_CGA_M2_CLK_SEL=1
 
 .pbi
 // QSPI flash clock
-write 0x57015c, 0x20100000
-write 0xee0200, 0x406c0000
+write 0x570600, 0x00000000
+write 0x570604, 0x10000000
 .end
 
 #include <../ls1046ardb/cci_barrier_disable.rcw>
@@ -149,6 +150,11 @@ write 0xee0200, 0x406c0000
 #include <../ls1046ardb/pex_gen3_link.rcw>
 
 .pbi
-// QSPI END_CFG 64 bit LE
-write 0x550000, 0x000f400c
+// Alt base register
+write 0x570158, 0x00001000
+.end
+
+.pbi
+// flush PBI data
+write 0x6100c0, 0x000fffff
 .end

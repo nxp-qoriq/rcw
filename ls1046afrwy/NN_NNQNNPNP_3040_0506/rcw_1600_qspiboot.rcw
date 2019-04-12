@@ -10,7 +10,7 @@
  *
  * Core		-- 1600 MHz (Mul 16)
  * Platform	-- 600 MHz (Mul 6)
- * DDR		-- 1800 MT/s (Mul 21)
+ * DDR		-- 2100 MT/s (Mul 21)
  * FMan		-- 700 MHz (CGA2 /2)
  * QSGMII	-- 100 MHz (5G)
  * PCIE		-- 100 MHz (5G)
@@ -67,7 +67,7 @@
 SYS_PLL_CFG=0
 SYS_PLL_RAT=6
 MEM_PLL_CFG=0
-MEM_PLL_RAT=16
+MEM_PLL_RAT=21
 CGA_PLL1_CFG=0
 CGA_PLL1_RAT=16
 CGA_PLL2_CFG=0
