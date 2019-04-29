@@ -1,0 +1,111 @@
+The RCW directories names for the LS1046AFRWY boards conform to the following
+naming convention:
+
+ab_cdefghij_k_l:
+
+a = 'R' indicates RGMII1@DTSEC3 is supported
+b = 'R' indicates RGMII2@DTSEC4 is supported
+    'N' indicates not available/not used
+
+c = What is available in SerDes1 Lane0
+d = What is available in SerDes1 Lane1
+e = What is available in SerDes1 Lane2
+f = What is available in SerDes1 Lane3
+g = What is available in SerDes2 Lane0
+h = What is available in SerDes2 Lane1
+i = What is available in SerDes2 Lane2
+j = What is available in SerDes2 Lane3
+
+For the Slots (c..j):
+ 'N' is NULL, not available/not used
+ 'P' is PCIe
+ 'X' is XAUI
+ 'S' is SGMII
+ 'Q' if QSGMII
+ 'F' is XFI
+ 'H' is SATA
+ 'A' is AURORA
+
+Serdes1 protocol (k):
+k = 'hex value of serdes1 protocol value'
+
+Serdes2 protocol (l):
+l = 'hex value of serdes2 protocol value'
+
+BIN   Core/Platform/FMan/DDR
+Bin1: 1600MHz/600MHz/700MHz/2100MT/s
+
+Serdes protocol:
+================
+NN_NNQNNPNP_3040_0506 means:
+ - Not used on  board
+ - Not used on board
+ - Not used on board
+ - Not used on board
+ - QSGMII6@DTSEC6, QSGMII6@DTSEC5, QSGMII6@DTSEC10, QSGMII6@DTSEC1 on board
+ - Not used on board
+ - Not used on board
+ - PCIe1 on Slot 1, mPCIe
+ - Not used on board
+ - PCIe2 on Slot 2, mPCIe
+ - SERDES1 Protocol is 0x3040
+ - SERDES2 Protocol is 0x0506
+
+Files naming convention
+=============================
+rcw_x.rcw
+rcw_x_bootmode.rcw
+rcw_x_specialsetting.rcw
+x = Core frequency
+bootmode = bootmode:qspiboot and so on.
+specialsetting = special setting:
+			sben:Secure boot
+For example,
+	rcw_1600_qspiboot.rcw means rcw for core frequency of 1600MHz with QSPI boot.
+
+For more information please refer to the comments in rcw file.
+
+Errata Workaround Implemented
+=============================
+
+A-010477: PCI Express Gen3 link training equalization fails with default
+controller configuration
+Workaround: Write the value of 0x0080_0401 to the GEN3 Control Register (GEN3_RELATED_OFF)
+located at each PCI Express controller’s configuration space offset 0x890 during the pre-boot
+initialization (PBI) stage.
+
+A-008851: Invalid transmitter/receiver preset values are used in Gen3 equalization
+phases during link training for RC mode
+Workaround: The recommended values are 4h for the optional Receiver (Rx) Preset Hint and 7h for the
+Transmitter (Tx) Preset. In PBI, if the PCI Express controller is configured as Gen3 RC mode,
+each lane’s Lane Equalization Control Register of the controller should be programmed with
+the value of 4747h.
+For LS1046A, each lane’s 16-bit little endian read-only Lane Equalization Control Register is
+located at the following offset address of the corresponding Gen3-capable PCI Express RC
+controller’s configuration space:
+• PCI Express Controller 1 (supporting up to Gen3 x4), offset 0x154 to 0x15A for lane 0 to
+lane 3
+• PCI Express Controller 2 (supporting up to Gen3 x1), offset 0x154 for lane 0
+• PCI Express Controller 3 (supporting up to Gen3 x2), offset 0x154 to 0x156 for lane 0 to
+lane 1
+Since the register mentioned above is defined by the PCI Express base specification as a
+read-only register, the overwrite capability should be turned on by setting the
+DBI_RO_WR_EN bit (Bit 0) of the DBI Read-Only Write Enable Register at the PCI Express
+configuration space offset 8BCh, before writing to any read-only register within the controller’s
+configuration space.
+
+A-008850: DDR controller should be configured before barrier transactions are
+issued
+Workaround: Before issuing any data barrier instruction and while the DDR controller is not configured:
+1. Set the bit 3 of the CCI400 Control Override Register (for address: 0118_0000h with data
+0000_0008h). This disables the propagation of barrier transactions to DDRC from
+CCI400.
+2. Disable the re-ordering in DDR controller using DDR Enhanced Optimization Register
+(DDR_EOR: for address=0108_0c00, DDR_EOR[RD_REOD_DIS 5:7]=3'b111,
+DDR_EOR[WR_REOD_DIS 11] =1'b1.
+After DDR controller is configured:
+3. Clear the bit 3 for CCI400 Control Override Register (for 0118_0000h with data
+0000_0000h).
+4. Enable the re-ordering in DDR controller using DDR Enhanced Optimization Register
+(DDR_EOR: for address=0108_0c00, DDR_EOR[RD_REOD_DIS 5:7]=3'b000,
+DDR_EOR[WR_REOD_DIS 11] =1'b
