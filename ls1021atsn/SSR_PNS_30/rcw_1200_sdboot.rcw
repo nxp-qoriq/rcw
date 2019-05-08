@@ -1,0 +1,19 @@
+#include <SSR_PNS_30/rcw_1200.rcwi>
+
+.pbi
+write  0x570158, 0x00000300
+awrite 0x40007c, 0x21f47300
+/* Configure Scratch register */
+write  0xee0200, 0x10000000
+/* Configure alternate space */
+write  0x570158, 0x00001000
+flush
+.end
+
+#include <../ls1021aqds/serdes_sata.rcw>
+#include <../ls1021aqds/io_drive_strength.rcw>
+#include <../ls1021aqds/pcie_hotplug_status_clear.rcw>
+
+.pbi
+write 0xea0560, 0x80800000
+.end

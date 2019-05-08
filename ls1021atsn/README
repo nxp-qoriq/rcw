@@ -1,0 +1,53 @@
+The RCW directories for the LS1021A-TSN board conform to the following naming
+convention:
+
+abc_def_g:
+
+a = What is available in eTSEC1
+b = What is available in eTSEC2
+c = What is available in eTSEC3
+
+For the eTSECn
+ 'R' indicates RGMII@eTSECn is supported /
+ 'S' indicates SGMII@eTSECn is supported
+	'N' if not available/not used
+
+d = 'P' indicates PCIe@slot1 is supported /
+	'N' if not available/not used
+e = 'P' indicates PCIe@slot2 is supported /
+	'N' if not available/not used
+f = 'S' indicates sata is supported /
+	'N' if not available/not used
+
+For the srds_prtcl:
+g = 'hex value of serdes1 protocol value'
+
+Note: For serdes protocol 0x30, RGMII@EC3,
+So SSR_PNS_30 means:
+ - SGMII@EC1
+ - SGMII@EC2
+ - RGMII@EC3
+ - PCIe*1 on slot 1
+ - SATA
+ - SERDES1 Protocol is 0x30
+
+Files naming convention
+=============================
+
+rcw_x.rcw
+rcw_x_bootmode.rcw
+rcw_x_specialsetting.rcw
+x = Core frequency
+bootmode = bootmode:SD/NAND/NOR and so on.
+specialsetting = special setting:
+			lpuart:used for lpuart
+			sben:Secure boot
+			dcu:2D-ACE support
+For example,
+	rcw_1000.rcw means rcw for core frequency of 1000MHz with nor boot.
+
+	rcw_1000_sd.rcw means rcw for core frequency of 1000MHz with sd boot.
+
+	rcw_1000_lpuart.rcw means rcw for core frequency of 1000MHz with nor boot special for lpuart.
+
+For more information please refer to the comments in rcw file.

@@ -1,0 +1,32 @@
+%littleendian64b=1
+%dont64bswapcrc=1
+
+#include <SSR_PNS_30/rcw_1200.rcwi>
+
+.pbi
+/* QSPI flash clock */
+write 0x57015c, 0x00000803
+.end
+
+/* Rev. A of the board uses a Spansion S25FL512S_256K serial flash,
+ * which is 64 MB in size and has an erase sector size of 256KB.
+ * Rev. B and C of the board use a Spansion S25FL256S1 serial flash,
+ * which is only 32 MB in size but has an erase sector size of 64KB.
+ * It is desirable to flash the RCW without erasing U-boot, but that
+ * can't be done if U-boot is placed at the traditional 0x10000 offset
+ * (which works for Rev. B and C, but not A).
+ * [EDIT] In the meantime, the traditional U-boot offset changed from
+ * 0x10000 to 0x100000 in LSDK, so the different erase sector size is
+ * no longer a concern. U-boot is now located at the start of the 5th 256KB
+ * erase sector (0x100000), which works for all revisions of the board.
+ */
+.pbi
+write 0xee0200, 0x40100000
+flush
+.end
+
+#include <../ls1021aqds/scfg_bit_reverse.rcw>
+#include <../ls1021aqds/serdes_sata.rcw>
+#include <../ls1021aqds/io_drive_strength.rcw>
+#include <../ls1021aqds/pcie_hotplug_status_clear.rcw>
+#include <../ls1021aqds/qspi_endianness.rcw>

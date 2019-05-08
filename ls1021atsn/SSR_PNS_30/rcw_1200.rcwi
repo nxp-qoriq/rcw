@@ -1,0 +1,61 @@
+/*
+ * LS1021A-TSN RCW (SerDes Protocol 0x30)
+ *
+ * Ethernet configuration:
+ *    SGMII1@eTSEC1
+ *    SGMII2@eTSEC2
+ *    RGMII@eTSEC3
+ *
+ * Frequencies:
+ *
+ * Sys Clock: 100 MHz
+ * DDR_Refclock: 100 MHz
+ * SDREFCLK_FSEL: 100 MHz
+ *
+ * Core -- 1200 MHz (Mul 12)
+ * Platform - 300 MHz (Mul 3)
+ * DDR -- 800 MHz (Mul 8)
+ * SGMII -- 125MHz
+ * PCIE -- 100MHz
+ *
+ * Serdes Lanes
+ * A PCIe1*1
+ * B SATA1
+ * C SGMII1
+ * D SGMII2
+ *
+ */
+#include <../ls1021aqds/ls1021a.rcwi>
+
+SYS_PLL_RAT=3
+MEM_PLL_RAT=8
+CGA_PLL1_RAT=12
+SRDS_PRTCL_S1=48
+SRDS_DIV_PEX=1
+USB3_REFCLK_SEL=2
+USB3_CLK_FSEL=57
+PBI_SRC=4
+IFC_MODE=0x105
+A7_ACE_CLKDIV=2
+A7_DBG_CLKDIV=2
+HWA_CGA_M1_CLK_SEL=1
+DRAM_LAT=1
+DP_DIV=1
+OCN_DIV=1
+SYS_PLL_SPD=1
+UART_EXT=2
+RTC=1
+IFC_GRP_A_EXT=1
+IFC_GRP_D_EXT=1
+IFC_GRP_E1_EXT=1
+IFC_GRP_F_EXT=1
+IFC_GRP_G_EXT=1
+EC1=4
+EC2=2
+QE_TDMA=1
+QE_TDMB=1
+SDHC=1
+DVDD_VSEL=2
+LVDD_VSEL=1
+EVDD_VSEL=2
+BVDD_VSEL=2
