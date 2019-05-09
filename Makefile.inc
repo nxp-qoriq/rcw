@@ -2,18 +2,24 @@ DESTDIR = $(shell basename $(CURDIR))
 INSTALL = install
 PYTHON ?= python2
 RCW = $(PYTHON) ../rcw.py
-QSPI_SWAP_LIST = $(shell pwd)/../qspi_swap_list.txt
-QSPI_SWAP_SCRIPT=$(shell pwd)/../qspi_swap.sh
+
+define rcw-rule
+$1: $2
+	$(RCW) -i $2 -o $1
+endef
 
 rcw_sources := $(wildcard */*.rcw)
-swap_sources := $(wildcard */*.swapped)
-targets = $(rcw_sources:.rcw=.bin) $(swap_sources)
 
-%.bin: %.rcw
-	$(RCW) -i $< -o $@
+# Maintain compatibility with byte_swap.tcl by creating a $(rcw).bin.swapped
+# file if it contains the %littleendian64b=1 directive.
+$(foreach rcw, $(rcw_sources), \
+	$(eval suffix := $(shell gcc -E -x c -P -I . $(rcw) | \
+		awk '/%littleendian64b=1/ { print ".swapped"; exit; }')) \
+	$(eval bin := $(rcw:.rcw=.bin$(suffix))) \
+	$(eval $(call rcw-rule, $(bin), $(rcw))) \
+	$(eval targets := $(targets) $(bin)))
 
 all: $(targets)
-	$(QSPI_SWAP_SCRIPT) $(QSPI_SWAP_LIST)
 
 install: $(targets)
 	$(INSTALL) -d $(DESTDIR)

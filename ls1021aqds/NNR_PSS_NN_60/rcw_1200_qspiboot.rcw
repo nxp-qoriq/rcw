@@ -27,6 +27,9 @@
 
 #include <ls1021a.rcwi>
 
+%littleendian64b=1
+%dont64bswapcrc=1
+
 SYS_PLL_RAT=3
 MEM_PLL_RAT=8
 CGA_PLL1_RAT=12

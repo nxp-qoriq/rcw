@@ -65,6 +65,9 @@
 
 #include <ls1046a.rcwi>
 
+%littleendian64b=1
+%dont64bswapcrc=1
+
 SYS_PLL_RAT=6
 MEM_PLL_RAT=21
 CGA_PLL1_RAT=16

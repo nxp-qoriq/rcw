@@ -22,6 +22,9 @@
 
 #include <ls1012a.rcwi>
 
+%littleendian64b=1
+%dont64bswapcrc=1
+
 SYS_PLL_RAT=4
 CGA_PLL1_RAT=8
 SRDS_PRTCL_S1=13061
