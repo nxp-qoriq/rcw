@@ -106,8 +106,4 @@ write 0x570604, 0x40100000
 #include <usb_phy_freq.rcw>
 #include <serdes_sata.rcw>
 #include <a009531.rcw>
-
-.pbi
-// QSPI END_CFG 64 bit LE
-write 0x550000, 0x000f400c
-.end
+#include <qspi_endianness.rcw>

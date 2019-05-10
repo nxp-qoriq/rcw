@@ -106,8 +106,4 @@ write 0x570604, 0x40010000
 #include <../ls1046ardb/usb_phy_freq.rcw>
 #include <../ls1046ardb/serdes_sata.rcw>
 #include <../ls1046ardb/a009531.rcw>
-
-.pbi
-// QSPI END_CFG 64 bit LE
-write 0x550000, 0x000f400c
-.end
+#include <../ls1046ardb/qspi_endianness.rcw>
