@@ -55,7 +55,7 @@
 #       %classicbitnumbers=1    -- Non-Power Architecture bit numbering
 #       %littleendian=1         -- Needed for LS2 style platform
 #       %littleendian64b=1      -- Swaps eight bytes instead of four
-#       %dont64swapcrc          -- Can be set if CRC should stay normal
+#       %dont64bswapcrc=1       -- Can be set if CRC should stay normal
 #                                  for %littleendian64b=1
 #       %sysaddr, %pbladdr      -- Hex needed for pbiformat=1
 #
