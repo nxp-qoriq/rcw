@@ -1,0 +1,12 @@
+/*
+ * If the other PCIe controller on that configuration is disabled,
+ * then this PCIe controller can be supported at up to PCIe Gen3
+ * rates.
+ * Disable PCIe1 controller, Enable PLL2 configuration, the PCIe2
+ * will support up to PCIe Gen3.
+ */
+
+.pbi
+write 0x0e000078,0x00000001
+write 0x01ea08c0,0x11650000
+.end
