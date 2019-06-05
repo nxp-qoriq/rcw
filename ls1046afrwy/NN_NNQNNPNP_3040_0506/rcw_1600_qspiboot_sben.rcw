@@ -101,7 +101,7 @@ write 0x57015c, 0x20100000
 write 0xee0200, 0x406c0000
 .end
 
-ls1046afrwy/NN_NNQNNPNP_3040_0506/rcw_1600_qspiboot_sben.rcw
+// Errta A-008850 for ddr controller for barrier transaction
 #include <../ls1046ardb/cci_barrier_disable.rcw>
 // Set USB PHY PLL for 100MHz
 #include <../ls1046ardb/usb_phy_freq.rcw>
