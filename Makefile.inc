@@ -6,12 +6,8 @@ QSPI_SWAP_LIST = $(shell pwd)/../qspi_swap_list.txt
 QSPI_SWAP_SCRIPT=$(shell pwd)/../qspi_swap.sh
 
 rcw_sources := $(wildcard */*.rcw)
-txt_sources := $(wildcard */*.txt)
 swap_sources := $(wildcard */*.swapped)
-targets = $(txt_sources:.txt=.bin) $(rcw_sources:.rcw=.bin) $(swap_sources)
-
-%.bin: %.txt
-	sed '/^\#/d' $< | grep -v '^($)' | xxd -r > $@
+targets = $(rcw_sources:.rcw=.bin) $(swap_sources)
 
 %.bin: %.rcw
 	$(RCW) -i $< -o $@
