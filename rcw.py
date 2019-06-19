@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 # rcw.py -- compiles an RCW source file into an PBL/RCW binary
 
@@ -96,7 +96,7 @@ from optparse import OptionParser, OptionGroup
 class ordered_dict(dict):
     def __init__(self, *args, **kwargs):
         dict.__init__(self, *args, **kwargs)
-        self._order = self.keys()
+        self._order = list(self.keys())
 
     def __setitem__(self, key, value):
         dict.__setitem__(self, key, value)
@@ -133,7 +133,7 @@ def crc32(data):
 
     crc = 0xffffffff
     for i in data:
-        crc = (crc << 8) ^ table[(crc >> 24) ^ ord(i)]
+        crc = (crc << 8) ^ table[(crc >> 24) ^ int(i)]
         crc = crc & 0xffffffff
 
     return crc
@@ -188,7 +188,7 @@ def command_line():
         options.output = '/dev/stdout'
 
     if options.reverse and not options.rcwi:
-        print "Error: -r option requires --rcw"
+        print("Error: -r option requires --rcw")
         sys.exit(1)
 
 # Checks if the bits for the given field overlap those of another field that
@@ -197,27 +197,27 @@ def check_for_overlap(name, begin, end):
     global symbols
 
     if name in symbols:
-        print 'Error: Duplicate bitfield definition for', name
+        print('Error: Duplicate bitfield definition for', name)
         return
 
     # Iterate over the list of symbols that have already been defined
-    for n, [b, e] in symbols.iteritems():
+    for n, [b, e] in symbols.items():
         # check if either 'begin' or 'end' is inside an bitfield range
         if (b <= begin <= e) or (b <= end <= e):
-            print 'Error: Bitfield', name, 'overlaps with', n
+            print('Error: Bitfield', name, 'overlaps with', n)
 
 #
 # Build a u-boot PBI section for SPI/SD/NAND boot
-# 	refer: Chapter 10, u-boot of QorIQ_SDK_Infocenter.pdf
+#         refer: Chapter 10, u-boot of QorIQ_SDK_Infocenter.pdf
 #
 # pre-cond 1: u-boot.xxd should be created
 # how to create u-boot.xxd
-# 	xxd u-boot.bin > u-boot.xxd1 && cut -d " " -f1-10 u-boot.xxd1 > u-boot.xxd && rm -f u-boot.xxd1
+#         xxd u-boot.bin > u-boot.xxd1 && cut -d " " -f1-10 u-boot.xxd1 > u-boot.xxd && rm -f u-boot.xxd1
 #
 # rcw file should include spi_boot.rcw as well
 #
 def build_pbi_uboot(lines):
-    subsection = ''
+    subsection = b''
     cnt = 1
     l_tmp = []
 
@@ -225,55 +225,55 @@ def build_pbi_uboot(lines):
     for l in lines:
         # prepare 0x40 per lines except the last one
         # add flush at the end 
-	lstr = l.split()
-	addr = int(lstr[0][:-1], 16)
+        lstr = l.split()
+        addr = int(lstr[0][:-1], 16)
         
         # print l
         #
         # last two lines take  0x20 numbers
         #
-	if ((cnt % 2 == 0) and (cnt > len(lines) -4)):
+        if ((cnt % 2 == 0) and (cnt > len(lines) -4)):
             l_tmp.append(l)
             b = []
 
-	    for t in l_tmp:
+            for t in l_tmp:
                 lstr = t.split()
 
-	        for i in range(1, len(lstr)):
+                for i in range(1, len(lstr)):
                     b.append(int(lstr[i], 16))
 
             subsection += struct.pack('>LHHHHHHHHHHHHHHHH',\
-		0x0C1F80000 + (addr - 0x10),\
-		b[0],  b[1],  b[2],  b[3],  b[4],  b[5],  b[6],  b[7],\
-		b[8],  b[9],  b[10], b[11], b[12], b[13], b[14], b[15])
+                0x0C1F80000 + (addr - 0x10),\
+                b[0],  b[1],  b[2],  b[3],  b[4],  b[5],  b[6],  b[7],\
+                b[8],  b[9],  b[10], b[11], b[12], b[13], b[14], b[15])
             l_tmp = []
         #
         # the rest of lines take 0x40 numbers
         elif (cnt % 4 == 0):
             l_tmp.append(l)
-	    b = []
-	    for t in l_tmp:
+            b = []
+            for t in l_tmp:
                 lstr = t.split()
-	        for i in range(1, len(lstr)):
+                for i in range(1, len(lstr)):
                     b.append(int(lstr[i], 16))
 
             subsection += struct.pack('>LHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH',\
-		0x081F80000 + (addr - 0x30),\
-		b[0],  b[1],  b[2],  b[3],  b[4],  b[5],  b[6],  b[7],\
-		b[8],  b[9],  b[10], b[11], b[12], b[13], b[14], b[15],\
-		b[16], b[17], b[18], b[19], b[20], b[21], b[22], b[23], \
-		b[24], b[25], b[26], b[27], b[28], b[29], b[30], b[31])
+                0x081F80000 + (addr - 0x30),\
+                b[0],  b[1],  b[2],  b[3],  b[4],  b[5],  b[6],  b[7],\
+                b[8],  b[9],  b[10], b[11], b[12], b[13], b[14], b[15],\
+                b[16], b[17], b[18], b[19], b[20], b[21], b[22], b[23], \
+                b[24], b[25], b[26], b[27], b[28], b[29], b[30], b[31])
             l_tmp = []
         else:
             l_tmp.append(l)
 
-	cnt = cnt + 1
+        cnt = cnt + 1
 
     return subsection
 
 # Build a PBI section
 def build_pbi(lines):
-    subsection = ''
+    subsection = b''
     global vars
 
     if 'pbiformat' in vars:
@@ -287,9 +287,9 @@ def build_pbi(lines):
     for l in lines:
         # Check for an instruction without 0-2 parameters
         # The + ' ' is a hack to make the regex work for just 'flush'
-        m = re.match(r'\s*([a-z]+)(|\.b1|\.b2|\.b4|\.short|\.long)\s*(?<=\s)([^,]*),?([^,]*),?([^,]*),?([^,]*)', l + ' ')
+        m = re.match(r'\s*([a-z]+)(|\.b1|\.b2|\.b4|\.short|\.long)\s*(?<=\s)([^,]*),?([^,]*),?([^,]*),?([^,]*)', l.decode("ascii") + ' ')
         if not m:
-            print 'Unknown PBI subsection command "%s"' % l
+            print('Unknown PBI subsection command "%s"' % l)
             return ''
         op = m.group(1)
         opsize = m.group(2)
@@ -307,7 +307,7 @@ def build_pbi(lines):
         p4 = eval(p4, {"__builtins__":None}, {}) if len(p4) else None
         if op == 'wait':
             if p1 == None:
-                print 'Error: "wait" instruction requires one parameter'
+                print('Error: "wait" instruction requires one parameter')
                 return ''
             if pbiformat == 2:
                 v1 = struct.pack(endianess + 'L', 0x80820000 | p1)
@@ -319,7 +319,7 @@ def build_pbi(lines):
                 subsection += v2
         elif op == 'write':
             if p1 == None or p2 == None:
-                print 'Error: "write" instruction requires two parameters'
+                print('Error: "write" instruction requires two parameters')
                 return ''
             if pbiformat == 2:
                 v1 = struct.pack(endianess + 'L', (opsizebytes << 28) | p1)
@@ -330,7 +330,7 @@ def build_pbi(lines):
             subsection += v2
         elif op == 'awrite':
             if p1 == None or p2 == None:
-                print 'Error: "awrite" instruction requires two parameters'
+                print('Error: "awrite" instruction requires two parameters')
                 return ''
             if pbiformat == 2:
                 v1 = struct.pack(endianess + 'L', 0x80000000 + (opsizebytes << 26) + p1)
@@ -341,10 +341,10 @@ def build_pbi(lines):
             subsection += v2
         elif op == 'poll':
             if pbiformat != 2:
-                print 'Error: "poll" not support for old PBI format'
+                print('Error: "poll" not support for old PBI format')
                 return ''
             if p1 == None or p2 == None or p3 == None:
-                print 'Error: "poll" instruction requires three parameters'
+                print('Error: "poll" instruction requires three parameters')
                 return ''
             if opsize == '.long':
                 cmd = 0x81
@@ -358,19 +358,19 @@ def build_pbi(lines):
             subsection += v3
         elif op == 'loadacwindow':
             if pbiformat != 2:
-                print 'Error: "loadacwindow" not supported for old PBI format'
+                print('Error: "loadacwindow" not supported for old PBI format')
                 return ''
             if p1 == None:
-                print 'Error: "loadacwindow" instruction requires one parameter'
+                print('Error: "loadacwindow" instruction requires one parameter')
                 return ''
             v1 = struct.pack(endianess + 'L', 0x80120000 + p1)
             subsection += v1
         elif op == 'blockcopy':
             if pbiformat != 2:
-                print 'Error: "blockcopy" not supported for old PBI format'
+                print('Error: "blockcopy" not supported for old PBI format')
                 return ''
             if p1 == None or p2 == None or p3 == None or p4 == None:
-                print 'Error: "blockcopy" instruction requires four parameters'
+                print('Error: "blockcopy" instruction requires four parameters')
                 return ''
             v1 = struct.pack(endianess + 'L', 0x80000000 + (p1 & 0xff))
             v2 = struct.pack(endianess + 'L', p2)
@@ -383,7 +383,7 @@ def build_pbi(lines):
         elif op == 'flush':
             subsection += struct.pack('>LL', 0x09000000 | (int(vars['pbladdr'], 16) & 0x00ffff00), 0)
         else:
-            print 'Unknown PBI subsection command "%s"' % l
+            print('Unknown PBI subsection command "%s"' % l)
             return ''
 
     return subsection
@@ -395,7 +395,7 @@ def parse_subsection(header, lines):
     elif header == "uboot":
         return build_pbi_uboot(lines)
 
-    print 'Error: unknown subsection "%s"' % header
+    print('Error: unknown subsection "%s"' % header)
     return ''
 
 # Parse the .rcw file, one line at a time
@@ -409,10 +409,10 @@ def parse_source_file(source):
     symbols = ordered_dict()
 
     in_subsection = False   # True == we're in a subsection
-    pbi = ''
+    pbi = b''
 
     for l2 in source:
-        l = re.sub(r'\s+', '', l2) # Remove all whitespace
+        l = re.sub(r'\s+', '', l2.decode("ascii")) # Remove all whitespace
 
         if not len(l):  # Skip blank or comment-only lines
             continue
@@ -467,14 +467,14 @@ def parse_source_file(source):
             (name, value) = m.groups()
             value = int(value, 0)
             if not name in symbols:
-                print 'Error: Unknown bitfield', name
+                print('Error: Unknown bitfield', name)
             else:
                 if options.warnings and (name in assignments):
-                    print 'Warning: Duplicate assignment for bitfield', name
+                    print('Warning: Duplicate assignment for bitfield', name)
                 assignments[name] = value
             continue
 
-        print 'Error: unknown command', ' '.join(l2)
+        print('Error: unknown command', ' '.join(l2))
 
 # Parse the -D command line parameter for additional bitfield assignments
 def parse_cmdline_bitfields():
@@ -485,12 +485,12 @@ def parse_cmdline_bitfields():
         # This is the same regex as used in parse_source_file()
         m = re.search(r'([A-Z0-9_]+)=([0-9a-zA-Z]+)', l)
         if not m:
-            print 'Unrecognized command-line bitfield:', l
+            print('Unrecognized command-line bitfield:', l)
         else:
             (name, value) = m.groups()
             value = int(value, 0)
             if not name in symbols:
-                print 'Error: Unknown bitfield', name
+                print('Error: Unknown bitfield', name)
             else:
                 # Don't bother printing a warning, since the command-line will
                 # normally be used to overwrite values in the .rcw file
@@ -511,7 +511,7 @@ def read_source_file(filename):
     global options
 
     if not find_program('gcc'):
-        print 'Could not find gcc in PATH'
+        print('Could not find gcc in PATH')
         return None
 
     i = ['-I', '.']     # Always look in the current directory
@@ -522,7 +522,7 @@ def read_source_file(filename):
         shell=False, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     ret = p.communicate()
     if p.returncode != 0:
-        print ret[1],
+        print(ret[1],)
         return None
 
     return ret[0].splitlines()
@@ -533,13 +533,13 @@ def check_vars():
     global options
 
     if not 'size' in vars:
-        print 'Error: "%size" variable must be specified'
+        print('Error: "%size" variable must be specified')
         sys.exit(1)
 
     if options.pbl:
         if 'pbiformat' in vars and int(vars['pbiformat'], 0) == 2:
             if 'sysaddr' in vars:
-                print 'Error: PBL format does not use %sysaddr'
+                print('Error: PBL format does not use %sysaddr')
                 sys.exit(1)
             #if 'pbladdr' in vars:
             #    print 'Error: PBL format does not use %pbladdr'
@@ -547,7 +547,7 @@ def check_vars():
         else:
             # If we want the PBL header/footer, the vars for those must be defined
             if not 'sysaddr' in vars:
-                print 'Error: PBL format requires %sysaddr to be defined'
+                print('Error: PBL format requires %sysaddr to be defined')
                 sys.exit(1)
 
 # Create a .bin file
@@ -588,7 +588,7 @@ def create_binary():
     dont64bswapcrc = 0
     if 'dont64bswapcrc' in vars and int(vars['dont64bswapcrc'], 0):
         dont64bswapcrc = 1
-    bits = 0L
+    bits = 0
 
     # Magic hack. If a pbi is specified and we didn't set the size,
     # set it for the new format!
@@ -600,7 +600,7 @@ def create_binary():
                 pbilen += 2
             assignments['PBI_LENGTH'] = pbilen
             
-    for n, v in assignments.iteritems():
+    for n, v in assignments.items():
         # n = name of symbol
         # v = value to assign
         bb, ee = symbols[n]   # First bit and last bit
@@ -610,13 +610,13 @@ def create_binary():
 
         # Make sure it's not too large
         if v >= (1 << s):
-            print 'Error: Value', v, 'is too large for field', n
+            print('Error: Value', v, 'is too large for field', n)
             continue
 
         # If we treat the bitfield as "classic" numbered, reverse
         # the value before adding it!
         if b != bb:
-            v = int(bin(v)[2:].zfill(s)[::-1], 2)
+            v = int(bin(int(v))[2:].zfill(s)[::-1], 2)
                 
         # Set the bits.  We assume that bits [b:e] are already zero.  They can be
         # non-zero only if we have overlapping bitfield definitions, which we
@@ -624,7 +624,7 @@ def create_binary():
         bits += v << ((size - 1) - e)
 
     # Generate the binary.  First, apply the preamble, if requested
-    binary = ''
+    binary = b''
     if options.pbl:
         # Starting with LS2, we have a larger field and a different
         # format.
@@ -637,7 +637,7 @@ def create_binary():
                 # Load RCW with checksum command
                 binary += struct.pack(endianess + 'L', 0x80100000)
         else:
-            length_byte = (((size / 8) & 63) << 1) | 1
+            length_byte = (((size // 8) & 63) << 1) | 1
             binary += struct.pack(endianess + 'L', (length_byte << 24) | (int(vars['sysaddr'], 16) & 0x00ffffff))
 
     # Then convert 'bits' into an array of bytes
@@ -645,7 +645,7 @@ def create_binary():
         byte = bits >> i & 0xff
         if classicbitnumbers:
             byte = int(bin(byte)[2:].zfill(8)[::-1], 2)
-        binary += chr(byte)
+        binary += bytes([byte])
 
     if options.pbl:
         if pbiformat == 2:
@@ -685,11 +685,11 @@ def create_binary():
             # Precise bit any byte ordering of the CRC calculation is
             # not clearly specified. This is empirical.
             if classicbitnumbers:
-                    newcrcbinary = ''
+                    newcrcbinary = b''
                     for c in crcbinary:
-                        byte = ord(c)
+                        byte = int(c)
                         byte = int(bin(byte)[2:].zfill(8)[::-1], 2)
-                        newcrcbinary += chr(byte)
+                        newcrcbinary += bytes([byte])
                     crcbinary = newcrcbinary
 
             # Calculate and add the CRC
@@ -706,7 +706,7 @@ def create_binary():
         l = len(binary)
         if dont64bswapcrc and options.pbl:
             l -= 8
-        newbinary = ''
+        newbinary = b''
         for i in range(0, l, 8):
                 x64 = struct.unpack('>Q', binary[i:i + 8])[0]
                 newbinary += struct.pack('<Q', x64)
@@ -784,7 +784,7 @@ def create_source():
                 # We skip the checksum field
                 pbi = binary[8 + (size / 8) + 4:]
             else:
-                print 'Weird binary RCW format!'
+                print('Weird binary RCW format!')
                 bitbytes = ''
         else:
             if binary[0:4] == preambletst:
@@ -793,7 +793,7 @@ def create_source():
                 bitbytes = rcw
                 pbi = binary[8 + (size / 8):]
             else:
-                print 'Weird binary RCW format!'
+                print('Weird binary RCW format!')
                 bitbytes = ''
     else:
         bitbytes = binary
@@ -840,16 +840,16 @@ def create_source():
             bits &= ~(mask << shift)
 
     if bits:
-        print 'Unknown bits in positions:',
+        print('Unknown bits in positions:',)
         mask = 1
         n = 0
         while bits:
             if (bits & mask):
-                print n,
+                print(n,)
             n += 1
             bits &= ~mask
             mask <<= 1
-        print
+        print()
 
     if len(pbi) > 0:
         l = len(pbi)
@@ -966,7 +966,7 @@ def create_source():
                     if cnt == 0:
                         cnt = 64
                     if i + cnt >= l:
-                        print 'Error in write 0x%08x at offset %d within PBI\n' % (word, i)
+                        print('Error in write 0x%08x at offset %d within PBI\n' % (word, i))
                     if (addr & 0x00ffff00 == pbladdr):
                         arg1 = struct.unpack(endianess + 'L', pbi[i:i+4])[0]
                         i += 4
@@ -999,8 +999,8 @@ def create_source():
 
     return source
 
-if (sys.version_info < (2,6)) or (sys.version_info >= (3,0)):
-    print 'Only Python versions 2.6 or 2.7 are supported.'
+if (sys.version_info < (3,0)):
+    print('Only Python versions 3.0+ are supported.')
     sys.exit(1)
 
 # Make all 'print' statements output to stderr instead of stdout

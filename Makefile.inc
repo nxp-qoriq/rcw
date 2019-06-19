@@ -1,6 +1,6 @@
 DESTDIR = $(shell basename $(CURDIR))
 INSTALL = install
-PYTHON ?= python2
+PYTHON ?= python3
 RCW = $(PYTHON) ../rcw.py
 
 define rcw-rule
