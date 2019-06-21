@@ -2,7 +2,7 @@
 
 # rcw.py -- compiles an RCW source file into an PBL/RCW binary
 
-# Copyright 2017 NXP Semiconductor, Inc.
+# Copyright 2017-2019 NXP
 # Author: Timur Tabi <timur@freescale.com>
 # Further updates: Heinz Wrobel <Heinz.Wrobel@nxp.com>
 
@@ -564,6 +564,7 @@ def create_binary():
     else:
         nocrc = 0
 
+    # check for load without checksum
     if 'loadwochecksum' in vars:
         loadwochecksum = int(vars['loadwochecksum'], 0)
     else:
