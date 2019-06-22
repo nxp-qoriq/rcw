@@ -55,5 +55,5 @@ DVDD_VSEL=2
 LVDD_VSEL=1
 
 #include <scfg_bit_reverse.rcw>
-#include <io_drive_strenth.rcw>
+#include <io_drive_strength.rcw>
 #include <uboot_address.rcw>

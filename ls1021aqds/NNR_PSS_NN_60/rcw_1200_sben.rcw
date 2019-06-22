@@ -54,6 +54,6 @@ SB_EN=1
 BOOT_HO=0
 
 #include <scfg_bit_reverse.rcw>
-#include <io_drive_strenth.rcw>
+#include <io_drive_strength.rcw>
 #include <uboot_hdr_addr.rcw>
 #include <pcie_hotplug_status_clear.rcw>
