@@ -44,4 +44,4 @@ SRDS_DIV_PEX_S1=0
 #include <../ls1028asi/pex_gen3_link_ls1028a.rcw>
 
 /* Errata for PCIe controller */
-#include <../ls1028asi/13bb_lane4_gen3.rcw>
+#include <../ls1028asi/13bb_lane3_gen3.rcw>
