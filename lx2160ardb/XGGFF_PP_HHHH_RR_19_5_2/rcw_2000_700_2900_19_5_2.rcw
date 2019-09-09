@@ -55,6 +55,7 @@ SRDS_DIV_PEX_S3=1
 
 /* Errata for PCIe controller */
 #include <../lx2160asi/a011270.rcw>
+#include <../lx2160asi/a050234.rcw>
 
 /* Modify FlexSPI Clock Divisor value */
 #include <../lx2160asi/flexspi_divisor_28.rcw>

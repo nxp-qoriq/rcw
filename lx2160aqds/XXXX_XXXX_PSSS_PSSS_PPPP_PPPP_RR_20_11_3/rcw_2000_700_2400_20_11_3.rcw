@@ -54,6 +54,7 @@ SRDS_DIV_PEX_S3=1
 
 /* Errata for PCIe controller */
 #include <../lx2160asi/a011270.rcw>
+#include <../lx2160asi/a050234.rcw>
 
 /* common PBI commands */
 #include <../lx2160asi/common.rcw>

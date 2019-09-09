@@ -60,6 +60,7 @@ blockcopy 0x08,0x00100000,0x1800a000,0x00020000
 
 /* Errata for PCIe controller */
 #include <../lx2160asi/a011270.rcw>
+#include <../lx2160asi/a050234.rcw>
 
 /* common PBI commands */
 #include <../lx2160asi/common.rcw>

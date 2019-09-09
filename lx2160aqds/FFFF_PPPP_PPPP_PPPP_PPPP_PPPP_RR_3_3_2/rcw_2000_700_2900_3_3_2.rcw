@@ -53,6 +53,7 @@ SRDS_PLL_REF_CLK_SEL_S1=2
 
 /* Errata for PCIe controller */
 #include <../lx2160asi/a011270.rcw>
+#include <../lx2160asi/a050234.rcw>
 
 /* common PBI commands */
 #include <../lx2160asi/common.rcw>

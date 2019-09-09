@@ -212,3 +212,10 @@ Errata Workaround Implemented
 A-011270:
 	Software will read incorrect Function Dependency List for PF1
 	Workaround: Set FDL field in the SRIOV_FDL_DEVICE_ID1 to 0x1
+
+A-050234:
+	The default configuration of the elastic buffer thresholds in the PCI
+	Express controller is not optimal and can cause various link errors.
+	Workaround:
+	For Gen1 & Gen2, write 0x2008_1004 to PEXnCR0
+	For Gen3, write 0x0008_1004 to PEXnCR1
