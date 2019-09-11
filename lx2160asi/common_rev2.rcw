@@ -1,0 +1,15 @@
+/*
+ * Set SYSBARDISABLE as 1 and BRORDCAST_CACHE_MAINT as 0 by writing to
+ * GENCR1 register in PBI command.
+ * These are the recommended settings for hardware
+ */
+
+.pbi
+write 0x1e00620,0x80000000
+.end
+
+/* Add PCie Gen3 Eq Errata */
+#include <../lx2160asi/a008851.rcw>
+
+/* Add PCie IDO Errata */
+#include <../lx2160asi/a009531.rcw>
