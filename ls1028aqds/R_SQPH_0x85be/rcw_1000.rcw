@@ -41,3 +41,6 @@ SRDS_PRTCL_S1_L3=14
 
 /* Errata for PCIe controller */
 #include <../ls1028asi/pex_gen3_link_ls1028a.rcw>
+
+/* Errata for SATA controller */
+#include <../ls1028asi/sata_errata010554.rcw>

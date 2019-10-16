@@ -1,0 +1,8 @@
+/*
+ * With the default SerDes register setting, the SATA controller might fail to detect some hard
+ * drives. this file to fix Errata A-010554.
+ */
+
+.pbi
+write 0x01ea1300,0x80104e20
+.end
