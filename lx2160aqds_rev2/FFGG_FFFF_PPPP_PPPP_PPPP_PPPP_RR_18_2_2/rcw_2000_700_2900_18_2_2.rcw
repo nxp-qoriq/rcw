@@ -7,6 +7,8 @@
  * Core     -- 2000 MHz
  * Platform -- 700  MHz
  * DDR      -- 2900 MT/s
+ *
+ * PEX5 in EP mode
  */
 
 #include <../lx2160asi/lx2160a.rcwi>
@@ -49,4 +51,13 @@ SRDS_DIV_PEX_S3=1
 #include <../lx2160asi/flexspi_divisor_28.rcw>
 
 /* common PBI commands */
-#include <../lx2160asi/common_rev2.rcw>
+#include <../lx2160asi/common.rcw>
+
+/*PCIe Errata A-009531*/
+#include <../lx2160asi/a009531_PEX3.rcw>
+#include <../lx2160asi/a009531_PEX5.rcw>
+
+/*PCIe Errata A-008851*/
+#include <../lx2160asi/a008851_PEX3.rcw>
+#include <../lx2160asi/a008851_PEX5.rcw>
+
