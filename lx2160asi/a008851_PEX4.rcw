@@ -1,0 +1,15 @@
+/*
+ * Invalid transmitter/receiver preset values are used in Gen3 equalization
+ * phases during link training for RC mode
+ * This errata is valid only for PCI gen3.
+ * Workaround:
+ *  write 0x00000001 to MISC_CONTROL_1_OFF
+ *  write 0x4747 to Lane Equalization Control register for each lane
+ * Applicable for SNP PCIe controller
+ */
+
+.pbi
+write 0x037008bc,0x00000001
+write 0x03700154,0x47474747
+write 0x03700158,0x47474747
+.end
