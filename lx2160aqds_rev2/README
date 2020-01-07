@@ -193,7 +193,15 @@ Serdes Protocol 20_11_3:
   Slot5: M4
   Slot6: M4
 
-Note: For Mezzanine card details, Please refer to LX2160AQDS Board RM.
+Serdes Protocol 10_12_3:
+  Slot1: M11
+  Slot2: M12
+  Slot3: M4 for SGMII (lane0-3)
+  Slot4: M4 for PCIe (lane 4-5)
+
+Note:
+1) Serdes Protocol 20_11_3 and 10_12_3 are sample RCW of NEC and ZTE , and does not required in dash-rcw.
+2) For Mezzanine card details, Please refer to LX2160AQDS Board RM.
 
 DSPI Enablement
 ===============
