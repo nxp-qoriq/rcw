@@ -1,0 +1,21 @@
+
+/* Serdes lane equalization settings for 25G only applicable for serdes block1, lane E */
+.pbi
+write 0x01EA0C28,0x00000000
+.end
+
+.pbi
+write 0x01EA0C30,0x20828720
+.end
+
+.pbi
+write 0x01EA0C68,0x80000000
+.end
+
+.pbi
+write 0x01EA0C74,0x00002020
+.end
+
+.pbi
+write 0x01EA0C80,0x00008000
+.end

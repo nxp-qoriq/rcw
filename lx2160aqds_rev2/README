@@ -234,5 +234,11 @@ A-008851:
 
 Serdes Lane Equlization Settings
 ================================
-serdes_lane_settings_25G  :- Serdes lane equalization settings are added as PBI cmd for 25G recieved from validation team.
-serdes_lane_settings_100G :- Serdes lane equalization settings are added as PBI cmd for 100G recieved from validation team.
+25g_eq_s1_lane_a  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_b  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_c  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_d  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_e  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_f  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_g  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_h  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
