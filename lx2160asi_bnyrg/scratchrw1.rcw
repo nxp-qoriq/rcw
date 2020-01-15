@@ -1,0 +1,7 @@
+/*
+ * This errata is to write a test value to scratch register for validation purpose.
+ */
+
+.pbi
+write 0x01e00200,0x12345678
+.end

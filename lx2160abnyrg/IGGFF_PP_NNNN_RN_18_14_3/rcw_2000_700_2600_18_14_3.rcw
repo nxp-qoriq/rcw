@@ -4,21 +4,21 @@
  * SerDes Protocol 3 -  3
  *
  * Frequencies:
- * Core     -- 1900 MHz
+ * Core     -- 2000 MHz
  * Platform -- 700  MHz
- * DDR      -- 2400 MT/s
+ * DDR      -- 2600 MT/s
  */
 
 #include <../lx2160asi_bnyrg/lx2160a.rcwi>
 
 SYS_PLL_RAT=14
 MEM_PLL_CFG=3
-MEM_PLL_RAT=24
+MEM_PLL_RAT=26
 MEM2_PLL_CFG=3
-MEM2_PLL_RAT=24
-CGA_PLL1_RAT=19
-CGA_PLL2_RAT=19
-CGB_PLL1_RAT=19
+MEM2_PLL_RAT=26
+CGA_PLL1_RAT=20
+CGA_PLL2_RAT=20
+CGB_PLL1_RAT=20
 CGB_PLL2_RAT=8
 HWA_CGA_M1_CLK_SEL=1
 HWA_CGB_M1_CLK_SEL=6
@@ -43,11 +43,11 @@ EVT20_PMUX=1
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi_bnyrg/scratchrw1.rcw>
 
-/* Modify FlexSPI Clock Divisor value */
-#include <../lx2160asi_bnyrg/flexspi_divisor_24.rcw>
-
 /* common PBI commands */
 #include <../lx2160asi_bnyrg/common.rcw>
+
+/* Modify FlexSPI Clock Divisor value */
+#include <../lx2160asi_bnyrg/flexspi_divisor_24.rcw>
 
 /*PCIe Errata A-009531*/
 #include <../lx2160asi_bnyrg/a009531_PEX3.rcw>
