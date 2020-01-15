@@ -223,3 +223,14 @@ A-008851:
    write 0x00000001 to MISC_CONTROL_1_OFF
    write 0x4747 to Lane Equalization Control register for each lane
   Applicable for SNP PCIe controller
+
+Serdes Lane Equlization Settings
+================================
+25g_eq_s1_lane_a  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_b  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_c  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_d  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_e  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_f  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_g  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_h  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
