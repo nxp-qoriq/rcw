@@ -193,7 +193,15 @@ Serdes Protocol 20_11_3:
   Slot5: M4
   Slot6: M4
 
-Note: For Mezzanine card details, Please refer to LX2160AQDS Board RM.
+Serdes Protocol 10_12_3:
+  Slot1: M11
+  Slot2: M12
+  Slot3: M4 for SGMII (lane0-3)
+  Slot4: M4 for PCIe (lane 4-5)
+
+Note:
+1) Serdes Protocol 20_11_3 and 10_12_3 are sample RCW of NEC and ZTE , and does not required in dash-rcw.
+2) For Mezzanine card details, Please refer to LX2160AQDS Board RM.
 
 DSPI Enablement
 ===============
@@ -223,3 +231,8 @@ A-008851:
    write 0x00000001 to MISC_CONTROL_1_OFF
    write 0x4747 to Lane Equalization Control register for each lane
   Applicable for SNP PCIe controller
+
+Serdes Lane Equlization Settings
+================================
+serdes_lane_settings_25G  :- Serdes lane equalization settings are added as PBI cmd for 25G recieved from validation team.
+serdes_lane_settings_100G :- Serdes lane equalization settings are added as PBI cmd for 100G recieved from validation team.
