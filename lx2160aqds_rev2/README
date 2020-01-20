@@ -49,6 +49,7 @@ For the Serdes(6 Slots) Lanes (a..x):
 
 RGMII Interface (R):
   'R' is RGMII Interface 1G
+  'N' is NULL, not available
 
 Serdes1 protocol (A):
 A = 'serdes1 protocol value (decimal)'
