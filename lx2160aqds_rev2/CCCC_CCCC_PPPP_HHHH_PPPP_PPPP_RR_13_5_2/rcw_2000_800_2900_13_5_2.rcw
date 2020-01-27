@@ -5,13 +5,13 @@
  *
  * Frequencies:
  * Core     -- 2000 MHz
- * Platform -- 700  MHz
+ * Platform -- 800  MHz
  * DDR      -- 2900 MT/s
  */
 
 #include <../lx2160asi/lx2160a.rcwi>
 
-SYS_PLL_RAT=14
+SYS_PLL_RAT=16
 MEM_PLL_CFG=3
 MEM_PLL_RAT=29
 MEM2_PLL_CFG=3
@@ -39,6 +39,9 @@ SRDS_DIV_PEX_S3=1
 
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>
+
+/* Boot Location Pointer */
+#include <../lx2160asi/bootlocptr_nor.rcw>
 
 /* Errata for SATA controller */
 #include <../lx2160asi/a010554.rcw>
