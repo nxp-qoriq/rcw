@@ -1,0 +1,14 @@
+/*
+ * FlexSPI controller supports modifcation of the FlexSPI Clock
+ * divisor value, default value of this is 80.
+ * For 750 MHz, FlexSPI clock runs with default value is
+ *    (Platform Clock * 2) / (Divisor value)
+ *      => 750 * 2 / 80 ==> 18.75MHz
+ * Modify FlexSPICR1 register, to increase FlexSPI clock closer to 50MHz,
+ * with divisor value as 32.
+ *      => 750 * 2 / 32 ==> 46.875MHz
+ */
+
+.pbi
+write 0x1e00900,0x00000013
+.end
