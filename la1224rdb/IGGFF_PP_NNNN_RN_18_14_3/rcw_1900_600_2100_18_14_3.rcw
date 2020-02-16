@@ -1,5 +1,5 @@
 /*
- * SerDes Protocol 1 -  22
+ * SerDes Protocol 1 -  18
  * SerDes Protocol 2 -  14
  * SerDes Protocol 3 -  3
  *
@@ -9,7 +9,7 @@
  * DDR      -- 2100 MT/s
  */
 
-#include <../lx2160asi_bnyrg/lx2160a.rcwi>
+#include <../la1224si/lx2160a.rcwi>
 
 SYS_PLL_RAT=12
 MEM_PLL_CFG=3
@@ -27,7 +27,7 @@ IIC2_PMUX=6
 IIC5_PMUX=3
 USB3_CLK_FSEL=39
 SRDS_PLL_PD_PLL5=1
-SRDS_PRTCL_S1=22
+SRDS_PRTCL_S1=18
 SRDS_PRTCL_S2=14
 SRDS_PRTCL_S3=3
 SRDS_PLL_REF_CLK_SEL_S1=2
@@ -41,24 +41,22 @@ EVT43_PMUX=1
 EVT20_PMUX=1
 
 /* Errata to write on scratch reg for validation */
-#include <../lx2160asi_bnyrg/scratchrw1.rcw>
+#include <../la1224si/scratchrw1.rcw>
 
 /* Modify FlexSPI Clock Divisor value */
-#include <../lx2160asi_bnyrg/flexspi_divisor_24.rcw>
+#include <../la1224si/flexspi_divisor_24.rcw>
 
 /* common PBI commands */
-#include <../lx2160asi_bnyrg/common.rcw>
+#include <../la1224si/common.rcw>
 
 /*PCIe Errata A-009531*/
-#include <../lx2160asi_bnyrg/a009531_PEX3.rcw>
-#include <../lx2160asi_bnyrg/a009531_PEX4.rcw>
-#include <../lx2160asi_bnyrg/a009531_PEX5.rcw>
-#include <../lx2160asi_bnyrg/a009531_PEX6.rcw>
-#include <../lx2160asi_bnyrg/a009531_PEX2.rcw>
+#include <../la1224si/a009531_PEX3.rcw>
+#include <../la1224si/a009531_PEX4.rcw>
+#include <../la1224si/a009531_PEX5.rcw>
+#include <../la1224si/a009531_PEX6.rcw>
 
 /*PCIe Errata A-008851*/
-#include <../lx2160asi_bnyrg/a008851_PEX3_bnyrg.rcw>
-#include <../lx2160asi_bnyrg/a008851_PEX4_bnyrg.rcw>
-#include <../lx2160asi_bnyrg/a008851_PEX5_bnyrg.rcw>
-#include <../lx2160asi_bnyrg/a008851_PEX6_bnyrg.rcw>
-#include <../lx2160asi_bnyrg/a008851_PEX2_bnyrg.rcw>
+#include <../la1224si/a008851_PEX3_LA1224_X2.rcw>
+#include <../la1224si/a008851_PEX4_LA1224_X2.rcw>
+#include <../la1224si/a008851_PEX5_LA1224_X4.rcw>
+#include <../la1224si/a008851_PEX6_LA1224_X4.rcw>
