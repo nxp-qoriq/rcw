@@ -61,7 +61,7 @@ EVT20_PMUX=1
 #include <../la1224si/a008851_PEX5_LA1224_X8.rcw>
 
 /* Serdes lane equalization settings for 25G */
-#include <../la1224si/25g_eq_s1_lane_f.rcw>
+#include <../la1224si/25g_eq_s1_lane_f_la1224.rcw>
 
 /* 1588 module recvoery clock drive low*/
 #include <1588_RCLKSEL_GPIO1_28_LOW.rcw>
