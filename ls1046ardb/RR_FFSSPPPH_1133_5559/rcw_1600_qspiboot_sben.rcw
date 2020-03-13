@@ -101,12 +101,11 @@ SYSCLK_FREQ=600
 HWA_CGA_M2_CLK_SEL=1
 
 .pbi
-// QSPI flash clock
-write 0x57015c, 0x20100000
 // U-boot header address
 write 0xee0200, 0x406c0000
 .end
 
+#include <qspi_speed.rcw>
 #include <cci_barrier_disable.rcw>
 #include <usb_phy_freq.rcw>
 #include <serdes_sata.rcw>
