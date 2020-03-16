@@ -43,3 +43,6 @@ SDHC2_BASE_PMUX=0
 
 /* Errata for PCIe controller */
 #include <../ls1028asi/pex_gen3_link_ls1028a.rcw>
+
+/* Increase FSPI clock frequency */
+#include <../ls1028asi/fspi_speed.rcw>

@@ -44,3 +44,6 @@ SRDS_PRTCL_S1_L3=14
 
 /* Errata for SATA controller */
 #include <../ls1028asi/sata_errata010554.rcw>
+
+/* Increase FSPI clock frequency */
+#include <../ls1028asi/fspi_speed.rcw>

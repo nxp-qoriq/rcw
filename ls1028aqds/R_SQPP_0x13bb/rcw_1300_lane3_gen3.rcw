@@ -45,3 +45,6 @@ SRDS_DIV_PEX_S1=0
 
 /* Errata for PCIe controller */
 #include <../ls1028asi/13bb_lane3_gen3.rcw>
+
+/* Increase FSPI clock frequency */
+#include <../ls1028asi/fspi_speed.rcw>

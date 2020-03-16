@@ -41,3 +41,6 @@ SRDS_PRTCL_S1_L3=12
 
 /* Errata for PCIe controller */
 #include <../ls1028asi/pex_gen3_link_ls1028a.rcw>
+
+/* Increase FSPI clock frequency */
+#include <../ls1028asi/fspi_speed.rcw>
