@@ -37,7 +37,7 @@ SRDS_DIV_PEX_S1=1
 #include <a009102_single.rcw>
 #include <a010554_single.rcw>
 #include <a008851.rcw>
-#include <a008822.rcw>
+#include <a010477.rcw>
 #include <../ls1088ardb/a009531.rcw>
 /* CRC changed due to different a008851 implementation! */
 /* CRC and Stop command (CRC 0xbc73054a)*/

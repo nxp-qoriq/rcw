@@ -73,6 +73,13 @@ A-000009:
 		write 0x00502880 to 0x1eb099c
 		write 0x00502880 to 0x1eb09dc
 
+A-010477:
+	The PCI Express controller may not be able to establish the link at Gen3
+	speed successfully with some Gen3-capable link partner. The link will be
+	down-trained to either Gen1 or Gen2 speed.
+	Workaround:
+		Write 0x00800401 to GEN3 Control Register (GEN3_RELATED_OFF)
+
 BIN   Core/Platform/DDR
 Bin1: 1600MHz/700MHz/2100MT/s
 

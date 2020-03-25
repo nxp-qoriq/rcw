@@ -1,0 +1,31 @@
+
+/*
+ * Work-around for erratum A-010477
+ *
+ * Description:
+ * The PCI Express controller core implementation follows a newer version
+ * of the PIPE (PHY Interface for PCI Express) specification. With the
+ * controller's default configuration, the Gen3 equalization negotiation
+ * handshake signaling works slightly differently from what the device's
+ * PCI Express PHY expects. As such, the controller may fail the Gen3 link
+ * training with some Gen3-capable link partner and down-train to either
+ * Gen1 or Gen2.
+ *
+ * Impact:
+ * The PCI Express controller may not be able to establish the link at
+ * Gen3 speed successfully with some Gen3-capable link partner. The link
+ * will be down-trained to either Gen1 or Gen2 speed. However, the link
+ * width negotiation is not impacted.
+ *
+ * Workaround:
+ * Write the value of 0x0080_0401 to the GEN3 Control Register
+ * (GEN3_RELATED_OFF) located at each PCI Express controller’s
+ * configuration space offset 0x890 during the pre-boot initialization
+ * (PBI) stage.
+ */
+
+.pbi
+write 0x03400890,0x00800401
+write 0x03500890,0x00800401
+write 0x03600890,0x00800401
+.end
