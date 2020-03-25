@@ -78,3 +78,20 @@ For example,
 	rcw_1600_qspiboot.rcw means rcw for core frequency of 1600MHz with QSPI boot.
 
 For more information please refer to the comments in rcw file.
+
+Errata Workaround Implemented
+=============================
+A-008851:
+	Invalid transmitter/receiver preset values are used in Gen3 equalization
+	phases during link training for RC mode
+	This errata is valid only for PCI gen3.
+	Workaround:
+		write 0x00000001 to MISC_CONTROL_1_OFF
+		write 0x4747 to Lane Equalization Control register for each lane
+
+A-010477:
+	The PCI Express controller may not be able to establish the link at Gen3
+	speed successfully with some Gen3-capable link partner. The link will be
+	down-trained to either Gen1 or Gen2 speed.
+	Workaround:
+		Write 0x00800401 to GEN3 Control Register (GEN3_RELATED_OFF)

@@ -92,5 +92,6 @@ HWA_CGA_M2_CLK_SEL=1
 #include <../ls1046ardb/cci_barrier_disable.rcw>
 #include <../ls1046ardb/usb_phy_freq.rcw>
 #include <../ls1046ardb/uboot_address.rcw>
-#include <../ls1046ardb/pex_gen3_link.rcw>
+#include <../ls1046ardb/a008851.rcw>
+#include <../ls1046ardb/a010477.rcw>
 #include <../ls1046ardb/a009531.rcw>

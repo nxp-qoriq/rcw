@@ -106,6 +106,7 @@ write 0x570604, 0x40100000
 #include <qspi_speed.rcw>
 #include <cci_barrier_disable.rcw>
 #include <usb_phy_freq.rcw>
-#include <pex_gen3_link.rcw>
+#include <a008851.rcw>
+#include <a010477.rcw>
 #include <a009531.rcw>
 #include <qspi_endianness.rcw>

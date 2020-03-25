@@ -108,7 +108,8 @@ write 0xee0200, 0x406c0000
 // Clear SerDes RxBoost on SD2 lane D
 #include <../ls1046ardb/serdes_sata.rcw>
 // Errata A-010477 and  A-008851 for PCI Express Gen3 link training
-#include <../ls1046ardb/pex_gen3_link.rcw>
+#include <../ls1046ardb/a008851.rcw>
+#include <../ls1046ardb/a010477.rcw>
 
 .pbi
 // QSPI END_CFG 64 bit LE
