@@ -41,5 +41,6 @@ SRDS_PRTCL_S2=61
 
 /* Errata for PCIe Gen3 */
 #include <../ls2088asi/a008851_N_0x3d.rcw>
+#include <../ls2088asi/a010477.rcw>
 
 #include <../ls2088asi/a009531.rcw>

@@ -40,5 +40,6 @@ write 0x01e00620,0xa0000000
 
 /* Errata for PCIe Gen3 */
 #include <../ls2088asi/a008851_0x4b_0x3d.rcw>
+#include <../ls2088asi/a010477.rcw>
 
 #include <../ls2088asi/a009531.rcw>
