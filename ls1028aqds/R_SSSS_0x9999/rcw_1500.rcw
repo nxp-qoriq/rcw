@@ -38,6 +38,3 @@ SRDS_PRTCL_S1_L0=9
 SRDS_PRTCL_S1_L1=9
 SRDS_PRTCL_S1_L2=9
 SRDS_PRTCL_S1_L3=9
-
-/* Errata for PCIe controller */
-#include <../ls1028asi/pex_gen3_link_ls1028a.rcw>
