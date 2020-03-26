@@ -1,0 +1,13 @@
+/*
+ * A-010554: SATA controller might fail to detect some hard drives
+ * Description: With the default SerDes register setting, the SATA
+ * controller might fail to detect some hard drives.
+ * Impact: The SATA controller does not detect some hard drives
+ * reliably with the default SerDes register setting.
+ * Workaround: Either during PBI phase, or in software before enabling
+ * the SATA controller, write value 0x80104e20 to address 0x1ea1300.
+ */
+
+.pbi
+write 0x01ea1300,0x80104e20
+.end

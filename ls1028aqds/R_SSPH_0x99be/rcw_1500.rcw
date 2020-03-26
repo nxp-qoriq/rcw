@@ -45,4 +45,4 @@ SRDS_DIV_PEX_S1=1
 #include <../ls1028asi/a010477.rcw>
 
 /* Errata for SATA controller */
-#include <../ls1028asi/sata_errata010554.rcw>
+#include <../ls1028asi/a010554.rcw>
