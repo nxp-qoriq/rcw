@@ -1,0 +1,58 @@
+/*
+ * Work-around for erratum A-009859
+ * PCIe RC may advertise unsupported link speeds in TS1/TS2 during link
+ * recovery from a low power exit
+ *
+ * Description:
+ * As defined by the PCI Express base specification Rev 3.0, the maximum supported
+ * link speed of a PCI Express controller is indicated in the bit fields of the
+ * following two configuration space registers:
+ * • Link Capabilities Register [3:0, Max Link Speed], and,
+ * • Link Capabilities 2 Register [7:1, Supported Link Speed Vector]
+ *
+ * During link training, a PCI Express controller should only advertise all the
+ * supported link speeds in TS1/TS2 based on the maximum supported link speed value
+ * indicated in the above two configuration space registers.
+ *
+ * For the PCI Express controllers integrated in this NXP Layerscape device, the
+ * maximum supported link speed value of the above two configuration space
+ * registers is sourced from the device’s RCW setting. At the first level, the
+ * setting of SerDes Protocol Selection (SRDS_PRTCL_Sn) bit field of RCW defines
+ * the allocated PCI Express controller’s maximum link speed it is capable of
+ * operating. At the second level, the device offers a feature to further restrict
+ * the maximum supported link speed to a lower value via RCW setting even the
+ * controller itself is capable of operating at higher speed. This can be achieved
+ * by setting the SerDes Frequency Divider for PCI Express (SRDS_DIV_PEX_Sn) bit
+ * fields in RCW.
+ *
+ * For the rest of this erratum, the “maximum supported link speed set by RCW”
+ * refers to the feature of configuring a PCI Express controller’s maximum
+ * supported link speed as reflected in the above two configuration space registers
+ * based on the combination setting of SerDes Protocol Selection (SRDS_PRTCL_Sn)
+ * and SerDes Frequency Divider for PCI Express (SRDS_DIV_PEX_Sn) bit fields in
+ * RCW.
+ *
+ * When the PCI Express controller is configured in RC mode with its maximum
+ * supported link speed limited to Gen1 (2.5 GT/s) by RCW, upon exiting software
+ * directed Link PM state L1 or ASPM L0s, TS1/TS2 still advertises all speeds the
+ * controller is capable of supporting: Gen1 (2.5 GT/s) and Gen2 (5.0 GT/s) instead
+ * of Gen1 only.
+ *
+ * Workaround:
+ * Write the value of 0001_0001h to the register located at the configuration space
+ * offset 890h for the PCI Express RC controller in use during the pre-boot
+ * initialization (PBI) stage.
+ *
+ * PCIe1 GEN3_RELATED_OFF register: 0x0340_0890 little endian
+ * PCIe2 GEN3_RELATED_OFF register: 0x0350_0890 little endian
+ * PCIe3 GEN3_RELATED_OFF register: 0x0360_0890 little endian
+ * ALTCBAR Register (SCFG_ALTCBAR): 0x0157_0158 big endian
+ * PBL is also big endian block on LS1043A
+ */
+
+.pbi
+write 0x570158, 0x00000300
+awrite 0x400890, 0x01000100
+awrite 0x500890, 0x01000100
+awrite 0x600890, 0x01000100
+.end

@@ -57,3 +57,13 @@ For example,
 	rcw_1600_lpuart.rcw means rcw for core frequency of 1600MHz with nor boot special for lpuart.
 
 For more information please refer to the comments in rcw file.
+
+Errata Workaround Implemented
+=============================
+A-009859:
+	PCIe RC may advertise unsupported link speeds in TS1/TS2 during link
+	recovery from a low power exit
+	Workaround:
+	Write the value of 0001_0001h to the register located at the configuration space
+	offset 890h for the PCI Express RC controller in use during the pre-boot
+	initialization (PBI) stage.

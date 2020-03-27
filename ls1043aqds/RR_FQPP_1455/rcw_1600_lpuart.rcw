@@ -65,4 +65,4 @@ HWA_CGA_M2_CLK_SEL=1
 #include <usb_phy_freq.rcw>
 #include <uboot_address.rcw>
 #include <dcsr_mbist.rcw>
-#include <pex_gen3_link.rcw>
+#include <a009859.rcw>

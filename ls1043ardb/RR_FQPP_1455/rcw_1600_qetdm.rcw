@@ -67,4 +67,4 @@ IIC2_EXT=5
 #include <../ls1043aqds/usb_phy_freq.rcw>
 #include <../ls1043aqds/uboot_address.rcw>
 #include <../ls1043aqds/dcsr_mbist.rcw>
-#include <../ls1043aqds/pex_gen3_link.rcw>
+#include <../ls1043aqds/a009859.rcw>
