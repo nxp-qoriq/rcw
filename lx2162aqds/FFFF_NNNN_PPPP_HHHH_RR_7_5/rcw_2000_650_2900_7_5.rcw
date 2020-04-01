@@ -1,12 +1,11 @@
 /*
- * SerDes Protocol 1 -  18
+ * SerDes Protocol 1 -  7
  * SerDes Protocol 2 -  5
  *
  * Frequencies:
  * Core     -- 2000 MHz
  * Platform -- 650  MHz
  * DDR      -- 2900 MT/s
- *
  */
 
 #include <../lx2160asi/lx2160a.rcwi>
@@ -28,14 +27,15 @@ IIC2_PMUX=6
 IIC3_PMUX=2
 IIC4_PMUX=2
 USB3_CLK_FSEL=39
-SRDS_PRTCL_S1=18
+SRDS_PRTCL_S1=7
+SRDS_PRTCL_S2=5
 SRDS_PLL_REF_CLK_SEL_S1=2
 SRDS_DIV_PEX_S1=1
-SRDS_PRTCL_S2=5
 SRDS_DIV_PEX_S2=1
 SRDS_PLL_REF_CLK_SEL_S3=2
 SRDS_PLL_PD_PLL5=1
 SRDS_PLL_PD_PLL6=1
+
 
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>
@@ -55,15 +55,8 @@ SRDS_PLL_PD_PLL6=1
 /*PCIe Errata A-008851*/
 #include <../lx2160asi/a008851_PEX3.rcw>
 
-/* Serdes lane equalization settings for 25G */
-#include <../lx2160asi/25g_eq_s1_lane_f.rcw>
-#include <../lx2160asi/25g_eq_s1_lane_e.rcw>
+/* SATA 1 to 4, SD and DCE clock disable*/
+#include <disable_sata1_4_sd_dce.rcw>
 
-/* PEX5 and PEX6 clock disable*/
-#include <disable_pci5_6.rcw>
-
-/* USB2 clock disable*/
-#include <disable_usb2.rcw>
-
-/* MAC7 to MAC10 clock disable*/
-#include <disable_mac7_10.rcw>
+/*CAN clock disable*/
+#include <disable_can.rcw>

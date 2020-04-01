@@ -1,0 +1,16 @@
+/*
+* DCE, SATA1-4, eSDHC1 clock Gating  
+*
+* Description:
+* A given application may not use all the peripherals on the device. In this case, it may be
+* desirable to disable unused peripherals. DEVDISRn provides a mechanism for gating
+* clocks to IP blocks that are not used when running an application.
+* 
+* Disable clock of DCE, SATA1-4, eSDHC1 by using DEVDISR register 
+* 
+*/
+
+/* SATA 1 to 4, SD and DCE clock disable*/
+.pbi
+write 0x1e00070,0x020f0004
+.end
