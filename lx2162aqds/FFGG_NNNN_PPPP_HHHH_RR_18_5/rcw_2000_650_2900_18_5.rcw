@@ -60,7 +60,7 @@ SRDS_PLL_PD_PLL6=1
 #include <../lx2160asi/25g_eq_s1_lane_e.rcw>
 
 /* PEX5 and PEX6 clock disable*/
-#include <disable_pci5_6.rcw>
+#include <disable_pci2_5_6.rcw>
 
 /* USB2 clock disable*/
 #include <disable_usb2.rcw>
