@@ -98,7 +98,7 @@ SYSCLK_FREQ=600
 HWA_CGA_M2_CLK_SEL=1
 
 .pbi
-// QSPI flash clock
+// Set the BOOTLOCPTR
 write 0x570600, 0x00000000
 write 0x570604, 0x10000000
 .end
