@@ -111,7 +111,7 @@ write 0x570604, 0x10000000
 
 .pbi
 // Alt base register
-write 0x570158, 0x00000100
+write 0x570158, 0x00001000
 .end
 
 .pbi
