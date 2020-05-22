@@ -62,7 +62,7 @@ SYSCLK_FREQ=600
 HWA_CGA_M2_CLK_SEL=1
 
 #include <../ls1043aqds/cci_barrier_disable.rcw>
+#include <../ls1043aqds/a009929.rcw>
 #include <../ls1043aqds/usb_phy_freq.rcw>
 #include <../ls1043aqds/uboot_address.rcw>
-#include <../ls1043aqds/dcsr_mbist.rcw>
 #include <../ls1043aqds/a009859.rcw>

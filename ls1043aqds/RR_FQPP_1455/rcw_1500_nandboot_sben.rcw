@@ -64,4 +64,5 @@ HWA_CGA_M2_CLK_SEL=1
 
 #include <atf_address.rcw>
 #include <cci_barrier_disable.rcw>
+#include <a009929.rcw>
 #include <usb_phy_freq.rcw>

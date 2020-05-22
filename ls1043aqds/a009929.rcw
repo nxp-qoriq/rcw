@@ -1,0 +1,31 @@
+/*
+ * A-009929: Multiple PCI Express outbound write transactions from a core
+ * can cause a system hang
+ *
+ * Description:
+ * Multiple PCI Express outbound write transactions initiated by the ARM
+ * core targeting the 96GB outbound memory space (40_0000_0000h to
+ * 57_FFFF_FFFFh) allocated for all three PCI Express controllers can
+ * cause a system hang.
+ *
+ * The clock-gating logic of the device’s interconnect fabric utilized
+ * by the PCI Express outbound path does not work properly due to the
+ * impact from the internal test logic. Because of this, consecutive
+ * PCI Express outbound write transactions from an ARM core are lost or
+ * not responded to properly. This further causes a system hang.
+ *
+ * Impact:
+ * A system hang is observed for outstanding write transactions from ARM
+ * core to the PCI Express outbound memory space (40_0000_0000h to
+ * 57_FFFF_FFFFh).
+ *
+ * Workaround:
+ * During the pre-boot initialization (PBI) stage, perform a register
+ * write to address 2200_8040h with a value 0000_0001h.
+ */
+
+.pbi
+write 0xee00c0, 0x00004400
+write 0x570158, 0x00002200
+awrite 0x8040, 0x00000001
+.end

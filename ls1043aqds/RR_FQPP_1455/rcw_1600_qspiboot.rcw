@@ -75,7 +75,7 @@ write 0x570604, 0x40100000
 .end
 
 #include <cci_barrier_disable.rcw>
+#include <a009929.rcw>
 #include <usb_phy_freq.rcw>
-#include <dcsr_mbist.rcw>
 #include <a009859.rcw>
 #include <qspi_endianness.rcw>

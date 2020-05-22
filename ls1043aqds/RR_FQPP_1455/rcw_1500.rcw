@@ -61,7 +61,7 @@ SYSCLK_FREQ=600
 HWA_CGA_M2_CLK_SEL=1
 
 #include <cci_barrier_disable.rcw>
+#include <a009929.rcw>
 #include <usb_phy_freq.rcw>
 #include <uboot_address.rcw>
-#include <dcsr_mbist.rcw>
 #include <a009859.rcw>

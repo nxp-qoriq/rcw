@@ -67,3 +67,9 @@ A-009859:
 	Write the value of 0001_0001h to the register located at the configuration space
 	offset 890h for the PCI Express RC controller in use during the pre-boot
 	initialization (PBI) stage.
+A-009929:
+	Multiple PCI Express outbound write transactions from a core
+	can cause a system hang
+	Workaround:
+	During the pre-boot initialization (PBI) stage, perform a register
+	write to address 2200_8040h with a value 0000_0001h.
