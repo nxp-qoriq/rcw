@@ -67,12 +67,9 @@ l = 'serdes1 protocol value'
 m = 'serdes2 protocol value'
 
 For example,
-  rcw_2000_19_5.rcw means rcw for core frequency of 2000MHz, with serdes1=19 serdes2=5.
-  rcw_2000_700_19_5.rcw means rcw for core frequency 2000MHz and Platform frequecny 700MHz, with serdes1=19 serdes2=5.
-  rcw_2000_700_2400_19_5.rcw means rcw for core frequency 2000MHz, Platform frequecny 700MHz and DDR Memory Data Rate as 2400 MT/s, with serdes1=19 serdes2=5.
-  rcw_2000_19_5_sd.rcw means rcw for core frequency of 2000MHz with SD boot, with serdes1=19 serdes2=5.
-
-
+  rcw_2000_18_5.rcw means rcw for core frequency of 2000MHz, with serdes1=18 serdes2=5.
+  rcw_2000_650_18_5.rcw means rcw for core frequency 2000MHz and Platform frequecny 650MHz, with serdes1=18 serdes2=5.
+  rcw_2000_650_2900_18_5.rcw means rcw for core frequency 2000MHz, Platform frequecny 650MHz and DDR Memory Data Rate as 2900 MT/s, with serdes1=18 serdes2=5.
 
 Reference card connections on different serdes slots (as per serdes protocol)
 =============================================================================
@@ -82,6 +79,42 @@ Serdes Protocol 18_5:
   Slot3: M4
   Slot4: M5
 
+Serdes Protocol 3_2:
+  Slot1: M11(USXGMII)/M12(XFI)
+  Slot7: M4
+  Slot8: M4
+
+Serdes Protocol 17_2:
+  Slot1: M13(25G) for lane2, lane3
+  Slot7: M4
+  Slot8: M4
+
+Serdes Protocol 1_2:
+  Slot1: M4
+  Slot7: M4
+  Slot8: M4
+
+Serdes Protocol 7_5:
+  Slot1: M11(USXGMII)/M12(XFI)
+  Slot2: M4
+  Slot7: M4
+
+Serdes Protocol 15_2:
+  Slot1: M13(25G)
+  Slot7: M4
+  Slot8: M4
+
+Serdes Protocol 20_2:
+  Slot1: M7(40G)
+  Slot1: M7(40G)
+  Slot7: M4
+  Slot8: M4
+
+Serdes Protocol 3_9:
+  Slot1: M11(USXGMII)/M12(XFI)
+  Slot2: M4
+  Slot7: M4
+  
 
 Note: For Mezzanine card details, Please refer to LX2162AQDS Board RM.
 
@@ -113,3 +146,28 @@ A-008851:
    write 0x00000001 to MISC_CONTROL_1_OFF
    write 0x4747 to Lane Equalization Control register for each lane
   Applicable for SNP PCIe controller
+
+Serdes Lane Equlization Settings
+================================
+25g_eq_s1_lane_a  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_b  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_c  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_d  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_e  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_f  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_g  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_h  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+
+Switch Settings for different serdes protocols
+==============================================
+Below are the switch settings for different serdes protocols..
+
+Serdes Protocol : 18_5 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
+Serdes Protocol : 3_2  - SW4[1:8] = 11110011 SW5[1:8] = 11111111 SW6[1:4] = XXXX
+Serdes Protocol : 17_2 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
+Serdes Protocol : 15_2 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
+Serdes Protocol : 20_2 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
+Serdes Protocol : 1_2  - SW4[1:8] = 11111111 SW5[1:8] = 11111111 SW6[1:4] = XXXX
+Serdes Protocol : 7_5  - SW4[1:8] = 00000011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
+Serdes Protocol : 3_9  - SW4[1:8] = 11110011 SW5[1:8] = 11111111 SW6[1:4] = XXXX
+Serdes Protocol : 2_2  - SW4[1:8] = 11110001 SW5[1:8] = 11111111 SW6[1:4] = XXXX

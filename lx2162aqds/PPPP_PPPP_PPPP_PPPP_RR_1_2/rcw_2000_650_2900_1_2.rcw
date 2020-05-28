@@ -40,9 +40,6 @@ SRDS_DIV_PEX_S2=1
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>
 
-/* Boot Location Pointer */
-#include <../lx2160asi/bootlocptr_nor.rcw>
-
 /* Modify FlexSPI Clock Divisor value */
 #include <../lx2160asi/flexspi_divisor_28.rcw>
 
@@ -50,12 +47,19 @@ SRDS_DIV_PEX_S2=1
 #include <../lx2160asi/common.rcw>
 
 /*PCIe Errata A-009531*/
-#include <../lx2160asi/a009531_PEX2.rcw>
+#include <../lx2160asi/a009531_PEX1.rcw>
 #include <../lx2160asi/a009531_PEX3.rcw>
 
 /*PCIe Errata A-008851*/
-#include <../lx2160asi/a008851_PEX2.rcw>
+#include <../lx2160asi/a008851_PEX1.rcw>
 #include <../lx2160asi/a008851_PEX3.rcw>
 
-/* PEX1 clock disable*/
-#include <disable_pci1.rcw>
+/* PEX2, PEX5 and PEX6 clock disable*/
+#include <disable_pci2_5_6.rcw>
+
+/* USB2 clock disable*/
+#include <disable_usb2.rcw>
+
+/* MAC7 to MAC10 clock disable*/
+#include <disable_mac7_10.rcw>
+

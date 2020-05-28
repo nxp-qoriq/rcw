@@ -40,9 +40,6 @@ SRDS_PLL_PD_PLL6=1
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>
 
-/* Boot Location Pointer */
-#include <../lx2160asi/bootlocptr_nor.rcw>
-
 /* Modify FlexSPI Clock Divisor value */
 #include <../lx2160asi/flexspi_divisor_28.rcw>
 
@@ -60,3 +57,12 @@ SRDS_PLL_PD_PLL6=1
 
 /*CAN clock disable*/
 #include <disable_can.rcw>
+
+/* PEX2 PEX5 and PEX6 clock disable*/
+#include <disable_pci2_5_6.rcw>
+
+/* USB2 clock disable*/
+#include <disable_usb2.rcw>
+
+/* MAC7 to MAC10 clock disable*/
+#include <disable_mac7_10.rcw>

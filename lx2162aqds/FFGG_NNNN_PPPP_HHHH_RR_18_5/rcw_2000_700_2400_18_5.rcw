@@ -40,9 +40,6 @@ SRDS_PLL_PD_PLL6=1
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>
 
-/* Boot Location Pointer */
-#include <../lx2160asi/bootlocptr_nor.rcw>
-
 /* Modify FlexSPI Clock Divisor value */
 #include <../lx2160asi/flexspi_divisor_28.rcw>
 
