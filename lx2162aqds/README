@@ -81,39 +81,33 @@ Serdes Protocol 18_5:
 
 Serdes Protocol 3_2:
   Slot1: M11(USXGMII)/M12(XFI)
-  Slot7: M4
-  Slot8: M4
+  Slot3: M1
 
 Serdes Protocol 17_2:
-  Slot1: M13(25G) for lane2, lane3
-  Slot7: M4
-  Slot8: M4
+  Slot1: M13(25G) for lane0, lane1, lane2, lane3
+  Slot3: M1
 
 Serdes Protocol 1_2:
   Slot1: M4
-  Slot7: M4
-  Slot8: M4
+  Slot3: M1
 
 Serdes Protocol 7_5:
   Slot1: M11(USXGMII)/M12(XFI)
-  Slot2: M4
-  Slot7: M4
+  Slot3: M4
+  Slot4: M5
 
 Serdes Protocol 15_2:
-  Slot1: M13(25G)
-  Slot7: M4
-  Slot8: M4
+  Slot1: M13(50G)
+  Slot3: M1
 
 Serdes Protocol 20_2:
   Slot1: M7(40G)
   Slot1: M7(40G)
-  Slot7: M4
-  Slot8: M4
+  Slot3: M1
 
 Serdes Protocol 3_9:
-  Slot1: M11(USXGMII)/M12(XFI)
-  Slot2: M4
-  Slot7: M4
+  Slot1: M11(USXGMII)/M12(XFI) 
+  Slot4: M11(USXGMII)/M12(XFI)
   
 
 Note: For Mezzanine card details, Please refer to LX2162AQDS Board RM.
@@ -164,8 +158,8 @@ Below are the switch settings for different serdes protocols..
 
 Serdes Protocol : 18_5 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
 Serdes Protocol : 3_2  - SW4[1:8] = 11110011 SW5[1:8] = 11111111 SW6[1:4] = XXXX
-Serdes Protocol : 17_2 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
-Serdes Protocol : 15_2 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
+Serdes Protocol : 17_2 - SW4[1:8] = 00110000 SW5[1:8] = 11110000 SW6[1:4] = XXXX
+Serdes Protocol : 15_2 - SW4[1:8] = 00110000 SW5[1:8] = 11110000 SW6[1:4] = XXXX
 Serdes Protocol : 20_2 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
 Serdes Protocol : 1_2  - SW4[1:8] = 11111111 SW5[1:8] = 11111111 SW6[1:4] = XXXX
 Serdes Protocol : 7_5  - SW4[1:8] = 00000011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
