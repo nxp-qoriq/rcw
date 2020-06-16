@@ -48,3 +48,12 @@ SRDS_DIV_PEX_S2=1
 
 /* common PBI commands */
 #include <../lx2160asi/common.rcw>
+
+/* PEX5 and PEX6 clock disable*/
+#include <disable_pci2_5_6.rcw>
+
+/* USB2 clock disable*/
+#include <disable_usb2.rcw>
+
+/* MAC7 to MAC10 clock disable*/
+#include <disable_mac7_10.rcw>
