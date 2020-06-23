@@ -64,3 +64,5 @@ SRDS_INTRA_REF_CLK_S1=1
 /* MAC7 to MAC10 clock disable*/
 #include <disable_mac7_10.rcw>
 
+/* DDR2 clock disable*/
+#include <disable_ddr2.rcw>
