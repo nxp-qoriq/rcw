@@ -156,12 +156,13 @@ Switch Settings for different serdes protocols
 ==============================================
 Below are the switch settings for different serdes protocols..
 
-Serdes Protocol : 18_5 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
-Serdes Protocol : 3_2  - SW4[1:8] = 11110011 SW5[1:8] = 11111111 SW6[1:4] = XXXX
-Serdes Protocol : 17_2 - SW4[1:8] = 00110000 SW5[1:8] = 11110000 SW6[1:4] = XXXX
-Serdes Protocol : 15_2 - SW4[1:8] = 00110000 SW5[1:8] = 11110000 SW6[1:4] = XXXX
-Serdes Protocol : 20_2 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
-Serdes Protocol : 1_2  - SW4[1:8] = 11111111 SW5[1:8] = 11111111 SW6[1:4] = XXXX
-Serdes Protocol : 7_5  - SW4[1:8] = 00000011 SW5[1:8] = 11110000 SW6[1:4] = XXXX
-Serdes Protocol : 3_9  - SW4[1:8] = 11110011 SW5[1:8] = 11111111 SW6[1:4] = XXXX
-Serdes Protocol : 2_2  - SW4[1:8] = 11110001 SW5[1:8] = 11111111 SW6[1:4] = XXXX
+Serdes Protocol : 18_5 - SW4[1:8] = 00110011 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 3_2  - SW4[1:8] = 00110011 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 3_3  - SW4[1:8] = 00110011 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 17_2 - SW4[1:8] = 00110000 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 15_2 - SW4[1:8] = 00110000 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 20_2 - SW4[1:8] = 00110011 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 1_2  - SW4[1:8] = 00000000 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 7_5  - SW4[1:8] = 00000011 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 3_9  - SW4[1:8] = 00110011 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 2_2  - SW4[1:8] = 00000000 SW5[1:8] = 00000000 SW6[1:4] = XXXX
