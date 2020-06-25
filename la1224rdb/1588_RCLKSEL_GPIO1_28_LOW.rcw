@@ -1,0 +1,14 @@
+/*
+*  Description:
+*  GPIO_1 28th Data pin is mapped to 1588_RCLK_SEL
+*  of 1588 module
+*
+*  Drive GPIO1[28] low from default High value for 
+*  different 1588 Recovery Clock source
+*/
+
+.pbi
+write 0x2300018,0x00000008
+write 0x2300000,0x00000008
+write 0x2300008,0x00000000
+.end

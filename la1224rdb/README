@@ -77,3 +77,10 @@ A-008851:
    write 0x00000001 to MISC_CONTROL_1_OFF
    write 0x4747 to Lane Equalization Control register for each lane
   Applicable for SNP PCIe controller
+
+Added GPIO_1 PBI command:
+
+write 0x2300018,0x00000008 : Write on Input Enable buffer resgiter,enable GPIO_1[28] pin
+write 0x2300000,0x00000008 : Write on Direction register, output direction of GPIO_1[28] pin
+write 0x2300008,0x00000000 : Drive low value on data register of GPIO_1[28] pin
+
