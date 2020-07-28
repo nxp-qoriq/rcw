@@ -239,3 +239,25 @@ Serdes Lane Equlization Settings
 25g_eq_s1_lane_f  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
 25g_eq_s1_lane_g  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
 25g_eq_s1_lane_h  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+
+Switch Settings for different serdes protocols
+==============================================
+Below are the switch settings for different serdes protocols..
+
+Serdes Protocol : 1_2_2 SW4[1:8] = 11111111 SW5[1:8] = 11111111 SW6[1:4] = 1111
+Serdes Protocol : 15_5_2 SW4[1:8] = 00111111 SW5[1:8] = 11110000 SW6[1:4] = 1111
+Serdes Protocol : 18_2_2 SW4[1:8] = 00110011 SW5[1:8] = 11111111 SW6[1:4] = 1111
+Serdes Protocol : 7_5_2 - SW4[1:8] = 00000011 SW5[1:8] = 11110000 SW6[1:4] = 1111
+Serdes Protocol : 7_3_3 - SW4[1:8] = 00000011 SW5[1:8] = 11111111 SW6[1:4] = 1111
+Serdes Protocol : 19_5_2 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = 1111
+Serdes Protocol : 3_3_2 - SW4[1:8] = 11110011 SW5[1:8] = 11111111 SW6[1:4] = 1111
+Serdes Protocol : 13_5_2 - SW4[1:8] = 00110011 SW5[1:8] = 11110000 SW6[1:4] = 1111
+Serdes Protocol : 20_11_3 - SW4[1:8] = 00110011 SW5[1:8] = 11111111 SW6[1:4] = 1111
+Serdes Protocol : 8_3_2 - SW4[1:8] = 00110011 SW5[1:8] = 11111111 SW6[1:4] = 1111
+Serdes Protocol : 13_3_2 - SW4[1:8] = 00110011 SW5[1:8] = 11111111 SW6[1:4] = 1111
+Serdes Protocol : 13_3_3 - SW4[1:8] = 00110011 SW5[1:8] = 11111111 SW6[1:4] = 1111
+Serdes Protocol : 8_3_3 - SW4[1:8] = 00110011 SW5[1:8] = 11111111 SW6[1:4] = 1111
+Serdes Protocol : 10_12_3 - SW4[1:8] = 11110011 SW5[1:8] = 11111111 SW6[1:4] = 1111
+Serdes Protocol : 21_2_0 - SW4[1:8] = 00111111 SW5[1:8] = 00001111 SW6[1:4] = 1111
+Serdes Protocol : 8_10_0 - SW4[1:8] = 00000011 SW5[1:8] = 00001111 SW6[1:4] = 1111
+Serdes Protocol : 21_6_0 - SW4[1:8] = 00111111 SW5[1:8] = 11110011 SW6[1:4] = 1111
