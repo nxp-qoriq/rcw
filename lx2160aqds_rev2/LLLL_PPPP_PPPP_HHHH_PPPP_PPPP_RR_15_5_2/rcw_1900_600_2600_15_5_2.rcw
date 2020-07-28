@@ -61,3 +61,7 @@ SRDS_DIV_PEX_S3=1
 #include <../lx2160asi/a008851_PEX3.rcw>
 #include <../lx2160asi/a008851_PEX5.rcw>
 
+/*SerDes Errata A-050479*/
+#include <../lx2160asi/a050479_PEX2.rcw>
+#include <../lx2160asi/a050479_PEX3.rcw>
+#include <../lx2160asi/a050479_PEX5.rcw>
