@@ -56,11 +56,13 @@ SRDS_DIV_PEX_S3=1
 
 /*PCIe Errata A-009531*/
 #include <../lx2160asi/a009531_PEX3.rcw>
+#include <../lx2160asi/a009531_PEX4.rcw>
 #include <../lx2160asi/a009531_PEX5.rcw>
 #include <../lx2160asi/a009531_PEX6.rcw>
 
 /*PCIe Errata A-008851*/
 #include <../lx2160asi/a008851_PEX3.rcw>
+#include <../lx2160asi/a008851_PEX4.rcw>
 #include <../lx2160asi/a008851_PEX5.rcw>
 #include <../lx2160asi/a009531_PEX6.rcw>
 
