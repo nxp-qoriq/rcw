@@ -1,0 +1,18 @@
+/*
+ * Work-around for erratum A-050479
+ *
+ * Problem: Link Training fails during the Speed-Switch
+ *
+ * Description:
+ * Link fails to train while speed-switch, this is random in nature (~1% failure)
+
+ * Following are 2 symptoms :-
+ * 1. Link down resulting higher capability (Gen2 via RCW showing Gen3)
+ * 2. Loopback :: Training down to Gen1 from Gen2. Stuck very long in RCVRY_LOCK state.
+ *
+ * Workaround: Please program bit 31 of PEX*CR8 to 1'b0 for all PEXs
+ */
+
+.pbi
+write 0x01eb12a0,0x0800FA00
+.end

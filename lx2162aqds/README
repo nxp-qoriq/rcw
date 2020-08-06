@@ -141,6 +141,11 @@ A-008851:
    write 0x4747 to Lane Equalization Control register for each lane
   Applicable for SNP PCIe controller
 
+A-050479:
+  Link Training fails during the Speed-Switch
+  Workaround:
+   Please program bit 31 of PEX*CR8 to 1'b0 for all PEXs
+
 Serdes Lane Equlization Settings
 ================================
 25g_eq_s1_lane_a  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.

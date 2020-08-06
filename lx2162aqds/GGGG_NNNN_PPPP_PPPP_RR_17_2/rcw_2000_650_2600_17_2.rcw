@@ -54,6 +54,9 @@ SRDS_DIV_PEX_S2=1
 /*PCIe Errata A-008851*/
 #include <../lx2160asi/a008851_PEX3.rcw>
 
+/*SerDes Errata A-050479*/
+#include <../lx2160asi/a050479_PEX3.rcw>
+
 /* Serdes lane equalization settings for 25G */
 #include <../lx2160asi/25g_eq_s1_lane_h.rcw>
 #include <../lx2160asi/25g_eq_s1_lane_g.rcw>
