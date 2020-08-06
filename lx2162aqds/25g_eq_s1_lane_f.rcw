@@ -1,0 +1,13 @@
+/*
+ * SerDes TX lane 2 (LNFTECR0) optimized equalization for 25G mezzanine cards
+ * EQ_TYPE    [30-28] =    010 - 3-tap equalization
+ * EQ_SGN_PREQ   [23] =      1
+ * EQ_PREQ    [19-16] =   0001
+ * EQ_SGN_POST1Q [15] =      1
+ * EQ_POST1Q   [12-8] =  00010 - ratio of 1.09 [1.00 .. 2.00]
+ * EQ_AMP_RED   [5-0] = 100000 - 1.1 * full_amplitude
+ */
+
+.pbi
+write 0x01EA0D30, 0x20818220
+.end
