@@ -7,3 +7,19 @@
 .pbi
 write 0x1e00620,0x80000000
 .end
+
+/*
+ * Release the cores from boot hold off to reduce
+ * power consumption:
+ * Currently cores runs while(1) in boot hold off (except
+ * primary core) which consumes more power.
+ * To reduce the power consumption, allow all cores to come
+ * out of boot hold off using BRR and enter in wfe.
+ * This has to be done in two folds, that is release first 8
+ * core via BRR and another PBI command for rest of 8 cores.
+ */
+
+.pbi
+write.b1 0x1e60060,0xff
+write 0x1e60060,0x0000ffff
+.end
