@@ -1,0 +1,79 @@
+The RCW directories names for the LX2160A BlueBox3 boards
+with following naming convention:
+
+abcdefgh_ij_RR_l_m_n:
+
+a = What is available on Serdes1 Lane0
+b = What is available on Serdes1 Lane1
+c = What is available on Serdes1 Lane2
+d = What is available on Serdes1 Lane3
+e = What is available on Serdes1 Lane4
+f = What is available on Serdes1 Lane5
+g = What is available on Serdes1 Lane6
+h = What is available on Serdes1 Lane7
+i = What is available in Slot 1 (on Serdes 2)
+j = What is available in Slot 2 (on Serdes 3)
+
+For the Slots (a..k):
+ 'N' is NULL, not available/not used
+ 'S' is SGMII
+ 'P' is PCIe
+ 'F' is XFI
+ 'U' is USXGMII
+
+RGMII Interface (R):
+  'R' is RGMII Interface 1G
+
+Serdes1 protocol (l):
+l = 'serdes1 protocol value' (10a fixed)
+
+Serdes2 protocol (m) in decimal: 
+m = 'serdes2 protocol value'
+
+Serdes3 protocol (n) in decimal:
+n = 'serdes3 protocol value'
+
+Ref clock setting on board
+==========================
+DDR Ref clock: 100 MHz
+Sys PLL Ref clock: 100MHz
+
+Files naming convention
+=============================
+rcw_x_l_m_n.rcw
+rcw_x_y_l_m_n.rcw
+rcw_x_y_z_l_m_n.rcw
+
+x = Core frequency
+y = Platform frequency
+z = DDR frequency
+l = 'serdes1 protocol value'
+m = 'serdes2 protocol value'
+n = 'serdes3 protocol value'
+
+For example,
+  rcw_2000_10a_2_2.rcw means rcw for core frequency of 2000MHz, with serdes1=10a serdes2=2 serdes3=2.
+  rcw_2000_700_10a_2_3.rcw means rcw for core frequency 2000MHz and Platform frequecny 700MHz, with serdes1=10a serdes2=5 serdes3=3.
+  rcw_2000_700_2400_10a_2_2.rcw means rcw for core frequency 2000MHz, Platform frequecny 700MHz and DDR Memory Data Rate as 2400 MT/s, with serdes1=10a serdes2=2 serdes3=2.
+
+Errata Workaround Implemented
+=============================
+A-009531:
+  The PCI Express controller as the completer sends completion packets with IDO
+  bit set in packet header even when the IDO Completion Enable bit is cleared in
+  the controller’s Device Control 2 Register.
+  Applicable for Synopsys PCIe controller
+
+A-008851:
+  Invalid transmitter/receiver preset values are used in Gen3 equalization
+  phases during link training for RC mode
+  This errata is valid only for PCI gen3.
+  Workaround:
+   write 0x00000001 to MISC_CONTROL_1_OFF
+   write 0x4747 to Lane Equalization Control register for each lane
+  Applicable for Synopsys PCIe controller
+
+A-050479:
+  Link Training fails during the Speed-Switch
+  Workaround:
+   Please program bit 31 of PEX*CR8 to 1'b0 for all PEXs

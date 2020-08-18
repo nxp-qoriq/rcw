@@ -1,0 +1,74 @@
+/*
+ * This file contains a specific NXP validated sequence to convert
+ * SD1 from an RCW preconfigured configuration 11 to a special
+ * supported configuration "10a".
+ * 10a replaces the SGMII lijnks shown for configuration 11 with
+ * USXMII/XFI as mode.
+ *
+ * The sequence must be executed as described here and only if the
+ * RCW has selected configuration 11 originally.
+ * It is like configuration 10 with x2 PCIe ports.
+ *
+ * Modifications to this sequence of any kind are not supported.
+ *
+ */
+
+.pbi
+write 0x01EA10A0,0x00000000
+write 0x01EA10B0,0x99009900
+
+write 0x01EA0404,0x00000000
+write 0x01EA0408,0x90300008
+write 0x01EA0410,0x00003000
+write 0x01EA0414,0x00000000
+
+write 0x01EA0504,0x00020000
+write 0x01EA0508,0x86100008
+write 0x01EA0510,0x00003000
+write 0x01EA0514,0x00001000
+
+write 0x01EA0A24,0x01000200
+write 0x01EA0A44,0x01000001
+write 0x01EA0B24,0x01000200
+write 0x01EA0B44,0x01000001
+
+write 0x01EA0E24,0x01000200
+write 0x01EA0E44,0x01000001
+write 0x01EA0F24,0x01000200
+write 0x01EA0F44,0x01000001
+
+write 0x01EA0800,0x10010052
+write 0x01EA0900,0x10010052
+write 0x01EA0C00,0x10010052
+write 0x01EA0D00,0x10010052
+
+write 0x01EA0824,0x10000000
+write 0x01EA0924,0x10000000
+write 0x01EA0C24,0x10000000
+write 0x01EA0D24,0x10000000
+
+write 0x01EA0830,0x10808307
+write 0x01EA0930,0x10808307
+write 0x01EA0C30,0x10808307
+write 0x01EA0D30,0x10808307
+
+write 0x01EA0844,0x10000000
+write 0x01EA0944,0x10000000
+write 0x01EA0C44,0x10000000
+write 0x01EA0D44,0x10000000
+
+write 0x01EA0848,0x10000000
+write 0x01EA0948,0x10000000
+write 0x01EA0C48,0x10000000
+write 0x01EA0D48,0x10000000
+
+write 0x01EA0850,0x00000000
+write 0x01EA0950,0x00000000
+write 0x01EA0C50,0x00000000
+write 0x01EA0D50,0x00000000
+
+write 0x01EA0858,0x81000020
+write 0x01EA0958,0x81000020
+write 0x01EA0C58,0x81000020
+write 0x01EA0D58,0x81000020
+.end
