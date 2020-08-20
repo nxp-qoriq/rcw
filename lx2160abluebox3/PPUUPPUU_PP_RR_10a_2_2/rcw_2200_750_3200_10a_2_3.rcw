@@ -57,12 +57,14 @@ SRDS_DIV_PEX_S3=1
 #include <../lx2160asi/a009531_PEX2.rcw>
 #include <../lx2160asi/a009531_PEX3.rcw>
 #include <../lx2160asi/a009531_PEX5.rcw>
+#include <../lx2160asi/a009531_PEX6.rcw>
 
 /*PCIe Errata A-008851*/
 #include <../lx2160asi/a008851_PEX1.rcw>
 #include <../lx2160asi/a008851_PEX2.rcw>
 #include <../lx2160asi/a008851_PEX3.rcw>
 #include <../lx2160asi/a008851_PEX5.rcw>
+#include <../lx2160asi/a008851_PEX6.rcw>
 
 /* Apply reset sequence 11->10a */
 #include <change_S1_11_to_S1_10a_reset_sequence.rcw>
@@ -72,6 +74,7 @@ SRDS_DIV_PEX_S3=1
 #include <../lx2160asi/a050479_PEX2.rcw>
 #include <../lx2160asi/a050479_PEX3.rcw>
 #include <../lx2160asi/a050479_PEX5.rcw>
+#include <../lx2160asi/a050479_PEX6.rcw>
 
 /* Disable Peripherals */
 #include <disable_usb2_sata.rcw>
