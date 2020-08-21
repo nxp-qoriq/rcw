@@ -1,0 +1,14 @@
+/*
+* USB2 clock Gating
+*
+* Description:
+* A given application may not use all the peripherals on the device. In this case, it may be
+* desirable to disable unused peripherals. DEVDISRn provides a mechanism for gating
+* clocks to IP blocks that are not used when running an application.
+*
+* Disable clock of USB2 by using DEVDISR register
+*
+*/
+.pbi
+write 0x1e00070,0x00002000
+.end

@@ -1,0 +1,135 @@
+
+LS2162AQDS supports 2 serdes, devided into 4 slots.
+And slot 2 of serdes block 1 is also disabled.
+
+The RCW directories names for the LS2162AQDS boards conform to the following
+naming convention:
+
+abcd_efgh_ijkl_mnop_RR_A_B:
+
+For Serdes1:
+a = What is available on serdes 1 slot 1, LANE 0
+b = What is available on serdes 1 slot 1, LANE 1
+c = What is available on serdes 1 slot 1, LANE 2
+d = What is available on serdes 1 slot 1, LANE 3
+e = What is available on serdes 1 slot 2, LANE 4
+f = What is available on serdes 1 slot 2, LANE 5
+g = What is available on serdes 1 slot 2, LANE 6
+h = What is available on serdes 1 slot 2, LANE 7
+
+For Serdes2:
+i = What is available on serdes 2 slot 3, LANE 0
+j = What is available on serdes 2 slot 3, LANE 1
+k = What is available on serdes 2 slot 3, LANE 2
+l = What is available on serdes 2 slot 3, LANE 3
+m = What is available on serdes 2 slot 4, LANE 4
+n = What is available on serdes 2 slot 4, LANE 5
+o = What is available on serdes 2 slot 4, LANE 6
+p = What is available on serdes 2 slot 4, LANE 7
+
+For the Serdes(4 Slots) Lanes (a..x):
+ 'N' is NULL, not available/not used
+ 'H' is SATA
+ 'S' is SGMII
+ 'P' is PCIe
+ 'F' is XFI/USXGMII
+ 'G' is 25G
+ 'L' is 50G
+ 'X' is 40G
+
+RGMII Interface (R):
+  'R' is RGMII Interface 1G
+
+Serdes1 protocol (A):
+A = 'serdes1 protocol value (decimal)'
+
+Serdes2 protocol (B):
+B = 'serdes2 protocol value (decimal)'
+
+Ref clock setting on board
+==========================
+DDR Ref clock: 100 MHz
+Sys PLL Ref clock: 100MHz
+
+Files naming convention
+=============================
+rcw_x_l_m.rcw
+rcw_x_l_m_bootmode.rcw
+rcw_x_y_l_m.rcw
+rcw_x_y_z_l_m.rcw
+
+x = Core frequency
+y = Platform frequency
+z = DDR frequency
+bootmode = nor(default)/sd
+l = 'serdes1 protocol value'
+m = 'serdes2 protocol value'
+
+For example,
+  rcw_2000_18_5.rcw means rcw for core frequency of 2000MHz, with serdes1=18 serdes2=5.
+  rcw_2000_650_18_5.rcw means rcw for core frequency 2000MHz and Platform frequecny 650MHz, with serdes1=18 serdes2=5.
+  rcw_2000_650_2900_18_5.rcw means rcw for core frequency 2000MHz, Platform frequecny 650MHz and DDR Memory Data Rate as 2900 MT/s, with serdes1=18 serdes2=5.
+
+Reference card connections on different serdes slots (as per serdes protocol)
+=============================================================================
+Serdes Protocol 18_5:
+  Slot1: M11(USXGMII)/M12(XFI) for lane 0 ,lane1
+         M13(25G) for lane2, lane3
+  Slot3: M4
+  Slot4: M5
+
+Note: For Mezzanine card details, Please refer to LX2162AQDS Board RM.
+
+DSPI Enablement
+===============
+SDHC & SPI lanes are muxed.
+Below RCW Fields should be modified in order to access DSPI flashes.
+
+1) For DSPI1:- Set RCW field 'SDHC1_BASE_PMUX' to 2.
+2) For DSPI2:- Set RCW field 'SDHC2_BASE_PMUX' to 2.
+3) For DSPI3:- Set RCW field 'IIC5_PMUX' to 3.
+             - Set RCW field 'SDHC1_BASE_PMUX' to 3.
+             - Set RCW field 'SDHC1_DS_PMUX' to 2.
+             - Set RCW field 'SDHC1_DIR_PMUX' to 3 (FOR PCS1,PCS2 & PCS3)
+
+Errata Workaround Implemented
+=============================
+A-009531:
+  The PCI Express controller as the completer sends completion packets with IDO
+  bit set in packet header even when the IDO Completion Enable bit is cleared in
+  the controller’s Device Control 2 Register.
+  Applicable for SNP PCIe controller
+
+A-008851:
+  Invalid transmitter/receiver preset values are used in Gen3 equalization
+  phases during link training for RC mode
+  This errata is valid only for PCI gen3.
+  Workaround:
+   write 0x00000001 to MISC_CONTROL_1_OFF
+   write 0x4747 to Lane Equalization Control register for each lane
+  Applicable for SNP PCIe controller
+
+A-050479:
+  Link Training fails during the Speed-Switch
+  Workaround:
+   Please program bit 31 of PEX*CR8 to 1'b0 for all PEXs
+
+Serdes Lane Equlization Settings
+================================
+25g_eq_s1_lane_a  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_b  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_c  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_d  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_e  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_f  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_g  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+25g_eq_s1_lane_h  :- Serdes lane equalization settings are added as PBI cmd for 25G, recieved from validation team.
+
+Switch Settings for different serdes protocols
+==============================================
+Below are the switch settings for different serdes protocols..
+
+Serdes Protocol : 18_5 - SW4[1:8] = 00110011 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 3_3  - SW4[1:8] = 00110011 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 17_2 - SW4[1:8] = 00110000 SW5[1:8] = 00000000 SW6[1:4] = XXXX
+Serdes Protocol : 2_2  - SW4[1:8] = 00000000 SW5[1:8] = 00000000 SW6[1:4] = XXXX

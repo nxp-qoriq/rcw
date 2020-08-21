@@ -1,0 +1,15 @@
+/*
+* MAC clock Gating
+*
+* Description:
+* A given application may not use all the peripherals on the device. In this case, it may be
+* desirable to disable unused peripherals. DEVDISRn provides a mechanism for gating
+* clocks to IP blocks that are not used when running an application.
+*
+* Disable clock of MAC7 to 10  by using DEVDISR register
+*
+*/
+
+.pbi
+write 0x1e00074,0x00007c0
+.end
