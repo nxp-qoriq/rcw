@@ -1,15 +1,21 @@
 /*
  * This file contains a specific NXP validated sequence to convert
- * SD1 from an RCW preconfigured configuration 11 to a special
- * supported configuration "10a".
- * 10a replaces the SGMII lijnks shown for configuration 11 with
- * USXMII/XFI as mode.
+ * SerDes 1 from an RCW preconfigured configuration 11 to a special
+ * supported configuration "0x10a" which replaces SerDes configuration
+ * 11's SGMII links with USXGMII/XFI Links as shown.
  *
- * The sequence must be executed as described here and only if the
- * RCW has selected configuration 11 originally.
- * It is like configuration 10 with x2 PCIe ports.
+ * *
+ *         H   G        F         E        D    C       B         A
+ * Lane    0   1        2         3        4    5       6         7
+ *        ---------------------------------------------------------------
+ * 0x10a | PCIe.1 x2 | USXGMII | USXGMII | PCIe.2 x2 | USXGMII | USXGMII |
+ *       |   gen2    | /XFI.5  | /XFI.6  |   gen2    | /XFI.9  | /XFI.10 |
+ *        ---------------------------------------------------------------
  *
- * Modifications to this sequence of any kind are not supported.
+ * To select this "0x10a" configuration, set SRDS_PRTCL_S1 to decimal 11
+ * and use the sequence of PBI writes below exactly as given.
+ *
+ * Modifications to this sequence are not supported.
  *
  */
 
