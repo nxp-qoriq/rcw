@@ -1,9 +1,12 @@
 /*
  * SerDes Protocol -  0x85bb
  *
+ * Due to Errata A-050568, platform frequency 300Mhz will not be supported
+ * in flex-nor boot case. So only platform frequency 400Mhz is available.
+ *
  * Frequencies:
  * Core     -- 800 MHz
- * Platform -- 300  MHz
+ * Platform -- 400  MHz
  * DDR      -- 1300 MHz
  * DDR Data Rate -- 1.300 GT/s
  */
