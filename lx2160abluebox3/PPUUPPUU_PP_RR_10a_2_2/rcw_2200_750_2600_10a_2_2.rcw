@@ -1,5 +1,5 @@
 /*
- * SerDes Protocol 1 -  10a
+ * SerDes Protocol 1 -  31
  * SerDes Protocol 2 -  2
  * SerDes Protocol 3 -  2
  *
@@ -9,7 +9,7 @@
  * DDR      -- 2600 MT/s
  *
  * Do not get confused with SRDS_PRTCL_S1=11
- * Serdes Protocol 11 is converted to 10a
+ * Serdes Protocol 11 is converted to 31(0x1f)
  * using reset sequence.
  *
  */
@@ -66,8 +66,8 @@ SRDS_DIV_PEX_S3=1
 #include <../lx2160asi/a008851_PEX3.rcw>
 #include <../lx2160asi/a008851_PEX5.rcw>
 
-/* Apply reset sequence 11->10a */
-#include <change_S1_11_to_S1_10a_reset_sequence.rcw>
+/* Apply reset sequence 11->0x1f */
+#include <change_S1_11_to_S1_0x1f_reset_sequence.rcw>
 
 /*SerDes Errata A-050479*/
 #include <../lx2160asi/a050479_PEX1.rcw>

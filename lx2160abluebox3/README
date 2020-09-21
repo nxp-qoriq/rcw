@@ -24,8 +24,8 @@ For the Slots (a..k):
 RGMII Interface (R):
   'R' is RGMII Interface 1G
 
-Serdes1 protocol (l):
-l = 'serdes1 protocol value' (10a fixed)
+Serdes1 protocol (l) in decimal:
+l = 'serdes1 protocol value' (31 fixed)
 
 Serdes2 protocol (m) in decimal: 
 m = 'serdes2 protocol value'
@@ -52,9 +52,9 @@ m = 'serdes2 protocol value'
 n = 'serdes3 protocol value'
 
 For example,
-  rcw_2000_10a_2_2.rcw means rcw for core frequency of 2000MHz, with serdes1=10a serdes2=2 serdes3=2.
-  rcw_2000_700_10a_2_3.rcw means rcw for core frequency 2000MHz and Platform frequecny 700MHz, with serdes1=10a serdes2=5 serdes3=3.
-  rcw_2000_700_2400_10a_2_2.rcw means rcw for core frequency 2000MHz, Platform frequecny 700MHz and DDR Memory Data Rate as 2400 MT/s, with serdes1=10a serdes2=2 serdes3=2.
+  rcw_2000_31_2_2.rcw means rcw for core frequency of 2000MHz, with serdes1=31 serdes2=2 serdes3=2.
+  rcw_2000_700_31_2_3.rcw means rcw for core frequency 2000MHz and Platform frequecny 700MHz, with serdes1=31 serdes2=5 serdes3=3.
+  rcw_2000_700_2400_31_2_2.rcw means rcw for core frequency 2000MHz, Platform frequecny 700MHz and DDR Memory Data Rate as 2400 MT/s, with serdes1=31 serdes2=2 serdes3=2.
 
 Errata Workaround Implemented
 =============================
