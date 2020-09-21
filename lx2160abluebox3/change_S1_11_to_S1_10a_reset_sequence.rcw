@@ -1,18 +1,18 @@
 /*
  * This file contains a specific NXP validated sequence to convert
  * SerDes 1 from an RCW preconfigured configuration 11 to a special
- * supported configuration "0x10a" which replaces SerDes configuration
+ * supported configuration "0x1f" which replaces SerDes configuration
  * 11's SGMII links with USXGMII/XFI Links as shown.
  *
  * *
  *         H   G        F         E        D    C       B         A
  * Lane    0   1        2         3        4    5       6         7
  *        ---------------------------------------------------------------
- * 0x10a | PCIe.1 x2 | USXGMII | USXGMII | PCIe.2 x2 | USXGMII | USXGMII |
+ *  0x1f | PCIe.1 x2 | USXGMII | USXGMII | PCIe.2 x2 | USXGMII | USXGMII |
  *       |   gen2    | /XFI.5  | /XFI.6  |   gen2    | /XFI.9  | /XFI.10 |
  *        ---------------------------------------------------------------
  *
- * To select this "0x10a" configuration, set SRDS_PRTCL_S1 to decimal 11
+ * To select this "0x1f" configuration, set SRDS_PRTCL_S1 to decimal 11
  * and use the sequence of PBI writes below exactly as given.
  *
  * Modifications to this sequence are not supported.
@@ -28,7 +28,7 @@ write 0x01EA0408,0x90300008
 write 0x01EA0410,0x00003000
 write 0x01EA0414,0x00000000
 
-write 0x01EA0504,0x00020000
+write 0x01EA0504,0x00040000
 write 0x01EA0508,0x86100008
 write 0x01EA0510,0x00003000
 write 0x01EA0514,0x00001000
@@ -43,10 +43,10 @@ write 0x01EA0E44,0x01000001
 write 0x01EA0F24,0x01000200
 write 0x01EA0F44,0x01000001
 
-write 0x01EA0800,0x10010052
-write 0x01EA0900,0x10010052
-write 0x01EA0C00,0x10010052
-write 0x01EA0D00,0x10010052
+write 0x01EA0800,0x00000052
+write 0x01EA0900,0x00000052
+write 0x01EA0C00,0x00000052
+write 0x01EA0D00,0x00000052
 
 write 0x01EA0824,0x10000000
 write 0x01EA0924,0x10000000
@@ -77,4 +77,5 @@ write 0x01EA0858,0x81000020
 write 0x01EA0958,0x81000020
 write 0x01EA0C58,0x81000020
 write 0x01EA0D58,0x81000020
+
 .end
