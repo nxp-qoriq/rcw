@@ -1,22 +1,19 @@
 /*
  * SerDes Protocol -  0x85bb
  *
- * Due to Errata A-050568, platform frequency 300Mhz will not be supported
- * in flex-nor boot case. So only platform frequency 400Mhz is available.
- *
  * Frequencies:
  * Core     -- 800 MHz
- * Platform -- 400  MHz
+ * Platform -- 300  MHz
  * DDR      -- 1300 MHz
  * DDR Data Rate -- 1.300 GT/s
  */
 
 #include <../ls1028asi/ls1028a.rcwi>
 
-SYS_PLL_RAT=4
+SYS_PLL_RAT=3
 MEM_PLL_RAT=13
 CGA_PLL1_RAT=8
-CGA_PLL2_RAT=12
+CGA_PLL2_RAT=8
 HWA_CGA_M1_CLK_SEL=7
 HWA_CGA_M2_CLK_SEL=1
 HWA_CGA_M3_CLK_SEL=2
@@ -29,8 +26,7 @@ SYSCLK_FREQ=600
 IIC2_PMUX=6
 IIC3_PMUX=2
 IIC4_PMUX=2
-IIC5_PMUX=1
-IIC6_PMUX=3
+IIC5_PMUX=2
 CLK_OUT_PMUX=2
 EC1_SAI4_5_PMUX=5
 EC1_SAI3_6_PMUX=5
@@ -41,6 +37,9 @@ SRDS_PRTCL_S1_L0=8
 SRDS_PRTCL_S1_L1=5
 SRDS_PRTCL_S1_L2=11
 SRDS_PRTCL_S1_L3=11
+SDHC1_BASE_PMUX=0
+SDHC2_DAT74_PMUX=0
+SDHC2_BASE_PMUX=0
 
 /* Errata for PCIe controller */
 #include <../ls1028asi/a008851.rcw>
