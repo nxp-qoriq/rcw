@@ -36,6 +36,9 @@ SRDS_PLL_REF_CLK_SEL_S1=2
 SRDS_DIV_PEX_S1=1
 SRDS_DIV_PEX_S2=1
 SRDS_DIV_PEX_S3=1
+UART1_RTSCTS_PMUX=1
+UART2_SOUTSIN_PMUX=1
+UART2_RTSCTS_PMUX=1
 
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>
