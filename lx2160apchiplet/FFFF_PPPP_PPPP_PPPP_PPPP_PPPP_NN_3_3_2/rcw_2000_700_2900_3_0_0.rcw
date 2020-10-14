@@ -1,0 +1,56 @@
+/*
+ * SerDes Protocol 1 -  19
+ * SerDes Protocol 2 -  5
+ * SerDes Protocol 3 -  2
+ *
+ * Frequencies:
+ * Core     -- 2000 MHz
+ * Platform -- 700  MHz
+ * DDR      -- 2400 MT/s
+ */
+
+#include <../lx2160asi/lx2160a.rcwi>
+
+SYS_PLL_RAT=14
+MEM_PLL_CFG=3
+MEM_PLL_RAT=29
+MEM2_PLL_CFG=3
+MEM2_PLL_RAT=29
+CGA_PLL1_RAT=20
+CGA_PLL2_RAT=20
+CGB_PLL1_RAT=20
+CGB_PLL2_RAT=8
+HWA_CGA_M1_CLK_SEL=1
+HWA_CGB_M1_CLK_SEL=6
+BOOT_LOC=26
+SYSCLK_FREQ=600
+IIC2_PMUX=6
+IIC5_PMUX=2
+USB3_CLK_FSEL=39
+HOST_AGT_PEX6=1
+SRDS_PLL_PD_PLL1=1
+SRDS_PLL_PD_PLL2=0
+SRDS_PLL_PD_PLL3=1
+SRDS_PLL_PD_PLL4=1
+SRDS_PLL_PD_PLL5=1
+SRDS_PLL_PD_PLL6=1
+SRDS_PRTCL_S1=3
+SRDS_REFCLKF_DIS_S1=1
+SRDS_PLL_REF_CLK_SEL_S1=2
+UART1_RTSCTS_PMUX=1
+UART2_SOUTSIN_PMUX=1
+UART2_RTSCTS_PMUX=1
+SDHC2_DAT74_PMUX=1
+SDHC2_BASE_PMUX=1
+
+/* Errata to write on scratch reg for validation */
+#include <../lx2160asi/scratchrw1.rcw>
+
+/* Boot Location Pointer */
+#include <../lx2160asi/bootlocptr_nor.rcw>
+
+/* common PBI commands */
+#include <../lx2160asi/common.rcw>
+
+/* Modify FlexSPI Clock Divisor value */
+#include <../lx2160asi/flexspi_divisor_28.rcw>

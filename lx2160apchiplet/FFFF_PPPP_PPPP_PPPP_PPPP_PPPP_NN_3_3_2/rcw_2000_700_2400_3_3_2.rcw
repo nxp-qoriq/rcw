@@ -25,12 +25,11 @@ HWA_CGB_M1_CLK_SEL=6
 BOOT_LOC=26
 SYSCLK_FREQ=600
 IIC2_PMUX=6
-IIC3_PMUX=2
-IIC4_PMUX=2
+IIC5_PMUX=2
 USB3_CLK_FSEL=39
 SRDS_PLL_PD_PLL5=1
-SRDS_PRTCL_S1=19
-SRDS_PRTCL_S2=5
+SRDS_PRTCL_S1=3
+SRDS_PRTCL_S2=3
 SRDS_PRTCL_S3=2
 SRDS_PLL_REF_CLK_SEL_S1=2
 SRDS_DIV_PEX_S1=1
@@ -45,13 +44,8 @@ SDHC2_BASE_PMUX=1
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>
 
-/* Copy SPL Uboot to Ocram */
-.pbi
-blockcopy 0x08,0x00100000,0x1800a000,0x00015000
-.end
-
 /* Boot Location Pointer */
-#include <../lx2160asi/bootlocptr_sd.rcw>
+#include <../lx2160asi/bootlocptr_nor.rcw>
 
 /* Errata for SATA controller */
 #include <../lx2160asi/a010554.rcw>
