@@ -42,6 +42,7 @@ SRDS_PLL_PD_PLL3=1
 SRDS_PLL_PD_PLL4=1
 SRDS_PLL_PD_PLL5=1
 SRDS_PLL_PD_PLL6=1
+EC2_PMUX=1
 
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>

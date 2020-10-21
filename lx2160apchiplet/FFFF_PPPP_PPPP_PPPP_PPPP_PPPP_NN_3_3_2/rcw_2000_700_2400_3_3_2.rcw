@@ -40,6 +40,7 @@ UART2_SOUTSIN_PMUX=1
 UART2_RTSCTS_PMUX=1
 SDHC2_DAT74_PMUX=1
 SDHC2_BASE_PMUX=1
+EC2_PMUX=1
 
 /* Errata to write on scratch reg for validation */
 #include <../lx2160asi/scratchrw1.rcw>
