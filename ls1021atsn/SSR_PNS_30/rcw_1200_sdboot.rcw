@@ -2,6 +2,7 @@
 
 .pbi
 write  0x570158, 0x00000300
+flush
 awrite 0x40007c, 0x21f47300
 /* Configure Scratch register */
 write  0xee0200, 0x10000000
