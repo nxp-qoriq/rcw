@@ -104,6 +104,7 @@ write 0x570604, 0x10000000
 .pbi
 // Alt base register
 write 0x570158, 0x00001000
+flush
 .end
 
 #include <../ls1046ardb/cci_barrier_disable.rcw>

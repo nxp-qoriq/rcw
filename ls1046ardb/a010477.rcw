@@ -25,6 +25,7 @@
 
 .pbi
 write 0x570158, 0x00000300
+flush
 
 awrite 0x400890, 0x01048000
 awrite 0x500890, 0x01048000
