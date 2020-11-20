@@ -779,19 +779,19 @@ def create_source():
         if pbiformat == 2:
             if binary[0:4] == preambletst:
                 # Convert the binary into a large integer
-                rcw = binary[8:8 + (size / 8)]
+                rcw = binary[8:int(8 + (size / 8))]
                 bitbytes = rcw
                 # We skip the checksum field
-                pbi = binary[8 + (size / 8) + 4:]
+                pbi = binary[int(8 + (size / 8) + 4):]
             else:
                 print('Weird binary RCW format!')
                 bitbytes = ''
         else:
             if binary[0:4] == preambletst:
                 # Convert the binary into a large integer
-                rcw = binary[8:8 + (size / 8)]
+                rcw = binary[8:int(8 + (size / 8))]
                 bitbytes = rcw
-                pbi = binary[8 + (size / 8):]
+                pbi = binary[int(8 + (size / 8)):]
             else:
                 print('Weird binary RCW format!')
                 bitbytes = ''
@@ -804,14 +804,17 @@ def create_source():
         # we have the right bit significance matched up with numbering
         newbitbytes = ''
         for c in bitbytes:
-            byte = ord(c)
+            byte = c
             newbitbytes += chr(int(bin(byte)[2:].zfill(8)[::-1], 2))
         bitbytes = newbitbytes
 
     # After this stage, all the RCW bits should be formatted with lsb on
     # the right side and msb on the left side to permit conversion into
     # a very long uint.
-    bitstring = ''.join(['{0:08b}'.format(ord(x)) for x in bitbytes])[::-1]
+    if classicbitnumbers:
+         bitstring = ''.join(['{0:08b}'.format(ord(x))  for x in bitbytes])[::-1]
+    else:
+         bitstring = ''.join(['{0:08b}'.format(x)  for x in bitbytes])[::-1]
     bits = int(bitstring, 2)
 
     # Loop over all the known symbols
@@ -855,7 +858,7 @@ def create_source():
         l = len(pbi)
         # Deal reasonably with broken PBIs with, e.g., an extra LF
         # at the end
-        pbi += "\0\0\0"
+        pbi += bytearray(3)
         l += 3;
         l &= ~3;
         source += "\n.pbi\n"
