@@ -1,13 +1,14 @@
 /*
- * SerDes Protocol 1 -  22
+ * SerDes Protocol 1 -  18
  * SerDes Protocol 2 -  14
- * SerDes Protocol 3 -  3
+ * SerDes Protocol 3 -  2
  *
  * Frequencies:
  * Core     -- 2000 MHz
  * Platform -- 700  MHz
  * DDR      -- 2600 MT/s
- */
+ 
+*/
 
 #include <../la1224si/lx2160a.rcwi>
 
@@ -23,16 +24,17 @@ CGB_PLL2_RAT=8
 HWA_CGA_M1_CLK_SEL=1
 HWA_CGB_M1_CLK_SEL=6
 SYSCLK_FREQ=600
+IIC2_PMUX=6
 IIC5_PMUX=3
 IIC3_PMUX=1
-SDHC1_DS_PMUX=2
 SDHC1_DIR_PMUX=3
+SDHC1_DS_PMUX=2
 SDHC1_BASE_PMUX=3
 USB3_CLK_FSEL=39
 SRDS_PLL_PD_PLL5=1
-SRDS_PRTCL_S1=22
+SRDS_PRTCL_S1=18
 SRDS_PRTCL_S2=14
-SRDS_PRTCL_S3=3
+SRDS_PRTCL_S3=2
 SRDS_PLL_REF_CLK_SEL_S1=2
 SRDS_DIV_PEX_S1=1
 SRDS_DIV_PEX_S2=1
@@ -56,12 +58,11 @@ EVT20_PMUX=1
 #include <../la1224si/a009531_PEX3.rcw>
 #include <../la1224si/a009531_PEX4.rcw>
 #include <../la1224si/a009531_PEX5.rcw>
-#include <../la1224si/a009531_PEX6.rcw>
-#include <../la1224si/a009531_PEX2.rcw>
 
 /*PCIe Errata A-008851*/
 #include <../la1224si/a008851_PEX3_LA1224_X2.rcw>
 #include <../la1224si/a008851_PEX4_LA1224_X2.rcw>
-#include <../la1224si/a008851_PEX5_LA1224_X4.rcw>
-#include <../la1224si/a008851_PEX6_LA1224_X4.rcw>
-#include <../la1224si/a008851_PEX2_LA1224_X2.rcw>
+#include <../la1224si/a008851_PEX5_LA1224_X8.rcw>
+
+/* Serdes lane equalization settings for 25G */
+#include <../la1224si/25g_eq_s1_lane_f.rcw>
