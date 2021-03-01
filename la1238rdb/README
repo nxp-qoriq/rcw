@@ -1,4 +1,4 @@
-LA1238MB supports 2 serdes, devided into 4 slots.
+LA1238-RDB supports 2 serdes, devided into 4 slots.
 And slot 2 of serdes block 1 is also disabled.
 
 The RCW directories names for the LA1238MB board conform to the following
