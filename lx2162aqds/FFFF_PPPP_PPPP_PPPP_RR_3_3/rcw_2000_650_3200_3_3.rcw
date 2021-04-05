@@ -1,0 +1,72 @@
+/*
+ * SerDes Protocol 1 -  3
+ * SerDes Protocol 2 -  3
+ *
+ * Frequencies:
+ * Core     -- 2000 MHz
+ * Platform -- 650  MHz
+ * DDR      -- 3200 MT/s
+ */
+
+#include <../lx2160asi/lx2160a.rcwi>
+
+SYS_PLL_RAT=13
+MEM_PLL_CFG=3
+MEM_PLL_RAT=32
+MEM2_PLL_CFG=3
+MEM2_PLL_RAT=32
+CGA_PLL1_RAT=20
+CGA_PLL2_RAT=20
+CGB_PLL1_RAT=20
+CGB_PLL2_RAT=8
+HWA_CGA_M1_CLK_SEL=1
+HWA_CGB_M1_CLK_SEL=6
+BOOT_LOC=26
+SYSCLK_FREQ=600
+IIC2_PMUX=6
+IIC3_PMUX=2
+IIC4_PMUX=2
+USB3_CLK_FSEL=39
+SRDS_PLL_PD_PLL1=1
+SRDS_PLL_PD_PLL5=1
+SRDS_PLL_PD_PLL6=1
+SRDS_PRTCL_S1=3
+SRDS_PRTCL_S2=3
+SRDS_REFCLKF_DIS_S3=1
+SRDS_PLL_REF_CLK_SEL_S1=2
+SRDS_INTRA_REF_CLK_S1=1
+SRDS_DIV_PEX_S1=1
+SRDS_DIV_PEX_S2=1
+
+/* Errata to write on scratch reg for validation */
+#include <../lx2160asi/scratchrw1.rcw>
+
+/* Modify FlexSPI Clock Divisor value */
+#include <../lx2160asi/flexspi_divisor_28.rcw>
+
+/* common PBI commands */
+#include <../lx2160asi/common.rcw>
+
+/*PCIe Errata A-009531*/
+#include <../lx2160asi/a009531_PEX3.rcw>
+#include <../lx2160asi/a009531_PEX4.rcw>
+
+/*PCIe Errata A-008851*/
+#include <../lx2160asi/a008851_PEX3.rcw>
+#include <../lx2160asi/a008851_PEX4.rcw>
+
+/*SerDes Errata A-050479*/
+#include <../lx2160asi/a050479_PEX3.rcw>
+#include <../lx2160asi/a050479_PEX4.rcw>
+
+/* PEX2 clock disable*/
+#include <disable_pci2_5_6.rcw>
+
+/* USB2 clock disable*/
+#include <disable_usb2.rcw>
+
+/* MAC7 to MAC10 clock disable*/
+#include <disable_mac7_10.rcw>
+
+/* DDR2 clock disable*/
+#include <disable_ddr2.rcw>
