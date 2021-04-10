@@ -1,0 +1,158 @@
+/*
+ * LS1046AINVS RCW for SerDes Protocol 0x2233_5577
+ *
+ * 5G configuration -- 2 2.5G-SGMII + 2 PCIe
+ *
+ * Frequencies:
+ *
+ * Differential Sys Clock: 100 MHz
+ *
+ * Core		-- 1800 MHz (Mul 16)
+ * Platform	-- 700 MHz (Mul 7)
+ * DDR		-- 2100 MT/s (Mul 21)
+ * FMan		-- 800 MHz (CGA2 /2)
+ * QSGMII	-- 100 MHz (5G)
+ * PCIE		-- 100 MHz (5G)
+ * eSDHC	-- 1400 MHz (CGA2 /1)
+ *
+ * Hardware Accelerator Block Cluster Group A Mux Clock:
+ *   FMan        - HWA_CGA_M1_CLK_SEL = 6 - Async mode, CGA PLL 2 /2 is clock
+ *   eSDHC, QSPI - HWA_CGA_M2_CLK_SEL = 1 - Async mode, CGA PLL 2 /1 is clock
+ *
+ * Serdes Lanes vs Slot information
+ *  Serdes1 Lane 0 (D) - 2.5G SGMII
+ *  Serdes1 Lane 1 (C) - 2.5G SGMII
+ *  Serdes1 Lane 2 (B) - Unused
+ *  Serdes1 Lane 3 (A) - Unused
+ *
+ *  Serdes2 Lane 0 (A) - PCIe1 x1 Gen3
+ *  Serdes2 Lane 1 (B) - Unused
+ *  Serdes2 Lane 2 (C) - PCIe3 x2 Gen3
+ *  Serdes2 Lane 3 (D) - PCIe3 x2 Gen3
+ *
+ * PLL mapping: 2211_1111
+ *
+ * Serdes 1:
+ *  PLL mapping: 2211
+ *
+ *  SRDS_PLL_REF_CLK_SEL_S1 : 0b'01
+ *    SerDes 1, PLL1[160] : 0 - 100MHz for SGMII
+ *    SerDes 1, PLL2[161] : 1 - 100MHz for 2.5G SGMII
+ *  SRDS_PLL_PD_S1 : 0b'0
+ *    SerDes 1, PLL1 : 1 - power down
+ *    SerDes 1, PLL2 : 0 - not power down
+ *  HWA_CGA_M1_CLK_SEL[224-226] : 6 - Cluster Group A PLL 2 /2 to FMan
+ *
+ * Serdes 2:
+ *  PLL mapping: 1111
+ *  SRDS_PLL_REF_CLK_SEL_S2 : 0b'00
+ *    SerDes 2, PLL1[162] : 0 - 100MHz for PCIe
+ *    SerDes 2, PLL2[163] : 0 - 100MHz for PCIe
+ *  SRDS_PLL_PD_S2 : 0b'00
+ *    SerDes 2, PLL1 : 0 - not power down
+ *    SerDes 2, PLL2 : 1 - power down
+ *  SRDS_DIV_PEX_S2 : 0b'00
+ *    00 - train up to max rate of 8G
+ *    01 - train up to max rate of 5G
+ *    10 - train up to max rate of 2.5G
+ *
+ *
+ * DDR clock:
+ * DDR_REFCLK_SEL : 1 - DDRCLK pin provides the reference clock to the DDR PLL
+ *
+ */
+
+#include <../ls1046ardb/ls1046a.rcwi>
+
+SYS_PLL_CFG=0
+SYS_PLL_RAT=7
+MEM_PLL_CFG=0
+MEM_PLL_RAT=21
+CGA_PLL1_CFG=0
+CGA_PLL1_RAT=18
+CGA_PLL2_CFG=0
+CGA_PLL2_RAT=16
+C1_PLL_SEL=0
+SRDS_PRTCL_S1=8755
+SRDS_PRTCL_S2=21879
+SRDS_PLL_REF_CLK_SEL_S1=0
+SRDS_PLL_REF_CLK_SEL_S2=0
+SRDS_PLL_PD_S1=2
+SRDS_PLL_PD_S2=0
+SRDS_DIV_PEX_S1=0
+SRDS_DIV_PEX_S2=0
+DDR_REFCLK_SEL=1
+SRDS_REFCLK_SEL_S1=0
+SRDS_REFCLK_SEL_S2=1
+DDR_FDBK_MULT=2
+PBI_SRC=6
+BOOT_HO=0
+SB_EN=0
+IFC_MODE=64
+HWA_CGA_M1_CLK_SEL=6
+DRAM_LAT=1
+DDR_RATE=0
+DDR_RSV0=0
+SYS_PLL_SPD=0
+MEM_PLL_SPD=0
+CGA_PLL1_SPD=0
+CGA_PLL2_SPD=0
+HOST_AGT_PEX=0
+GP_INFO=0
+UART_EXT=0
+IRQ_EXT=0
+SPI_EXT=0
+SDHC_EXT=0
+UART_BASE=4
+ASLEEP=0
+RTC=0
+SDHC_BASE=0
+IRQ_OUT=1
+IRQ_BASE=0
+SPI_BASE=0
+IFC_GRP_A_EXT=1
+IFC_GRP_D_EXT=0
+IFC_GRP_E1_EXT=0
+IFC_GRP_F_EXT=1
+IFC_GRP_E1_BASE=1
+IFC_GRP_D_BASE=1
+IFC_GRP_A_BASE=1
+IFC_A_22_24=0
+EC1=1
+EC2=1
+LVDD_VSEL=0
+EM1=0
+EM2=0
+EMI2_DMODE=0
+EMI2_CMODE=0
+USB_DRVVBUS=0
+USB_PWRFAULT=0
+TVDD_VSEL=0
+DVDD_VSEL=2
+EMI1_DMODE=0
+EVDD_VSEL=2
+IIC2_BASE=0
+EMI1_CMODE=0
+IIC2_EXT=1
+SYSCLK_FREQ=600
+HWA_CGA_M2_CLK_SEL=1
+
+.pbi
+// QSPI flash clock
+write 0x570600, 0x00000000
+write 0x570604, 0x10000000
+.end
+
+#include <../ls1046ardb/cci_barrier_disable.rcw>
+#include <../ls1046ardb/usb_phy_freq.rcw>
+#include <../ls1046ardb/pex_gen3_link.rcw>
+
+.pbi
+// Alt base register
+write 0x570158, 0x00001000
+.end
+
+.pbi
+// flush PBI data
+write 0x6100c0, 0x000fffff
+.end
