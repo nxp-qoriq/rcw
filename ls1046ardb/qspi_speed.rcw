@@ -11,12 +11,12 @@
  * 0000 Divide by 256
  * 0001 Divide by 64 (default) as per RM
  * 0010 Divide by 32
- * 0011 Divide by 24 (set to this now)
+ * 0011 Divide by 24
  * 0100 Divide by 20
  * 0101 Divide by 16
  * 0110 Divide by 12
  * 0111 Divide by 8
  */
 .pbi
-write 0x57015C, 0x30100000
+write 0x57015C, 0x20100000
 .end
