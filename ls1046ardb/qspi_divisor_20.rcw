@@ -1,0 +1,37 @@
+/* Increase the QSPI controller speed, rather than using default speed
+ *
+ * The QuadSPI configuration register contains the bits for QuadSPI configuration. This
+ * register is reset at HRESET.
+ * Address: 157_0000h base + 15Ch offset = 157_015Ch.
+ * boot from hardwareROM/bootROM will happen at default speed, but once QSPI driver is init
+ * increased speed can be observed.
+ *
+ * Top 4-bits are for CLK_SEL
+ * These bits control the division of CGA1/CGA2 PLL clock to generate QuadSPI interface clocks.
+ * 0000 Divide by 256
+ * 0001 Divide by 64 (default) as per RM
+ * 0010 Divide by 32
+ * 0011 Divide by 24
+ * 0100 Divide by 20 (set to this now)
+ * 0101 Divide by 16
+ * 0110 Divide by 12
+ * 0111 Divide by 8
+ *
+ * ----------------------------------------------
+ * |Core Freq(Mhz)	| QSPI Freq(with divisor 20)|
+ * ----------------------------------------------
+ * |          800	|		40Mhz				|
+ * ----------------------------------------------
+ * |          1200	|		60Mhz				|
+ * ----------------------------------------------
+ * |          1400	|		70Mhz				|
+ * ----------------------------------------------
+ * |          1600	|		80Mhz				|
+ * ----------------------------------------------
+ * |          1800	|		90Mhz				|
+ * ----------------------------------------------
+ */
+
+.pbi
+write 0x57015C, 0x40100000
+.end

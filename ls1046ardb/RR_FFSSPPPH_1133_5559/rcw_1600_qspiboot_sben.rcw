@@ -105,7 +105,9 @@ HWA_CGA_M2_CLK_SEL=1
 write 0xee0200, 0x406c0000
 .end
 
-#include <qspi_speed.rcw>
+/* Modify QSPI flash clock divisor */
+#include <qspi_divisor_32.rcw>
+
 #include <cci_barrier_disable.rcw>
 #include <usb_phy_freq.rcw>
 #include <serdes_sata.rcw>

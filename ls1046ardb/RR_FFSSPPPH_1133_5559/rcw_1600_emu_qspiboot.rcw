@@ -99,11 +99,12 @@ SYSCLK_FREQ=600
 HWA_CGA_M2_CLK_SEL=1
 
 .pbi
-// QSPI flash clock
-write 0x57015c, 0x20100000
 write 0x570600, 0x00000000
 write 0x570604, 0x40100000
 .end
+
+/* Modify QSPI flash clock divisor */
+#include <qspi_divisor_32.rcw>
 
 #include <cci_barrier_disable.rcw>
 #include <usb_phy_freq.rcw>
