@@ -53,4 +53,4 @@ SRDS_DIV_PEX_S3=1
 #include <../lx2160asi/common.rcw>
 
 /* Disable Peripherals */
-#include <disable_usb2_sata.rcw>
+#include <disable_sata.rcw>
