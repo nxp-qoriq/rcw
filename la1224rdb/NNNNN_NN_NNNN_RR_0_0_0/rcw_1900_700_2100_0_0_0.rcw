@@ -9,7 +9,7 @@
  * DDR      -- 2100 MT/s
  */
 
-#include <../la1224si/lx2160a.rcwi>
+#include <../lx2160asi/lx2160a.rcwi>
 
 SYS_PLL_RAT=14
 MEM_PLL_CFG=3
@@ -42,11 +42,11 @@ SRDS_DIV_PEX_S2=1
 SRDS_DIV_PEX_S3=1
 
 /* Errata to write on scratch reg for validation */
-#include <../la1224si/scratchrw1.rcw>
+#include <../lx2160asi/scratchrw1.rcw>
 
 
 /* Modify FlexSPI Clock Divisor value */
-#include <../la1224si/flexspi_divisor_24.rcw>
+#include <../lx2160asi/flexspi_divisor_24.rcw>
 
 /* common PBI commands */
-#include <../la1224si/common.rcw>
+#include <../lx2160asi/common.rcw>

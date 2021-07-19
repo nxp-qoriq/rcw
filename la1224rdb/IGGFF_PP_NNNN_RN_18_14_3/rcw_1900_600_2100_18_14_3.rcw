@@ -9,7 +9,7 @@
  * DDR      -- 2100 MT/s
  */
 
-#include <../la1224si/lx2160a.rcwi>
+#include <../lx2160asi/lx2160a.rcwi>
 
 SYS_PLL_RAT=12
 MEM_PLL_CFG=3
@@ -42,25 +42,25 @@ EVT43_PMUX=1
 EVT20_PMUX=1
 
 /* Errata to write on scratch reg for validation */
-#include <../la1224si/scratchrw1.rcw>
+#include <../lx2160asi/scratchrw1.rcw>
 
 /* Modify FlexSPI Clock Divisor value */
-#include <../la1224si/flexspi_divisor_24.rcw>
+#include <../lx2160asi/flexspi_divisor_24.rcw>
 
 /* common PBI commands */
-#include <../la1224si/common.rcw>
+#include <../lx2160asi/common.rcw>
 
 /*PCIe Errata A-009531*/
-#include <../la1224si/a009531_PEX3.rcw>
-#include <../la1224si/a009531_PEX4.rcw>
-#include <../la1224si/a009531_PEX5.rcw>
-#include <../la1224si/a009531_PEX6.rcw>
+#include <../lx2160asi/a009531_PEX3.rcw>
+#include <../lx2160asi/a009531_PEX4.rcw>
+#include <../lx2160asi/a009531_PEX5.rcw>
+#include <../lx2160asi/a009531_PEX6.rcw>
 
 /*PCIe Errata A-008851*/
-#include <../la1224si/a008851_PEX3_LA1224_X2.rcw>
-#include <../la1224si/a008851_PEX4_LA1224_X2.rcw>
-#include <../la1224si/a008851_PEX5_LA1224_X4.rcw>
-#include <../la1224si/a008851_PEX6_LA1224_X4.rcw>
+#include <../lx2160asi/a008851_PEX3_LA1224_X2.rcw>
+#include <../lx2160asi/a008851_PEX4_LA1224_X2.rcw>
+#include <../lx2160asi/a008851_PEX5_LA1224_X4.rcw>
+#include <../lx2160asi/a008851_PEX6.rcw>
 
 /* Serdes lane equalization settings for 25G */
-#include <../la1224si/25g_eq_s1_lane_f_la1224.rcw>
+#include <../lx2160asi/25g_eq_s1_lane_f_la1224.rcw>
