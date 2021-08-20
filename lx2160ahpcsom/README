@@ -1,0 +1,96 @@
+The RCW directories names for the LX2160A HPCSOM board conform to the following
+naming convention:
+
+abcdefgh_ijklmnop_RR_q_r_s:
+
+a = What is available on Serdes1 Lane0
+b = What is available on Serdes1 Lane1
+c = What is available on Serdes1 Lane2
+d = What is available on Serdes1 Lane3
+e = What is available on Serdes1 Lane4
+f = What is available on Serdes1 Lane5
+g = What is available on Serdes1 Lane6
+h = What is available on Serdes1 Lane7
+
+i = What is available on Serdes2 Lane0
+j = What is available on Serdes2 Lane1
+k = What is available on Serdes2 Lane2
+l = What is available on Serdes2 Lane3
+m = What is available on Serdes2 Lane4
+n = What is available on Serdes2 Lane5
+o = What is available on Serdes2 Lane6
+p = What is available on Serdes2 Lane7
+
+Serdes3 is unused.
+
+For Serdes lanes (a..p):
+ 'N' is NULL, not available/not used
+ 'H' is SATA
+ 'S' is SGMII
+ 'P' is PCIe
+ 'F' is XFI
+ 'I' is 4 XFI (40G ports used as 4*10G)
+ 'G' is 25G
+ 'L' is 50G
+ 'X' is 40G
+ 'C' is 100G
+
+RGMII Interface (R):
+  'R' is RGMII Interface 1G
+
+Serdes1 protocol (q) in decimal:
+q = 'serdes1 protocol value'
+
+Serdes2 protocol (r):
+r = 'serdes2 protocol value'
+
+Serdes3 protocol (s):
+s = 'serdes3 protocol value'
+
+Ref clock setting on board
+==========================
+DDR Ref clock: 100 MHz
+Sys PLL Ref clock: 100MHz
+
+Files naming convention
+=============================
+rcw_x_q_r_s.rcw
+rcw_x_q_r_s_bootmode.rcw
+rcw_x_y_q_r_s.rcw
+rcw_x_y_z_q_r_s.rcw
+
+x = Core frequency
+y = Platform frequency
+z = DDR frequency
+bootmode = emmc(default)/sd
+q = 'serdes1 protocol value'
+r = 'serdes2 protocol value'
+s = 'serdes3 protocol value'
+
+For example,
+  rcw_2000_1_10_0.rcw means rcw for core frequency of 2000MHz, with serdes1=1 serdes2=10 serdes3=0.
+  rcw_2000_700_1_10_0.rcw means rcw for core frequency 2000MHz and Platform frequecny 700MHz, with serdes1=1 serdes2=10 serdes3=0.
+  rcw_2000_700_2400_1_10_0.rcw means rcw for core frequency 2000MHz, Platform frequecny 700MHz and DDR Memory Data Rate as 2400 MT/s, with serdes1=1 serdes2=10 serdes3=0.
+  rcw_2000_1_10_0_sd.rcw means rcw for core frequency of 2000MHz with SD boot, with serdes1=1 serdes2=10 serdes3=0.
+
+Errata Workaround Implemented
+=============================
+A-009531:
+  The PCI Express controller as the completer sends completion packets with IDO
+  bit set in packet header even when the IDO Completion Enable bit is cleared in
+  the controller’s Device Control 2 Register.
+  Applicable for SNP PCIe controller
+
+A-008851:
+  Invalid transmitter/receiver preset values are used in Gen3 equalization
+  phases during link training for RC mode
+  This errata is valid only for PCI gen3.
+  Workaround:
+   write 0x00000001 to MISC_CONTROL_1_OFF
+   write 0x4747 to Lane Equalization Control register for each lane
+  Applicable for SNP PCIe controller
+
+A-050479:
+  Link Training fails during the Speed-Switch
+  Workaround:
+   Please program bit 31 of PEX*CR8 to 1'b0 for all PEXs
