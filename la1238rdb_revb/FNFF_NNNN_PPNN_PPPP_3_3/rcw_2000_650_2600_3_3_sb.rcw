@@ -20,10 +20,11 @@ CGB_PLL2_RAT=8
 HWA_CGB_M1_CLK_SEL=6
 SB_EN=1
 SYSCLK_FREQ=600
+IIC2_PMUX=6
 IIC4_PMUX=1
 IIC5_PMUX=3
 IIC6_PMUX=1
-SDHC1_BASE_PMUX=1
+SDHC1_BASE_PMUX=0
 SDHC1_DIR_PMUX=3
 UART1_RTSCTS_PMUX=2
 UART2_RTSCTS_PMUX=1
@@ -68,7 +69,7 @@ SRDS_DIV_PEX_S2=1
 
 #include <disable_usb_sata_dce.rcw>
 
-#include <disable_mac_1_2_4_6_to_18.rcw>
+#include <disable_mac_1_2_4_7_to_18.rcw>
 
 #include <disable_pci_1_2_5_6.rcw>
 
