@@ -63,3 +63,6 @@ EVT20_PMUX=1
 #include <../lx2160asi/a008851_PEX5_LA1224_X4.rcw>
 #include <../lx2160asi/a008851_PEX6.rcw>
 #include <../lx2160asi/a008851_PEX2_LA1224_X2.rcw>
+
+/*SerDes Errata A-050479*/
+#include <../lx2160asi/a050479.rcw>
