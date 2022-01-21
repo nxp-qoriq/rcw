@@ -1,0 +1,43 @@
+/*
+ * Work-around for erratum A-050479
+ *
+ * Problem: PCI Express link training may not be successful during speed change
+ *
+ * Description:
+ * According to the PCI Express base specification, the link training always
+ * starts at Gen1 speed. The speed change to the highest mutually-supported
+ * speed among both link partners happens immediately after a stable Gen1
+ * link is established.
+
+ * Due to this erratum, the default setting of some SerDes registers is not
+ * optimal and may cause unsuccessful speed change during the PCI Express link
+ * training. For example, if the highest mutually-supported speed among both
+ * link partners is Gen2, the speed change from Gen1 to Gen2 may not be
+ * successful during the link training. The Gen2 link may down-train to Gen1.
+ * The PCI Express controller’s Link Training and Status State Machine (LTSSM)
+ * may remain in the Recovery state for a long time.
+ * Sometimes the link may fail to train to Gen2 L0 (Link-up) state
+
+
+ * Impact:
+ * With the default value of some SerDes registers, the speed change of link
+ * training may not be successful with the PCI Express link partner.
+ *
+ * Workaround:
+ * Software must implement the following workaround during the Pre-boot
+ * Initialization (PBI) stage in order to ensure that the correct SerDes
+ * register settings are utilized for a successful PCI Express link training,
+ * which happens automatically after the de-assertion of the HRESET_B.
+ * Since the PCI Express controllers automatically utilize the settings from
+ * these SerDes registers during speed change, software can blindly write to
+ * these registers in all SerDes modules without negative impact.
+ */
+
+.pbi
+write 0x01ea1220,0x0800FA00
+write 0x01ea12a0,0x0800FA00
+write 0x01eb1220,0x0800FA00
+write 0x01eb12a0,0x0800FA00
+write 0x01ec1220,0x0800FA00
+write 0x01ec12a0,0x0800FA00
+.end

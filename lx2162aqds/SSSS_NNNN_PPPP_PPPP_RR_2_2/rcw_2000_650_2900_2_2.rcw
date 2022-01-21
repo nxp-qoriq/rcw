@@ -55,7 +55,7 @@ SRDS_DIV_PEX_S2=1
 #include <../lx2160asi/a008851_PEX3.rcw>
 
 /*SerDes Errata A-050479*/
-#include <../lx2160asi/a050479_PEX3.rcw>
+#include <../lx2160asi/a050479.rcw>
 
 /* PEX2,PEX5 and PEX6 clock disable*/
 #include <disable_pci2_5_6.rcw>
