@@ -56,7 +56,7 @@ HOST_AGT_PEX3=1
 #include <../lx2160asi/a008851_PEX3.rcw>
 
 /*SerDes Errata A-050479*/
-#include <../lx2160asi/a050479_PEX3.rcw>
+#include <../lx2160asi/a050479.rcw>
 
 /* 25G lane equalization settings */
 #include <25g_eq_s1_lane_h.rcw>
