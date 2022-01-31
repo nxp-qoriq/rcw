@@ -63,8 +63,7 @@ SRDS_DIV_PEX_S2=1
 #include <../lx2160asi/a008851_PEX4.rcw>
 
 /*SerDes Errata A-050479*/
-#include <../lx2160asi/a050479_PEX3.rcw>
-#include <../lx2160asi/a050479_PEX4.rcw>
+#include <../lx2160asi/a050479.rcw>
 
 #include <disable_usb_sata_dce.rcw>
 
