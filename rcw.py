@@ -2,7 +2,7 @@
 
 # rcw.py -- compiles an RCW source file into an PBL/RCW binary
 
-# Copyright 2017-2019 NXP
+# Copyright 2017-2019, 2022 NXP
 # Author: Timur Tabi <timur@freescale.com>
 # Further updates: Heinz Wrobel <Heinz.Wrobel@nxp.com>
 
@@ -285,9 +285,9 @@ def build_pbi(lines):
         endianess = "<"
 
     for l in lines:
-        # Check for an instruction without 0-2 parameters
+        # Check for an instruction without 0-3 parameters
         # The + ' ' is a hack to make the regex work for just 'flush'
-        m = re.match(r'\s*([a-z]+)(|\.b1|\.b2|\.b4|\.short|\.long)\s*(?<=\s)([^,]*),?([^,]*),?([^,]*),?([^,]*)', l.decode("ascii") + ' ')
+        m = re.match(r'\s*([a-z]+)(|\.b1|\.b2|\.b4|\.b5|\.short|\.long)\s*(?<=\s)([^,]*),?([^,]*),?([^,]*),?([^,]*),?([^,]*)', l.decode("ascii") + ' ')
         if not m:
             print('Unknown PBI subsection command "%s"' % l)
             return ''
@@ -301,10 +301,12 @@ def build_pbi(lines):
         p2 = m.group(4).strip()
         p3 = m.group(5).strip()
         p4 = m.group(6).strip()
+        p5 = m.group(7).strip()
         p1 = eval(p1, {"__builtins__":None}, {}) if len(p1) else None
         p2 = eval(p2, {"__builtins__":None}, {}) if len(p2) else None
         p3 = eval(p3, {"__builtins__":None}, {}) if len(p3) else None
         p4 = eval(p4, {"__builtins__":None}, {}) if len(p4) else None
+        p5 = eval(p5, {"__builtins__":None}, {}) if len(p5) else None
         if op == 'wait':
             if p1 == None:
                 print('Error: "wait" instruction requires one parameter')
@@ -329,16 +331,57 @@ def build_pbi(lines):
             subsection += v1
             subsection += v2
         elif op == 'awrite':
-            if p1 == None or p2 == None:
-                print('Error: "awrite" instruction requires two parameters')
-                return ''
-            if pbiformat == 2:
+            if opsize == '.b5':
+                # altconfig write with B=5 (16 bytes)
+                # write <v1>,<v2>,<v3>,<v4> to address starting <a>
+                opsizebytes = 5
+                if pbiformat != 2:
+                    print('Error: "awrite.b5" not support for old PBI format')
+                    return ''
+
+                if p1 == None or p2 == None or p3 == None or p4 == None or p5 == None:
+                    print('Error: "awrite.b5" instruction requires 5 parameters')
+                    return ''
+
                 v1 = struct.pack(endianess + 'L', 0x80000000 + (opsizebytes << 26) + p1)
+                v2 = struct.pack(endianess + 'L', p2)
+                v3 = struct.pack(endianess + 'L', p3)
+                v4 = struct.pack(endianess + 'L', p4)
+                v5 = struct.pack(endianess + 'L', p5)
+                subsection += v1
+                subsection += v2
+                subsection += v3
+                subsection += v4
+                subsection += v5
+            elif opsize == '.b4':
+                # altconfig write with B=4 (8 bytes)
+                # write <v1>,<v2> to address starting <a>
+                opsizebytes = 4
+                if pbiformat != 2:
+                    print('Error: "awrite.b4" not support for old PBI format')
+                    return ''
+
+                if p1 == None or p2 == None or p3 == None:
+                    print('Error: "awrite.b5" instruction requires 3 parameters')
+                    return ''
+
+                v1 = struct.pack(endianess + 'L', 0x80000000 + (opsizebytes << 26) + p1)
+                v2 = struct.pack(endianess + 'L', p2)
+                v3 = struct.pack(endianess + 'L', p3)
+                subsection += v1
+                subsection += v2
+                subsection += v3
             else:
-                v1 = struct.pack(endianess + 'L', 0x89000000 + p1)
-            v2 = struct.pack(endianess + 'L', p2)
-            subsection += v1
-            subsection += v2
+                if p1 == None or p2 == None:
+                    print('Error: "awrite" instruction requires two parameters')
+                    return ''
+                if pbiformat == 2:
+                    v1 = struct.pack(endianess + 'L', 0x80000000 + (opsizebytes << 26) + p1)
+                else:
+                    v1 = struct.pack(endianess + 'L', 0x89000000 + p1)
+                v2 = struct.pack(endianess + 'L', p2)
+                subsection += v1
+                subsection += v2
         elif op == 'poll':
             if pbiformat != 2:
                 print('Error: "poll" not support for old PBI format')
