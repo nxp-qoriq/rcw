@@ -78,3 +78,6 @@ SRDS_DIV_PEX_S2=1
 
 /* DDR2 clock disable*/
 #include <disable_ddr2.rcw>
+
+/* Errata A-050426 */
+#include <../lx2160asi/a050426.rcw>
