@@ -3,7 +3,7 @@
  *
  * Problem: After PORESET de-assertion, internal RAM first write or
  * read access corruption may occur
- * The internal RAM associated with FlexSPI, QDMA, FECA, and PCIe may fail
+ * The internal RAM associated with QDMA, FECA, and PCIe may fail
  * the first memory write or read access after completion of reset
  *
  * Workaround: PBI sequence is required after the boot sequence is completed
