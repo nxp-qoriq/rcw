@@ -811,7 +811,7 @@ def create_source():
     # After this stage, all the RCW bits should be formatted with lsb on
     # the right side and msb on the left side to permit conversion into
     # a very long uint.
-    bitstring = ''.join(['{0:08b}'.format(ord(x)) for x in bitbytes])[::-1]
+    bitstring = ''.join(['{0:08b}'.format(x) for x in bitbytes])[::-1]
     bits = int(bitstring, 2)
 
     # Loop over all the known symbols
