@@ -779,19 +779,19 @@ def create_source():
         if pbiformat == 2:
             if binary[0:4] == preambletst:
                 # Convert the binary into a large integer
-                rcw = binary[8:8 + (size / 8)]
+                rcw = binary[8:8 + (size // 8)]
                 bitbytes = rcw
                 # We skip the checksum field
-                pbi = binary[8 + (size / 8) + 4:]
+                pbi = binary[8 + (size // 8) + 4:]
             else:
                 print('Weird binary RCW format!')
                 bitbytes = ''
         else:
             if binary[0:4] == preambletst:
                 # Convert the binary into a large integer
-                rcw = binary[8:8 + (size / 8)]
+                rcw = binary[8:8 + (size // 8)]
                 bitbytes = rcw
-                pbi = binary[8 + (size / 8):]
+                pbi = binary[8 + (size // 8):]
             else:
                 print('Weird binary RCW format!')
                 bitbytes = ''
