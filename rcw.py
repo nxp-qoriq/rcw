@@ -855,7 +855,7 @@ def create_source():
         l = len(pbi)
         # Deal reasonably with broken PBIs with, e.g., an extra LF
         # at the end
-        pbi += "\0\0\0"
+        pbi += b"\0\0\0"
         l += 3;
         l &= ~3;
         source += "\n.pbi\n"
