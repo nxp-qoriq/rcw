@@ -33,6 +33,9 @@
  * DDR clock:
  * DDR_REFCLK_SEL : 1 - DDRCLK pin provides the reference clock to the DDR PLL
  *
+ * NAND Flash:
+ * IFC_MODE: 262 for 2K Page Size
+ * IFC_MODE: 280 for 4K Page Size
  */
 
 #include <../ls1043aqds/ls1043a.rcwi>
@@ -50,7 +53,7 @@ DDR_REFCLK_SEL=1
 PBI_SRC=14
 SB_EN=1
 BOOT_HO=1
-IFC_MODE=262
+IFC_MODE=280
 HWA_CGA_M1_CLK_SEL=6
 DRAM_LAT=1
 SYS_PLL_SPD=1
