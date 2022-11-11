@@ -60,3 +60,6 @@ SRDS_DIV_PEX_S2=3
 #include <../lx2160asi/25g_eq_s1_lane_f.rcw>
 #include <../lx2160asi/25g_eq_s1_lane_g.rcw>
 #include <../lx2160asi/25g_eq_s1_lane_h.rcw>
+
+/* Errata A-050426 */
+#include <../lx2160asi/a050426.rcw>

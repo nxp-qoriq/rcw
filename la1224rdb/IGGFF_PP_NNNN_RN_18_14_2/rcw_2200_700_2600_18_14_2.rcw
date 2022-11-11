@@ -67,3 +67,6 @@ EVT20_PMUX=1
 
 /*SerDes Errata A-050479*/
 #include <../lx2160asi/a050479.rcw>
+
+/* Errata A-050426 */
+#include <../lx2160asi/a050426.rcw>
