@@ -1,0 +1,86 @@
+The RCW directories names for the LA1224rdb boards confirm to the following
+naming convention:
+
+abcde_fg_hijk_RR_l_m_n:
+
+a = What is available on ethernet interface 1
+b = What is available on ethernet interface 2
+c = What is available on ethernet interface 3
+d = What is available on ethernet interface 4
+e = What is available on ethernet interface 5
+f = What is available in Slot 1 (on Serdes 2)
+g = What is available in Slot 2 (on Serdes 3)
+h = SATA1
+i = SATA2
+j = SATA3
+k = SATA4
+m=
+For the Slots (a..k):
+ 'N' is NULL, not available/not used
+ 'H' is SATA
+ 'S' is SGMII
+ 'P' is PCIe
+ 'F' is XFI
+ 'I' is 4 XFI (40G ports used as 4*10G)
+ 'G' is 25G
+
+RGMII Interface (R):
+  'R' is RGMII Interface 1G
+
+Serdes1 protocol (l) in decimal:
+l = 'serdes1 protocol value'
+
+Serdes2 protocol (m):
+m = 'serdes2 protocol value'
+
+Serdes3 protocol (n):
+n = 'serdes3 protocol value'
+
+Ref clock setting on board
+==========================
+DDR Ref clock: 100 MHz
+Sys PLL Ref clock: 100MHz
+
+Files naming convention
+=============================
+rcw_x_l_m_n.rcw
+rcw_x_l_m_n_bootmode.rcw
+rcw_x_y_l_m_n.rcw
+rcw_x_y_z_l_m_n.rcw
+
+x = Core frequency
+y = Platform frequency
+z = DDR frequency
+bootmode = nor(default)/sd
+l = 'serdes1 protocol value'
+m = 'serdes2 protocol value'
+n = 'serdes3 protocol value'
+
+For example,
+  rcw_1900_22_14_3.rcw means rcw for core frequency of 1900MHz, with serdes1=22 serdes2=14 serdes3=3.
+  rcw_1900_600_22_14_3.rcw means rcw for core frequency 1900MHz and Platform frequecny 600MHz, with serdes1=22 serdes2=14 serdes3=3.
+  rcw_1900_600_2100_22_14_3.rcw means rcw for core frequency 1900MHz, Platform frequecny 600MHz and DDR Memory Data Rate as 2100 MT/s, with serdes1=22 serdes2=14 serdes3=3.
+
+Errata Workaround Implemented
+=============================
+A-009531:
+  The PCI Express controller as the completer sends completion packets with IDO
+  bit set in packet header even when the IDO Completion Enable bit is cleared in
+  the controller’s Device Control 2 Register.
+  Applicable for SNP PCIe controller
+
+A-008851:
+  Invalid transmitter/receiver preset values are used in Gen3 equalization
+  phases during link training for RC mode
+  This errata is valid only for PCI gen3.
+  Workaround:
+   write 0x00000001 to MISC_CONTROL_1_OFF
+   write 0x4747 to Lane Equalization Control register for each lane
+  Applicable for SNP PCIe controller
+
+Added GPIO_1 PBI command:
+
+write 0x2300018,0x00000008 : Write on Input Enable buffer resgiter,enable GPIO_1[28] pin
+write 0x2300000,0x00000008 : Write on Direction register, output direction of GPIO_1[28] pin
+write 0x2300008,0x00000000 : Drive low value on data register of GPIO_1[28] pin
+
