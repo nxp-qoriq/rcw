@@ -1,0 +1,72 @@
+/*
+ * Change protocols on SerDes1 from 1133 to 3333, and their PLL mappings from
+ * 2211 to 1111. This is useful because, although the reset state machine has a
+ * native 0x3333 SerDes protocol option, the PLL mapping of that is 2222.
+ * This non-native option frees up PLL 2, and it can be provisioned e.g. with a
+ * 156.25 MHz for any lanes that might want to switch to XFI at runtime.
+ */
+#define SRDS_BASE		0xea0000 /* SerDes 1 relative to CCSR_BASE */
+#include <../serdes_10g.rcw>
+
+/* For writing outside the CCSR space (in DCSR), an indirect access method is
+ * used. The SCFG_ALTCBAR register (field ALTCFG) holds the upper 24 bits of
+ * the 48-bit address, and the awrite PBL instruction gets the lower 24 bits of
+ * the address that is relative to that. Here we work with 32-bit addresses,
+ * so we only care about the upper 8 bits.
+ */
+#define SCFG_ALTCBAR		0x570158
+#define ALTCFG(x)		(((x) << 8) & 0xffffff00)
+#define DCFG_DCSR_RCWCR5	0x20140110
+#define RCWCR5_SRDS_PRTCL_S1(x)	(((x) << 16) & 0xffff0000)
+#define RCWCR5_SRDS_PRTCL_S2(x)	((x) & 0xffff)
+#define upper_8_bits(x)		(((x) & 0xff000000) >> 24)
+#define lower_24_bits(x)	((x) & 0xffffff)
+
+#define GCR0_SGMII_FROM_PLL1	RPLL_LES(1) | RRAT_SEL(2) | \
+				TPLL_LES(1) | TRAT_SEL(2) | \
+				FIRST_LANE(1) | PROTS(1)
+
+.pbi
+write LNmGCR0(2), RRST_B(0) | TRST_B(0)
+write LNmGCR0(3), RRST_B(0) | TRST_B(0)
+
+wait 50
+
+write LNmGCR0(2), GCR0_SGMII_FROM_PLL1
+write LNmGCR0(3), GCR0_SGMII_FROM_PLL1
+
+write LNmGCR1(2), REIDL_TH(1) | REIDL_EX_SEL(3) | REIDL_ET_MSB(1) | \
+		  ISLEW_RCTL(1) | OSLEW_RCTL(1)
+write LNmGCR1(3), REIDL_TH(1) | REIDL_EX_SEL(3) | REIDL_ET_MSB(1) | \
+		  ISLEW_RCTL(1) | OSLEW_RCTL(1)
+
+write LNmRECR0(2), GK2OVD_EN(1) | GK2OVD(15) | GK3OVD_EN(1) | GK3OVD(15)
+write LNmRECR0(3), GK2OVD_EN(1) | GK2OVD(15) | GK3OVD_EN(1) | GK3OVD(15)
+
+write LNmTECR0(2), ADPT_EQ(48) | AMP_RED(6)
+write LNmTECR0(3), ADPT_EQ(48) | AMP_RED(6)
+
+/* LS1046A requires RCW override to reconfigure the mux between
+ * the PCS and the MAC.
+ */
+write SCFG_ALTCBAR, ALTCFG(upper_8_bits(DCFG_DCSR_RCWCR5))
+flush
+awrite lower_24_bits(DCFG_DCSR_RCWCR5), RCWCR5_SRDS_PRTCL_S1(0x3333) | \
+					RCWCR5_SRDS_PRTCL_S2(0x5559)
+
+/* PCCRB: 0x21000000 -> 0x00000000 */
+write PCCRB, XFIA_CFG(0) | XFIB_CFG(0)
+
+/* PCCR8: 0x11000000 -> 0x11110000 */
+write PCCR8, SGMIIA_CFG(1) | SGMIIB_CFG(1) | SGMIIC_CFG(1) | SGMIID_CFG(1)
+
+write SGMIIaCR1(2), SGMII_MDEV_PORT(0) | SGPCS_EN(1)
+write SGMIIaCR1(3), SGMII_MDEV_PORT(0) | SGPCS_EN(1)
+
+wait 120
+
+write LNmGCR0(2), GCR0_SGMII_FROM_PLL1 | RRST_B(1) | TRST_B(1)
+write LNmGCR0(3), GCR0_SGMII_FROM_PLL1 | RRST_B(1) | TRST_B(1)
+.end
+
+#undef SRDS_BASE
