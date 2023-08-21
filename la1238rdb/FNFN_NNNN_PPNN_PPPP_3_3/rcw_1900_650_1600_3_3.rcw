@@ -64,6 +64,9 @@ SRDS_DIV_PEX_S2=1
 /*SerDes Errata A-050479*/
 #include <../lx2160asi/a050479.rcw>
 
+/* Errata A-050426 */
+#include <../lx2160asi/a050426.rcw>
+
 #include <disable_usb_sata_dce.rcw>
 
 #include <disable_mac_1_2_4_6_to_18.rcw>
