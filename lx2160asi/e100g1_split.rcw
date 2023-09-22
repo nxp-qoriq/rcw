@@ -1,0 +1,68 @@
+/*
+ * Split the 100G MAC.1 into 4 x 25G MAC
+ *
+ * NOTICE: The DPC file must be updated as below in order for the MC firmware
+ * to pick up on the change.
+ *
+ * board_info {
+ *	serdes {
+ *		/* Do not rely on the RCW protocol number, but rather read
+ *		 * the protocol status registers (PSSR) for each SerDes
+ *		 * block. That information will be used to enable/disable
+ *		 * the appropriate MACs.
+ *		 */
+ *		follow_hw_pssr;
+ *	};
+ * };
+ */
+#define SRDS_BASE 0x1ea0000 /* SerDes 1 */
+#include <../serdes_28g.rcw>
+
+.pbi
+/* Issue a halt request on all the lanes (E-H) */
+write LNmTRSTCTL(4), T_HLT_REQ(1)
+write LNmRRSTCTL(4), R_HLT_REQ(1)
+
+write LNmTRSTCTL(5), T_HLT_REQ(1)
+write LNmRRSTCTL(5), R_HLT_REQ(1)
+
+write LNmTRSTCTL(6), T_HLT_REQ(1)
+write LNmRRSTCTL(6), R_HLT_REQ(1)
+
+write LNmTRSTCTL(7), T_HLT_REQ(1)
+write LNmRRSTCTL(7), R_HLT_REQ(1)
+
+wait 100
+
+/* Convert Lanes to be configured for 25G. Only the LNmGCR0 needs to be
+ * updated, all other per lane registers are the same between 25G and 100G.
+ */
+write LNmGCR0(4), PORT_RST_LEFT(0) | PORT_LN0_B(0) | PROTO_SEL(0x1A) | IF_WIDTH(0x4)
+write LNmGCR0(5), PORT_RST_LEFT(0) | PORT_LN0_B(0) | PROTO_SEL(0x1A) | IF_WIDTH(0x4)
+write LNmGCR0(6), PORT_RST_LEFT(0) | PORT_LN0_B(0) | PROTO_SEL(0x1A) | IF_WIDTH(0x4)
+write LNmGCR0(7), PORT_RST_LEFT(0) | PORT_LN0_B(0) | PROTO_SEL(0x1A) | IF_WIDTH(0x4)
+
+/* Configure the PCC registers */
+/* Only the 100G MAC.2 will remain enabled. PCCE: 0x00001100 -> 0x00000100 */
+write PCCE, E100GB_CFG(1)
+
+/* Enable the 25G protocol converters. PCCD: 0x00000000 -> 0x11110000 */
+write PCCD, E25GA_CFG(1) | E25GB_CFG(1) | E25GC_CFG(1) | E25GD_CFG(1)
+
+/* Issue a reset request on all the lanes (E-H) */
+write LNmTRSTCTL(4), T_RST_REQ(1)
+write LNmRRSTCTL(4), R_RST_REQ(1)
+
+write LNmTRSTCTL(5), T_RST_REQ(1)
+write LNmRRSTCTL(5), R_RST_REQ(1)
+
+write LNmTRSTCTL(6), T_RST_REQ(1)
+write LNmRRSTCTL(6), R_RST_REQ(1)
+
+write LNmTRSTCTL(7), T_RST_REQ(1)
+write LNmRRSTCTL(7), R_RST_REQ(1)
+
+wait 100
+.end
+
+#undef SRDS_BASE
