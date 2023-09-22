@@ -1,21 +1,13 @@
 /* Serdes lane equalization settings for 25G only applicable for serdes1 on lane A */
+#define SRDS_BASE 0x1ea0000 /* SerDes 1 */
+#include <../serdes_28g.rcw>
 
 .pbi
-write 0x01EA0828,0x00000000
+write LNmTGCR1(0), 0x00000000
+write LNmTECR0(0), 0x20828720
+write LNmRCCR0(0), 0x80000000
+write LNmRSCCR0(0), 0x00002020
+write LNmTTLCR0(0), 0x00008000
 .end
 
-.pbi
-write 0x01EA0830,0x20828720
-.end
-
-.pbi
-write 0x01EA0868,0x80000000
-.end
-
-.pbi
-write 0x01EA0874,0x00002020
-.end
-
-.pbi
-write 0x01EA0880,0x00008000
-.end
+#undef SRDS_BASE

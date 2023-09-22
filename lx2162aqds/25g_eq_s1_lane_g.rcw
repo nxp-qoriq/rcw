@@ -7,7 +7,11 @@
  * EQ_POST1Q   [12-8] =  00010 - ratio of 1.09 [1.00 .. 2.00]
  * EQ_AMP_RED   [5-0] = 100000 - 1.1 * full_amplitude
  */
+#define SRDS_BASE 0x1ea0000 /* SerDes 1 */
+#include <../serdes_28g.rcw>
 
 .pbi
-write 0x01EA0E30, 0x20818220
+write LNmTECR0(6), 0x20818220
 .end
+
+#undef SRDS_BASE

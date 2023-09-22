@@ -34,10 +34,23 @@
  */
 
 .pbi
-write 0x01ea1220,0x0800FA00
-write 0x01ea12a0,0x0800FA00
-write 0x01eb1220,0x0800FA00
-write 0x01eb12a0,0x0800FA00
-write 0x01ec1220,0x0800FA00
-write 0x01ec12a0,0x0800FA00
+
+#define SRDS_BASE 0x1ea0000 /* SerDes 1 */
+#include <../serdes_28g.rcw>
+write PEXaCR8(0), 0x0800FA00
+write PEXaCR8(2), 0x0800FA00
+#undef SRDS_BASE
+
+#define SRDS_BASE 0x1eb0000 /* SerDes 2 */
+#include <../serdes_28g.rcw>
+write PEXaCR8(0), 0x0800FA00
+write PEXaCR8(2), 0x0800FA00
+#undef SRDS_BASE
+
+#define SRDS_BASE 0x1ec0000 /* SerDes 3 */
+#include <../serdes_28g.rcw>
+write PEXaCR8(0), 0x0800FA00
+write PEXaCR8(2), 0x0800FA00
+#undef SRDS_BASE
+
 .end

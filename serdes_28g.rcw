@@ -1,0 +1,116 @@
+/*
+ * Registers for the Lynx 28G SerDes block.
+ *
+ * Must be included by an SoC-specific header that defines the
+ * SRDS_BASE value.
+ */
+
+#define LNmGCR0(m)		(SRDS_BASE + (0x100 * (m)) + 0x0800)
+#define  PORT_RST_LEFT(x)	(((x) << 17) & 0x00020000)
+#define  PORT_LN0_B(x)		(((x) << 16) & 0x00010000)
+#define  PROTO_SEL(x)		(((x) << 3) & 0x000000F8)
+#define  IF_WIDTH(x)		((x) & 0x00000007)
+
+#define LNmTRSTCTL(m)		(SRDS_BASE + (0x100 * (m)) + 0x0820)
+#define  T_RST_REQ(x)		(((x) << 31) & 0x80000000)
+#define  T_HLT_REQ(x)		(((x) << 27) & 0x08000000)
+
+#define LNmTGCR0(m)		(SRDS_BASE + (0x100 * (m)) + 0x0824)
+#define LNmTGCR1(m)		(SRDS_BASE + (0x100 * (m)) + 0x0828)
+#define LNmTGCR2(m)		(SRDS_BASE + (0x100 * (m)) + 0x082c)
+#define LNmTECR0(m)		(SRDS_BASE + (0x100 * (m)) + 0x0830)
+#define LNmTECR1(m)		(SRDS_BASE + (0x100 * (m)) + 0x0834)
+
+#define LNmRRSTCTL(m)		(SRDS_BASE + (0x100 * (m)) + 0x0840)
+#define  R_RST_REQ(x)		(((x) << 31) & 0x80000000)
+#define  R_HLT_REQ(x)		(((x) << 27) & 0x08000000)
+
+#define LNmRGCR0(m)		(SRDS_BASE + (0x100 * (m)) + 0x0844)
+#define LNmRGCR1(m)		(SRDS_BASE + (0x100 * (m)) + 0x0848)
+
+#define LNmRECR0(m)		(SRDS_BASE + (0x100 * (m)) + 0x0850)
+#define LNmRECR1(m)		(SRDS_BASE + (0x100 * (m)) + 0x0854)
+#define LNmRECR2(m)		(SRDS_BASE + (0x100 * (m)) + 0x0858)
+#define LNmRECR3(m)		(SRDS_BASE + (0x100 * (m)) + 0x085C)
+#define LNmRECR4(m)		(SRDS_BASE + (0x100 * (m)) + 0x0860)
+
+#define LNmRCCR0(m)		(SRDS_BASE + (0x100 * (m)) + 0x0868)
+#define LNmRCCR1(m)		(SRDS_BASE + (0x100 * (m)) + 0x086c)
+#define LNmRCPCR0(m)		(SRDS_BASE + (0x100 * (m)) + 0x0870)
+#define LNmRSCCR0(m)		(SRDS_BASE + (0x100 * (m)) + 0x0874)
+#define LNmRSCCR1(m)		(SRDS_BASE + (0x100 * (m)) + 0x0878)
+
+#define LNmTTLCR0(m)		(SRDS_BASE + (0x100 * (m)) + 0x0880)
+
+#define LNmTCSR0(m)		(SRDS_BASE + (0x100 * (m)) + 0x08a0)
+#define LNmTCSR1(m)		(SRDS_BASE + (0x100 * (m)) + 0x08a4)
+#define LNmTCSR2(m)		(SRDS_BASE + (0x100 * (m)) + 0x08a8)
+
+#define LNmRXSS0(m)		(SRDS_BASE + (0x100 * (m)) + 0x08d0)
+#define LNmRXSS1(m)		(SRDS_BASE + (0x100 * (m)) + 0x08d4)
+#define LNmTXSS0(m)		(SRDS_BASE + (0x100 * (m)) + 0x08f0)
+#define LNmTXSS1(m)		(SRDS_BASE + (0x100 * (m)) + 0x08f4)
+
+/* PCC0 - PCIe protocol configuration */
+#define PCC0			(SRDS_BASE + 0x1080)
+
+/* PCC - SGMII/1000Base-X protocol configuration */
+#define PCC8			(SRDS_BASE + 0x10A0)
+
+/* PCCD contains the protocol configuration for SXGMII/XFI */
+#define PCCC			(SRDS_BASE + 0x10B0)
+
+/* PCCD contains the protocol configuration for E25G */
+#define PCCD			(SRDS_BASE + 0x10B4)
+#define  E25GA_CFG(x)		(((x) << 28) & 0x70000000)
+#define  E25GB_CFG(x)		(((x) << 24) & 0x07000000)
+#define  E25GC_CFG(x)		(((x) << 20) & 0x00700000)
+#define  E25GD_CFG(x)		(((x) << 16) & 0x00070000)
+#define  E25GE_CFG(x)		(((x) << 12) & 0x00007000)
+#define  E25GF_CFG(x)		(((x) << 8) & 0x00000700)
+#define  E25GG_CFG(x)		(((x) << 4) & 0x00000070)
+#define  E25GH_CFG(x)		((x) & 0x00000007)
+
+/* PCCE contains the protocol configuration for E40G, E50G and E100G */
+#define PCCE			(SRDS_BASE + 0x10B8)
+#define  E100GB_CFG(x)		(((x) << 8) & 0x00000700)
+#define  E100GA_CFG(x)		(((x) << 12) & 0x000007000)
+
+#define PEXaCR0(a)		(SRDS_BASE + (0x40 * (a)) + 0x1200)
+
+#define PEXaCR1(a)		(SRDS_BASE + (0x40 * (a)) + 0x1204)
+
+#define PEXaCR2(a)		(SRDS_BASE + (0x40 * (a)) + 0x1208)
+
+#define PEXaCR3(a)		(SRDS_BASE + (0x40 * (a)) + 0x120c)
+
+#define PEXaCR4(a)		(SRDS_BASE + (0x40 * (a)) + 0x1210)
+
+#define PEXaCR5(a)		(SRDS_BASE + (0x40 * (a)) + 0x1214)
+
+#define PEXaCR6(a)		(SRDS_BASE + (0x40 * (a)) + 0x1218)
+
+#define PEXaCR7(a)		(SRDS_BASE + (0x40 * (a)) + 0x121c)
+
+#define PEXaCR8(a)		(SRDS_BASE + (0x40 * (a)) + 0x1220)
+
+#define PEXaCR9(a)		(SRDS_BASE + (0x40 * (a)) + 0x1224)
+
+#define PEXaCRA(a)		(SRDS_BASE + (0x40 * (a)) + 0x1228)
+
+#define PEXaCRB(a)		(SRDS_BASE + (0x40 * (a)) + 0x122c)
+
+#define PEXaCRC(a)		(SRDS_BASE + (0x40 * (a)) + 0x1230)
+
+#define PEXaCRD(a)		(SRDS_BASE + (0x40 * (a)) + 0x1234)
+
+#define PEXaCRE(a)		(SRDS_BASE + (0x40 * (a)) + 0x1238)
+
+#define PEXaCRF(a)		(SRDS_BASE + (0x40 * (a)) + 0x123c)
+
+#define SATAaCR0(a)		(SRDS_BASE + (0x10 * (a)) + 0x1300)
+
+#define SGMIIaCR1(a)		(SRDS_BASE + (0x10 * (a)) + 0x1804)
+#define  MDEV_PORT(x)		(((x) << 27) & 0xF8000000)
+#define  SGPCS_EN		0x00000800
+#define  SGMIICR1_MAGIC		0x000000BF

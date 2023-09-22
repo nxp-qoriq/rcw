@@ -4,6 +4,11 @@
  */
 
 .pbi
-write 0x1eb1300,0x80104e20
-write 0x1eb1310,0x80104e20
+
+#define SRDS_BASE 0x1eb0000 /* SerDes 2 */
+#include <../serdes_28g.rcw>
+write SATAaCR0(0), 0x80104e20
+write SATAaCR0(1), 0x80104e20
+#undef SRDS_BASE
+
 .end

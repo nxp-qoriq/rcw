@@ -4,30 +4,41 @@
  */
 
 .pbi
-write 0x1ea1200,0x20081004
-write 0x1ea1240,0x20081004
-write 0x1ea1280,0x20081004
-write 0x1ea12C0,0x20081004
-write 0x1ea1204,0x00081004
-write 0x1ea1244,0x00081004
-write 0x1ea1284,0x00081004
-write 0x1ea12C4,0x00081004
 
-write 0x1eb1200,0x20081004
-write 0x1eb1240,0x20081004
-write 0x1eb1280,0x20081004
-write 0x1eb12C0,0x20081004
-write 0x1eb1204,0x00081004
-write 0x1eb1244,0x00081004
-write 0x1eb1284,0x00081004
-write 0x1eb12C4,0x00081004
+#define SRDS_BASE 0x1ea0000 /* SerDes 1 */
+#include <../serdes_28g.rcw>
+write PEXaCR0(0), 0x20081004
+write PEXaCR0(1), 0x20081004
+write PEXaCR0(2), 0x20081004
+write PEXaCR0(3), 0x20081004
+write PEXaCR1(0), 0x00081004
+write PEXaCR1(1), 0x00081004
+write PEXaCR1(2), 0x00081004
+write PEXaCR1(3), 0x00081004
+#undef SRDS_BASE
 
-write 0x1ec1200,0x20081004
-write 0x1ec1240,0x20081004
-write 0x1ec1280,0x20081004
-write 0x1ec12C0,0x20081004
-write 0x1ec1204,0x00081004
-write 0x1ec1244,0x00081004
-write 0x1ec1284,0x00081004
-write 0x1ec12C4,0x00081004
+#define SRDS_BASE 0x1eb0000 /* SerDes 2 */
+#include <../serdes_28g.rcw>
+write PEXaCR0(0), 0x20081004
+write PEXaCR0(1), 0x20081004
+write PEXaCR0(2), 0x20081004
+write PEXaCR0(3), 0x20081004
+write PEXaCR1(0), 0x00081004
+write PEXaCR1(1), 0x00081004
+write PEXaCR1(2), 0x00081004
+write PEXaCR1(3), 0x00081004
+#undef SRDS_BASE
+
+#define SRDS_BASE 0x1ec0000 /* SerDes 3 */
+#include <../serdes_28g.rcw>
+write PEXaCR0(0), 0x20081004
+write PEXaCR0(1), 0x20081004
+write PEXaCR0(2), 0x20081004
+write PEXaCR0(3), 0x20081004
+write PEXaCR1(0), 0x00081004
+write PEXaCR1(1), 0x00081004
+write PEXaCR1(2), 0x00081004
+write PEXaCR1(3), 0x00081004
+#undef SRDS_BASE
+
 .end
