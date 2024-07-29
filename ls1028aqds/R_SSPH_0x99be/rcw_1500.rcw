@@ -46,3 +46,7 @@ SRDS_DIV_PEX_S1=1
 
 /* Errata for SATA controller */
 #include <../ls1028asi/a010554.rcw>
+
+/* Make all switch PCSes addressable on the MDIO bus */
+#include <../ls1028asi/switch_sgmii_pcs_mdev_port_lane_0.rcw>
+#include <../ls1028asi/switch_sgmii_pcs_mdev_port_lane_1.rcw>

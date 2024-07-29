@@ -1,0 +1,22 @@
+/*
+ * On LS1028A, the PCS blocks which go to the 4 external Ethernet switch ports
+ * are all located on the same internal MDIO bus of the switch. The SerDes
+ * SGMIIaCR1[MDEV_PORT] controls their address on the bus, and by default,
+ * it is zero for all devices. To make them individually addressable, we need
+ * to map the SGMII PCS of switch port i to MDIO address i.
+ *
+ * This is already the established convention in Linux drivers, which expect
+ * this mapping to have already been applied, as well as in U-Boot, which fixes
+ * up MDEV_PORT from within the switch driver to apply this mapping.
+ *
+ * This PBL sequence makes the U-Boot fixup optional / redundant.
+ */
+
+.pbi
+
+#define SRDS_BASE 0x01ea0000
+#include <../serdes_10g.rcw>
+write SGMIIaCR1(2), SGMII_MDEV_PORT(2) | SGPCS_EN(1)
+#undef SRDS_BASE
+
+.end

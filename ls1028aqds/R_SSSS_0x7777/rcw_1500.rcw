@@ -39,3 +39,9 @@ SRDS_PRTCL_S1_L1=7
 SRDS_PRTCL_S1_L2=7
 SRDS_PRTCL_S1_L3=7
 SRDS_PLL_REF_CLK_SEL_S1=1
+
+/* Make all switch PCSes addressable on the MDIO bus */
+#include <../ls1028asi/switch_sgmii_pcs_mdev_port_lane_0.rcw>
+#include <../ls1028asi/switch_sgmii_pcs_mdev_port_lane_1.rcw>
+#include <../ls1028asi/switch_sgmii_pcs_mdev_port_lane_2.rcw>
+#include <../ls1028asi/switch_sgmii_pcs_mdev_port_lane_3.rcw>

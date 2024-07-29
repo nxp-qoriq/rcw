@@ -42,3 +42,7 @@ SRDS_PRTCL_S1_L3=11
 /* Errata for PCIe controller */
 #include <../ls1028asi/a008851.rcw>
 #include <../ls1028asi/a010477.rcw>
+
+/* Make all switch PCSes addressable on the MDIO bus */
+#include <../ls1028asi/switch_sgmii_pcs_mdev_port_lane_1.rcw>
+#include <../ls1028asi/switch_sgmii_pcs_mdev_port_lane_2.rcw>

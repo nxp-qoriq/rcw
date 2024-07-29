@@ -46,3 +46,7 @@ SRDS_PRTCL_S1_L3=11
 
 /* Increase FSPI clock frequency */
 #include <../ls1028asi/fspi_speed.rcw>
+
+/* Make all switch PCSes addressable on the MDIO bus */
+#include <../ls1028asi/switch_sgmii_pcs_mdev_port_lane_1.rcw>
+#include <../ls1028asi/switch_sgmii_pcs_mdev_port_lane_2.rcw>
