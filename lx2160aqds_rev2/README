@@ -7,14 +7,14 @@ naming convention:
 abcd_efgh_ijkl_mnop_qrst_uvwx_RR_A_B_C:
 
 For Serdes1:
-a = What is available on serdes 1 slot 1, LANE 0
-b = What is available on serdes 1 slot 1, LANE 1
-c = What is available on serdes 1 slot 1, LANE 2
-d = What is available on serdes 1 slot 1, LANE 3
-e = What is available on serdes 1 slot 2, LANE 4
-f = What is available on serdes 1 slot 2, LANE 5
-g = What is available on serdes 1 slot 2, LANE 6
-h = What is available on serdes 1 slot 2, LANE 7
+a = What is available on serdes 1 slot 2, LANE 7
+b = What is available on serdes 1 slot 2, LANE 6
+c = What is available on serdes 1 slot 2, LANE 5
+d = What is available on serdes 1 slot 2, LANE 4
+e = What is available on serdes 1 slot 1, LANE 3
+f = What is available on serdes 1 slot 1, LANE 2
+g = What is available on serdes 1 slot 1, LANE 1
+h = What is available on serdes 1 slot 1, LANE 0
 
 For Serdes2:
 i = What is available on serdes 2 slot 3, LANE 0
