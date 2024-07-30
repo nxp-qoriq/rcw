@@ -1,9 +1,12 @@
-
 /*
  * Clear SerDes RxBoost on SD2 lane D
  */
+#define SRDS_BASE 0xeb0000 /* SerDes 2 relative to CCSR_BASE */
+#include <../serdes_10g.rcw>
 
 .pbi
-write 0xeb1300, 0x80104e20
-write 0xeb08dc, 0x00502880
+write SATAaCR0(0), 0x80104e20
+write LNmSSCR1(3), 0x00502880
 .end
+
+#undef SRDS_BASE

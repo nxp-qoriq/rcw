@@ -1,8 +1,11 @@
-
 /*
  * Clear SerDes RxBoost on lane D
  */
+#define SRDS_BASE 0xea0000
+#include <../serdes_10g.rcw> /* SerDes1 relative to CCSR_BASE */
 
 .pbi
-write 0xea08dc, 0x00502880
+write LNmSSCR1(3), 0x00502880
 .end
+
+#undef SRDS_BASE

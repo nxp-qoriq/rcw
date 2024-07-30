@@ -5,8 +5,12 @@
  * Disable PCIe1 controller, Enable PLL2 configuration, the PCIe2
  * will support up to PCIe Gen3.
  */
+#define SRDS_BASE 0x1ea0000
+#include <../serdes_10g.rcw>
 
 .pbi
 write 0x01e00078,0x00000001
-write 0x01ea08c0,0x11650000
+write LNmGCR0(3), 0x11650000
 .end
+
+#undef SRDS_BASE

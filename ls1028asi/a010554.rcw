@@ -7,7 +7,11 @@
  * Workaround: Either during PBI phase, or in software before enabling
  * the SATA controller, write value 0x80104e20 to address 0x1ea1300.
  */
+#define SRDS_BASE 0x1ea0000
+#include <../serdes_10g.rcw>
 
 .pbi
-write 0x01ea1300,0x80104e20
+write SATAaCR0(0), 0x80104e20
 .end
+
+#undef SRDS_BASE

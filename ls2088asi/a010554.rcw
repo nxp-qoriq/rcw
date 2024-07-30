@@ -2,8 +2,12 @@
  * SATA controller may fail to detect some hard drives
  * Workaround: Before enabling SATA controller perform below write operations
  */
+#define SRDS_BASE 0x1eb0000 /* SerDes 2 */
+#include <../serdes_10g.rcw>
 
 .pbi
-write 0x1eb1300,0x80104e20 
-write 0x1eb1310,0x80104e20 
+write SATAaCR0(0), 0x80104e20
+write SATAaCR0(1), 0x80104e20
 .end
+
+#undef SRDS_BASE
