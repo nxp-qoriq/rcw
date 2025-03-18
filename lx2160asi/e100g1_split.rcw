@@ -6,11 +6,10 @@
  *
  * board_info {
  *	serdes {
- *		/* Do not rely on the RCW protocol number, but rather read
- *		 * the protocol status registers (PSSR) for each SerDes
- *		 * block. That information will be used to enable/disable
- *		 * the appropriate MACs.
- *		 */
+ *		// Do not rely on the RCW protocol number, but rather read
+ *		// the protocol status registers (PSSR) for each SerDes
+ *		// block. That information will be used to enable/disable
+ *		// the appropriate MACs.
  *		follow_hw_pssr;
  *	};
  * };
