@@ -1,0 +1,35 @@
+{
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "spdxVersion": "SPDX-2.3",
+  "creationInfo": {
+    "created": "2026-04-15T07:17:52Z",
+    "creators": [
+      "Organization: NXP"
+    ],
+    "licenseListVersion": "3.26"
+  },
+  "name": "5G RCW-la12xx-sdk4.0",
+  "dataLicense": "CC0-1.0",
+  "documentNamespace": "https://nxp.com/spdx/94b83e03-20d9-4973-87b1-97a1d6e729f0",
+  "packages": [
+    {
+      "SPDXID": "SPDXRef-package-94b83e03-20d9-4973-87b1-97a1d6e729f0",
+      "name": "5G RCW",
+      "versionInfo": "la12xx-sdk4.0",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "originator": "Organization: 5G RCW",
+      "supplier": "NOASSERTION",
+      "externalRefs": [],
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-package-94b83e03-20d9-4973-87b1-97a1d6e729f0"
+    }
+  ]
+}
