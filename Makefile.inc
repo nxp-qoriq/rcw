@@ -2,7 +2,9 @@ DESTDIR = $(shell basename $(CURDIR))
 INSTALL = install
 PYTHON ?= python3
 RCW = $(PYTHON) ../rcw.py
-PREPROCESSOR := gcc -E -x c -P -I .
+RCW_CPPFLAGS ?=
+export RCW_CPPFLAGS
+PREPROCESSOR := gcc -E -x c -P -I . $(RCW_CPPFLAGS)
 .DEFAULT_GOAL := all
 
 define rcw-rule

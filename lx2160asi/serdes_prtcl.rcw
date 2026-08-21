@@ -46,6 +46,12 @@
  * the protocol is declared. On SerDes 2 the SATAa..SATAd sub-controller
  * indices 0..3 are the ones addressed by SATAaCR0(n) in serdes_28g.rcw.
  *
+ * TURNING THE TRIMMING OFF
+ *
+ *     make RCW_CPPFLAGS=-DRCW_ERRATA_NO_TRIM
+ *
+ * see ./check_errata_trim.sh
+ *
  * PCI EXPRESS CONTROLLER NUMBERING
  *
  * The RM tables label the PCIe lanes of each SerDes PEXa..PEXd, which
@@ -63,9 +69,36 @@
 #ifndef LX2160A_SERDES_PRTCL_RCW
 #define LX2160A_SERDES_PRTCL_RCW
 
+/*
+ * Test mode. The macros are left defined: the board assigns its
+ * SRDS_PRTCL_Sn fields from them below this include, so undefining
+ * them here would break the RCW, not just the trimming.
+ */
+#ifdef RCW_ERRATA_NO_TRIM
+#define SRDS_S1_DECLARED 0
+#define SRDS_S2_DECLARED 0
+#define SRDS_S3_DECLARED 0
+#else
+#ifdef SRDS_PRTCL_S1_VAL
+#define SRDS_S1_DECLARED 1
+#else
+#define SRDS_S1_DECLARED 0
+#endif
+#ifdef SRDS_PRTCL_S2_VAL
+#define SRDS_S2_DECLARED 1
+#else
+#define SRDS_S2_DECLARED 0
+#endif
+#ifdef SRDS_PRTCL_S3_VAL
+#define SRDS_S3_DECLARED 1
+#else
+#define SRDS_S3_DECLARED 0
+#endif
+#endif
+
 /* SerDes 1 */
 
-#ifdef SRDS_PRTCL_S1_VAL
+#if SRDS_S1_DECLARED
 #define SRDS_S1_KNOWN 1
 
 #if !(SRDS_PRTCL_S1_VAL == 0     || SRDS_PRTCL_S1_VAL == 1     || SRDS_PRTCL_S1_VAL == 2 || \
@@ -142,11 +175,11 @@
 #define SD1_SATAC 1
 #define SD1_SATAD 1
 
-#endif /* SRDS_PRTCL_S1_VAL */
+#endif /* SRDS_S1_DECLARED */
 
 /* SerDes 2 */
 
-#ifdef SRDS_PRTCL_S2_VAL
+#if SRDS_S2_DECLARED
 #define SRDS_S2_KNOWN 1
 
 #if !(SRDS_PRTCL_S2_VAL == 0     || SRDS_PRTCL_S2_VAL == 1     || SRDS_PRTCL_S2_VAL == 2 || \
@@ -224,11 +257,11 @@
 #define SD2_SATAC 1
 #define SD2_SATAD 1
 
-#endif /* SRDS_PRTCL_S2_VAL */
+#endif /* SRDS_S2_DECLARED */
 
 /* SerDes 3 */
 
-#ifdef SRDS_PRTCL_S3_VAL
+#if SRDS_S3_DECLARED
 #define SRDS_S3_KNOWN 1
 
 #if !(SRDS_PRTCL_S3_VAL == 0     || SRDS_PRTCL_S3_VAL == 2     || SRDS_PRTCL_S3_VAL == 3)
@@ -281,7 +314,7 @@
 #define SD3_SATAC 1
 #define SD3_SATAD 1
 
-#endif /* SRDS_PRTCL_S3_VAL */
+#endif /* SRDS_S3_DECLARED */
 
 /*
  * LX2162A

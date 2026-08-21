@@ -87,6 +87,7 @@ import binascii
 import itertools
 import subprocess
 
+import shlex
 from optparse import OptionParser, OptionGroup
 
 # An ordered dictionary.  This is like a normal dictionary, except that it's
@@ -561,6 +562,7 @@ def read_source_file(filename):
     if options.include:
         for x in options.include:
             i.extend(['-I', x])
+    i.extend(shlex.split(os.environ.get('RCW_CPPFLAGS', '')))
     p = subprocess.Popen(['gcc', '-E', '-x', 'c', '-P'] + i + [filename],
         shell=False, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     ret = p.communicate()
