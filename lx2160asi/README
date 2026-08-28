@@ -1,0 +1,109 @@
+Errata applied automatically
+============================
+
+A LX2160A / LX2162A board can include one file and it gets every
+work-around its silicon revision needs:
+
+    lx2160a_auto_errata.rcwi        LX2160A rev 1
+    lx2160a_rev2_auto_errata.rcwi   LX2160A rev 2
+    lx2162a_auto_errata.rcwi        LX2162A
+
+It replaces the #include of lx2160a.rcwi, so the board is not listing
+errata one #include at a time any more.
+
+Why
+---
+
+A board that names its errata by hand is only as complete as the day it
+was written. Boards live downstream for years: a work-around added
+upstream afterwards never reaches them and nothing says so.
+
+Using it
+--------
+
+Declare the SerDes protocols as macros, then include the catalog. This
+is lx2160ardb_rev2/XGGFF_PP_HHHH_RR_19_5_2/rcw_2000_700_2900_19_5_2.rcw
+in full:
+
+    /*
+     * SerDes Protocol 1 -  19
+     * SerDes Protocol 2 -  5
+     * SerDes Protocol 3 -  2
+     * ...
+     */
+
+    #define SRDS_PRTCL_S1_VAL 19
+    #define SRDS_PRTCL_S2_VAL 5
+    #define SRDS_PRTCL_S3_VAL 2
+
+    #include <../lx2160asi/lx2160a_rev2_auto_errata.rcwi>
+
+    SYS_PLL_RAT=14
+    ...
+    SRDS_PLL_REF_CLK_SEL_S1=2
+    ...
+
+    /* the board's own PBI, unchanged */
+    #include <../lx2160asi/scratchrw1.rcw>
+    #include <../lx2160asi/bootlocptr_nor.rcw>
+    #include <../lx2160asi/common.rcw>
+    #include <../lx2160asi/flexspi_divisor_28.rcw>
+
+The catalog assigns SRDS_PRTCL_S1, S2 and S3 from those macros, so a
+board states each protocol once and does not write the assignments
+itself. A SerDes the board leaves powered down is declared as protocol
+0. The LX2162A has no SerDes 3: SRDS_PRTCL_S3_VAL is not declared, and
+lx2162a_auto_errata.rcwi marks the controllers its missing lanes would
+have fed, PCIe2, PCIe5 and PCIe6, as absent whatever the protocols say.
+
+The include belongs at the top of the board file, where lx2160a.rcwi
+used to be, so the errata are now the first PBI the Service Processor
+executes rather than the last.
+
+What a board gets
+-----------------
+
+Only the writes its protocols justify. serdes_prtcl.rcw maps each
+protocol of RM tables 289, 290 and 291 to the PCI Express, SATA and
+Ethernet blocks it enables, and each erratum keeps the writes aimed at
+an enabled block. On the board above, protocols 19 / 5 / 2 put PCI
+Express lanes on PCIe3 and PCIe5 only and no XFI lane on SerDes 2, so
+a050479 and the a050426 scrub drop the other four controllers and the
+SerDes 2 XFI RAM, and the PBL goes from 3764 to 3156 bytes. Boards with
+fewer interfaces save more:
+
+    lx2160aqds_rev2/PPPP_PPPP_PPPP_PPPP_PPPP_PPPP_RR_1_2_2   3812 -> 1112
+    lx2162aqds/SSSS_NNNN_PPPP_PPPP_RR_2_2                    3716 ->  672
+
+Over the LX2160A and LX2162A directories the images shrink by a third,
+from 306288 to 204528 bytes.
+
+A group of awrites is never emitted without the loadacwindow it is
+relative to: the window is loaded as soon as one group that needs it is
+kept, see a050426.rcw.
+
+A board that declares no protocol is still correct: every erratum is
+emitted at full size, exactly as before. The declaration is opt-in and
+no existing board changes behaviour by accident.
+
+The catalog also completes the boards whose hand-written list fell
+short of their siblings; the commit log says which ones.
+
+Checking it
+-----------
+
+    ./check_errata_trim.sh [reference-rev]      (default: origin/devel)
+
+builds the tree three times: the reference revision, the current tree
+with RCW_ERRATA_NO_TRIM defined (every conditional block enabled) and
+the current tree normally, and asserts
+
+    reference <= no-trim    nothing the reference emitted is lost
+    trimmed   <= no-trim    trimming never invents a command
+    same window             every awrite the trimmed build keeps runs
+                            under the loadacwindow it ran under in the
+                            no-trim build
+
+What the no-trim build gains on top of the reference, and what the
+trimmed build adds to a board compared with the reference, is reported
+rather than failed: that is the catalog completing a board.
