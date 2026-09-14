@@ -1,0 +1,29 @@
+name: errata trim check
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Pick the reference revision
+        id: ref
+        shell: bash
+        run: |
+          case "${{ github.event_name }}/${{ github.ref_name }}" in
+            pull_request/*) rev="${{ github.event.pull_request.base.sha }}" ;;
+            push/devel)     rev="${{ github.event.before }}" ;;
+            *)              rev=$(git merge-base origin/devel HEAD) ;;
+          esac
+          case "$rev" in ""|0000000000000000000000000000000000000000) rev=HEAD~1 ;; esac
+          echo "rev=$rev" >> "$GITHUB_OUTPUT"
+
+      - name: reference <= no-trim, trimmed <= no-trim, same loadacwindow
+        run: ./check_errata_trim.sh "${{ steps.ref.outputs.rev }}"
