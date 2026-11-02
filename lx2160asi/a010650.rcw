@@ -1,0 +1,52 @@
+/*
+ * Work-around for erratum A-010650
+ * Copyright Free Mobile 2026, Vincent Jardin
+ *
+ * Problem: the DCSR view of the pad-mux registers reads 0 until it is
+ * first written
+ *
+ * Description:
+ * RCWSR12..RCWSR14 hold the pad muxes the RCW programmed. DCFG shows
+ * them read-only at 0x01E0_012C, as the live pad-mux state, and
+ * writable at 0x7_0010_012C..0x134 in the DCSR space, where a write
+ * re-muxes the pads. That view reads 0 until it is first written, so
+ * software that changes one mux with a read-modify-write of it starts
+ * from 0 the first time and clears every other field: the XSPI1_A,
+ * SDHC1, IICx, IRQ, UART and EVT muxes fall back to their 0 encoding,
+ * and a board whose RCW programs them loses those pads.
+ *
+ * The I2C bus recovery of A-010650 does that read-modify-write (read
+ * the register, OR the IICx bit in, restore it). Linux has done it
+ * since v6.10, which implemented that recovery with pinctrl-single on
+ * pinmux@70010012c for every I2C controller, one read-modify-write per
+ * pin group, without priming the view: the first I2C probe clears the
+ * pads. Linux v7.1 repaired part of it in the DTS, for RCWSR12 only.
+ *
+ * Workaround:
+ * Copy the three CCSR words into the DCSR view before any core runs.
+ * loadacwindow opens the DCSR window (RM 8.3.6) and the Block Copy
+ * with SRC = 0 writes through it (RM 8.3.3): 20 bytes.
+ */
+
+#define DCFG_CCSR		0x01e00000
+#define DCFG_DCSR		0x00100000
+
+#define PMUX_RCWSR12		0x12c
+#define PMUX_BYTES		0xc
+
+#define DCSR_ALTCFG_WNDW	0x1C0
+#define ALTCFG_SP_BASE		0x80000000
+#define BLKCPY_SRC_MEM		0x0
+
+.pbi
+loadacwindow DCSR_ALTCFG_WNDW
+blockcopy BLKCPY_SRC_MEM, (DCFG_CCSR + PMUX_RCWSR12), (ALTCFG_SP_BASE + DCFG_DCSR + PMUX_RCWSR12), PMUX_BYTES
+.end
+
+#undef DCFG_CCSR
+#undef DCFG_DCSR
+#undef PMUX_RCWSR12
+#undef PMUX_BYTES
+#undef DCSR_ALTCFG_WNDW
+#undef ALTCFG_SP_BASE
+#undef BLKCPY_SRC_MEM
